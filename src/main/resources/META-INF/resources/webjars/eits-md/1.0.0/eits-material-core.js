@@ -11,6 +11,7 @@
 	])
 	.constant("$CONFIG", {
         "version": "1.0.0",
+        "path": "/webjars/eits-md/1.0.0",
     });
 
 })();

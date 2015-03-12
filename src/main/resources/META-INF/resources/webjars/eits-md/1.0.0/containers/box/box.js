@@ -40,7 +40,7 @@
 		 * 
 		 */
 		function getTemplate( element, attributes ) {
-			return '/webjars/eits-md/'+$CONFIG.version+'/containers/box/box-template.html';
+			return $CONFIG.path+'/containers/box/box-template.html';
 		}
 		
 		/**
