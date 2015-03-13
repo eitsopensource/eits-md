@@ -49,10 +49,6 @@
 		 * 
 		 */
 		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
-            attributes.$observe( "x", function( value ){
-            	console.log(value);
-            });
-            
 			angular.forEach( element[0].children, function(elementChild) {
 				elementChild.style.position = "absolute";
 			});
@@ -74,19 +70,13 @@
 		 * 
 		 */
 		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
-            //attributes.$observe( "x", function( value ){
-            	//console.log(value);
-            	//element[0].style.top = attributes.x+"px";
-            //});
+            var observer = attributes.$observe( "x", function( value ){
+            	element[0].style.top = attributes.x+"px";
+            });
             
-			
-//			var watcher = scope.$watch( "x", function(value) {
-				element[0].style.top = attributes.x+"px";
-//			});
-//			
-//			element.on('$destroy', function() {
-//				watcher();
-//			});
+			element.on('$destroy', function() {
+				observer();
+			});
 		}
 	};
 	
@@ -105,13 +95,13 @@
 		 * 
 		 */
 		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
-//			var watcher = scope.$watch( "y", function(value) {
-				element[0].style.left = attributes.y+"px";
-//			});
-//			
-//			element.on('$destroy', function() {
-//				watcher();
-//			});
+            var observer = attributes.$observe( "y", function( value ){
+            	element[0].style.left = attributes.y+"px";
+            });
+            
+			element.on('$destroy', function() {
+				observer();
+			});
 		}
 	};
 	
@@ -131,7 +121,13 @@
 		 * 
 		 */
 		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
-			element[0].style.left = attributes.left+"px";
+            var observer = attributes.$observe( "left", function( value ){
+            	element[0].style.left = attributes.left+"px";
+            });
+            
+			element.on('$destroy', function() {
+				observer();
+			});
 		}
 	};
 	
@@ -151,7 +147,13 @@
 		 * 
 		 */
 		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
-			element[0].style.right = attributes.right+"px";
+            var observer = attributes.$observe( "right", function( value ){
+            	element[0].style.right = attributes.right+"px";
+            });
+            
+			element.on('$destroy', function() {
+				observer();
+			});
 		}
 	};
 
