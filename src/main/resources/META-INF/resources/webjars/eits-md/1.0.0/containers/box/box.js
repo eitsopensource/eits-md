@@ -11,6 +11,10 @@
 	  'eits-material-core',
 	  'material.core',
 	])
+	.directive('x', EitsXPositionDirective)
+	.directive('y', EitsYPositionDirective)
+	.directive('left', EitsLeftPositionDirective)
+	.directive('right', EitsRightPositionDirective)
 	.directive('eitsBox', EitsBoxDirective);
 
 	/**
@@ -24,8 +28,6 @@
 	 * The `<eits-box>` directive is a list container for 1..n components.
 	 *
 	 * @usage
-	 * 
-	 * TODO
 	 */
 	function EitsBoxDirective( $CONFIG ) {
 		return {
@@ -46,14 +48,110 @@
 		/**
 		 * 
 		 */
-		function linkHandler( scope, element, attributes ) {
-			//console.log( document.querySelector("body") );
+		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
+            attributes.$observe( "x", function( value ){
+            	console.log(value);
+            });
+            
+			angular.forEach( element[0].children, function(elementChild) {
+				elementChild.style.position = "absolute";
+			});
+		}
+	};
+	
+	/**
+	 * @ngdoc directive
+	 * 
+	 * @usage
+	 */
+	function EitsXPositionDirective() {
+		return {
+			restrict: 'A',
+			link: linkHandler,
+		};
+		
+		/**
+		 * 
+		 */
+		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
+            //attributes.$observe( "x", function( value ){
+            	//console.log(value);
+            	//element[0].style.top = attributes.x+"px";
+            //});
+            
 			
-			for ( var i = 0; i<element[0].children.length; i++ ) {
-				element[0].children[i].style.position = "absolute";
-				//element[0].children[i].style.top = 0;
-				//element[0].children[i].style.left = 0;
-			}
+//			var watcher = scope.$watch( "x", function(value) {
+				element[0].style.top = attributes.x+"px";
+//			});
+//			
+//			element.on('$destroy', function() {
+//				watcher();
+//			});
+		}
+	};
+	
+	/**
+	 * @ngdoc directive
+	 * 
+	 * @usage
+	 */
+	function EitsYPositionDirective() {
+		return {
+			restrict: 'A',
+			link: linkHandler,
+		};
+		
+		/**
+		 * 
+		 */
+		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
+//			var watcher = scope.$watch( "y", function(value) {
+				element[0].style.left = attributes.y+"px";
+//			});
+//			
+//			element.on('$destroy', function() {
+//				watcher();
+//			});
+		}
+	};
+	
+	
+	/**
+	 * @ngdoc directive
+	 * 
+	 * @usage
+	 */
+	function EitsLeftPositionDirective() {
+		return {
+			restrict: 'A',
+			link: linkHandler,
+		};
+		
+		/**
+		 * 
+		 */
+		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
+			element[0].style.left = attributes.left+"px";
+		}
+	};
+	
+	
+	/**
+	 * @ngdoc directive
+	 * 
+	 * @usage
+	 */
+	function EitsRightPositionDirective() {
+		return {
+			restrict: 'A',
+			link: linkHandler,
+		};
+		
+		/**
+		 * 
+		 */
+		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
+			element[0].style.right = attributes.right+"px";
 		}
 	};
 

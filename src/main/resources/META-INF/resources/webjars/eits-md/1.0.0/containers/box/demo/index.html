@@ -6,34 +6,43 @@
 		
 		<link rel="stylesheet" href="/webjars/angular-material/0.8.3/angular-material.css">
 
+		<!-- JQuery -->
+		<script type="text/javascript" src="/webjars/jquery/2.1.3/jquery.min.js"></script>
+		
 		<!-- AngularJS -->
 		<script type="text/javascript" src="/webjars/angularjs/1.3.14/angular.js"></script>
 		<script type="text/javascript" src="/webjars/angularjs/1.3.14/angular-animate.min.js"></script>
 		<script type="text/javascript" src="/webjars/angularjs/1.3.14/angular-aria.min.js"></script>
 		<script type="text/javascript" src="/webjars/angular-material/0.8.3/angular-material.js"/></script>
 		
-		<!-- JQuery -->
-		<script type="text/javascript" src="/webjars/jquery/2.1.3/jquery.min.js"></script>
-		
 		<script type="text/javascript" src="/webjars/eits-md/1.0.0/eits-material-core.js"></script>
 		<script type="text/javascript" src="/webjars/eits-md/1.0.0/containers/box/box.js"></script>
 		<script type="text/javascript" src="script.js"></script>
 	</head>
 	
-	<body style="position: absolute; top: 0; bottom: 0; left: 0; right: 0">
-	
+	<body ng-controller="AppCtrl">
+		
 		<eits-box>
-			<md-button style="top: 100px">Test</md-button>
-			<md-button style="left: 500px">Test</md-button>
-			<eits-box>
-				<md-button>Test</md-button>
+		
+			<md-button x="0" y="0">Test</md-button>
+			<md-button x="20" y="20">Test</md-button>
+			<button id="bt" x="40" y="40" ng-click="changePosition()">Testing BTT</button>
+			<input x="60" y="60"/>
+			<input x="80" y="80"/>
+			<input x="100" y="100" ng-model="xValue"/>
+			
+			<eits-box x="200" y="200">
+				<md-button x="0" y="0">Test</md-button>
+				<md-button x="20" y="20">Test</md-button>
+				<button x="40" y="40" ng-click="changePosition()">Testing</button>
+				<input x="60" y="60"/>
+				<input x="80" y="80"/>
+				<input x="100" y="100"/>
 			</eits-box>
-			<input/>
-			<input/>
-			<input/>
-			<eits-box width="100%">
-				<h1>div</h1>
-			</eits-box>
+			
+			<!-- bug here -->
+			<button left="100" right="10">BRSADFSA</button>
+			
 		</eits-box>
 	</body>
 </html>
