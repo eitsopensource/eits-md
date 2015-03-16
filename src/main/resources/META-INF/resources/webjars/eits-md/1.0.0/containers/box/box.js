@@ -15,6 +15,8 @@
 	.directive('y', EitsYPositionDirective)
 	.directive('left', EitsLeftPositionDirective)
 	.directive('right', EitsRightPositionDirective)
+	.directive('bottom', EitsBottomPositionDirective)
+	.directive('top', EitsTopPositionDirective)
 	.directive('eitsBox', EitsBoxDirective);
 
 	/**
@@ -71,7 +73,7 @@
 		 */
 		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
             var observer = attributes.$observe( "x", function( value ){
-            	element[0].style.top = attributes.x+"px";
+            	element[0].style.left = value+"px";
             });
             
 			element.on('$destroy', function() {
@@ -96,7 +98,7 @@
 		 */
 		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
             var observer = attributes.$observe( "y", function( value ){
-            	element[0].style.left = attributes.y+"px";
+            	element[0].style.top = value+"px";
             });
             
 			element.on('$destroy', function() {
@@ -122,7 +124,7 @@
 		 */
 		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
             var observer = attributes.$observe( "left", function( value ){
-            	element[0].style.left = attributes.left+"px";
+            	element[0].style.left = value+"px";
             });
             
 			element.on('$destroy', function() {
@@ -148,9 +150,59 @@
 		 */
 		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
             var observer = attributes.$observe( "right", function( value ){
-            	element[0].style.right = attributes.right+"px";
+            	element[0].style.right = value+"px";
             });
             
+			element.on('$destroy', function() {
+				observer();
+			});
+		}
+	};
+	
+	/**
+	 * @ngdoc directive
+	 * 
+	 * @usage
+	 */
+	function EitsTopPositionDirective() {
+		return {
+			restrict: 'A',
+			link: linkHandler,
+		};
+		
+		/**
+		 * 
+		 */
+		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
+			var observer = attributes.$observe( "top", function( value ){
+				element[0].style.top = value+"px";
+			});
+			
+			element.on('$destroy', function() {
+				observer();
+			});
+		}
+	};
+	
+	/**
+	 * @ngdoc directive
+	 * 
+	 * @usage
+	 */
+	function EitsBottomPositionDirective() {
+		return {
+			restrict: 'A',
+			link: linkHandler,
+		};
+		
+		/**
+		 * 
+		 */
+		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
+			var observer = attributes.$observe( "bottom", function( value ){
+				element[0].style.bottom = value+"px";
+			});
+			
 			element.on('$destroy', function() {
 				observer();
 			});

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:ng="http://angularjs.org" lang="pt" ng-app="eits.containers.box.sample">
+<html xmlns:ng="http://angularjs.org" lang="pt" ng-app="eits.containers.hbox.sample">
     
 	<head>
 		<title>eits-md :: eits-box</title>
@@ -16,26 +16,26 @@
 		<script type="text/javascript" src="/webjars/angular-material/0.8.3/angular-material.js"/></script>
 		
 		<script type="text/javascript" src="/webjars/eits-md/1.0.0/eits-material-core.js"></script>
-		<script type="text/javascript" src="/webjars/eits-md/1.0.0/containers/box/box.js"></script>
+		<script type="text/javascript" src="/webjars/eits-md/1.0.0/containers/hbox/hbox.js"></script>
 		<script type="text/javascript" src="script.js"></script>
 	</head>
 	
 	<body ng-controller="AppCtrl">
 		
-		<eits-box>
-			<md-button x="0" y="0">Test</md-button>
-			<md-button x="20" y="20">Test</md-button>
-			<button id="bt" x="40" y="40" ng-click="changePosition()">Testing BTT</button>
-			<input x="60" y="60"/>
-			<input x="80" y="80"/>
-			<input x="0" y="100" width="100%"/>
-			
-			<div x="0" y="130" width="200" height="100" style="background: green;">Green Div</div>
-			
-			<div y="250" left="10" right="10" height="100" style="background: red;">Red Div</div>
-			
-			<div left="20" right="20" style="background: black;">BuTTON</div>
-		</eits-box>
+		<eits-hbox style="background: orange;">
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+			<md-button>Button 01</md-button>
+		</eits-hbox>
 		
 	</body>
 </html>
