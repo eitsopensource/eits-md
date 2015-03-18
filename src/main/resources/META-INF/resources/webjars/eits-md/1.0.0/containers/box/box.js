@@ -10,15 +10,15 @@
 		'eits-material-core', 
 		'material.core',
 	])
-	.directive('x', EitsXPositionDirective)
-	.directive('y', EitsYPositionDirective)
-	.directive('left', EitsLeftPositionDirective)
-	.directive('right', EitsRightPositionDirective)
-	.directive('bottom', EitsBottomPositionDirective)
-	.directive('top', EitsTopPositionDirective)
-	.directive('horizontalAlign', EitsHorizontalAlignDirective)
-	.directive('verticalAlign', EitsVerticalAlignDirective)
-	.directive('eitsBox', EitsBoxDirective);
+	.directive('x', XPositionDirective)
+	.directive('y', YPositionDirective)
+	.directive('left', LeftPositionDirective)
+	.directive('right', RightPositionDirective)
+	.directive('bottom', BottomPositionDirective)
+	.directive('top', TopPositionDirective)
+	.directive('horizontalCenter', HorizontalCenterDirective)
+	.directive('verticalCenter', VerticalCenterDirective)
+	.directive('eitsBox', BoxDirective);
 
 	/**
 	 * @ngdoc directive
@@ -32,192 +32,283 @@
 	 * 
 	 * @usage
 	 */
-	function EitsBoxDirective($CONFIG) {
+	function BoxDirective( $CONFIG ) {
 		return {
 			restrict : 'E',
 			replace : true,
 			transclude : true,
-			link : linkHandler,
-			templateUrl: getTemplate
+			compile : CompileHandler,
+			templateUrl: Template,
+			controller: Controller,
 		};
+		
+		/**
+		 * 
+		 */
+		function CompileHandler( element, attributes, transclude ) {
+			return {
+				
+				pre: function preLink( scope, element, attributes, controller ) {
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+					angular.forEach(element[0].children, function(elementChild) {
+						elementChild.style.position = "absolute";
+					});
+				}
+			}
+		}
 
 		/**
 		 * 
 		 */
-		function getTemplate(element, attributes) {
+		function Template( element, attributes ) {
 			return $CONFIG.path + '/containers/box/box-template.html';
 		}
-
+		
 		/**
 		 * 
 		 */
-		function linkHandler(scope, element, attributes, controller,
-				transcludeFn) {
-			angular.forEach(element[0].children, function(elementChild) {
-				elementChild.style.position = "absolute";
-			});
+		function Controller() {
 		}
 	}
-	;
 
 	/**
 	 * @ngdoc directive
 	 * 
 	 * @usage
 	 */
-	function EitsXPositionDirective() {
+	function XPositionDirective() {
 		return {
 			restrict : 'A',
-			link : linkHandler,
+			compile : CompileHandler,
+			controller: Controller,
 		};
-
+		
 		/**
 		 * 
 		 */
-		function linkHandler(scope, element, attributes, controller,
-				transcludeFn) {
-			var observer = attributes.$observe("x", function(value) {
-				element[0].style.left = value + "px";
-			});
+		function CompileHandler( element, attributes, transclude ) {
+			return {
+				
+				pre: function preLink( scope, element, attributes, controller ) {
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+					
+					var observer = attributes.$observe("x", function(value) {
+						element[0].style.left = value + "px";
+					});
 
-			element.on('$destroy', function() {
-				observer();
-			});
+					element.on('$destroy', function() {
+						observer();
+					});
+				}
+			}
+		}
+		
+		/**
+		 * 
+		 */
+		function Controller() {
 		}
 	}
-	;
 
 	/**
 	 * @ngdoc directive
 	 * 
 	 * @usage
 	 */
-	function EitsYPositionDirective() {
+	function YPositionDirective() {
 		return {
 			restrict : 'A',
-			link : linkHandler,
+			compile : CompileHandler,
+			controller: Controller,
 		};
-
+		
 		/**
 		 * 
 		 */
-		function linkHandler(scope, element, attributes, controller,
-				transcludeFn) {
-			var observer = attributes.$observe("y", function(value) {
-				element[0].style.top = value + "px";
-			});
+		function CompileHandler( element, attributes, transclude ) {
+			return {
+				
+				pre: function preLink( scope, element, attributes, controller ) {
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+					
+					var observer = attributes.$observe("y", function(value) {
+						element.css('top', value+"px");
+					});
 
-			element.on('$destroy', function() {
-				observer();
-			});
+					element.on('$destroy', function() {
+						observer();
+					});
+				}
+			}
+		}
+		
+		/**
+		 * 
+		 */
+		function Controller() {
 		}
 	}
-	;
 
 	/**
 	 * @ngdoc directive
 	 * 
 	 * @usage
 	 */
-	function EitsLeftPositionDirective() {
+	function LeftPositionDirective() {
 		return {
 			restrict : 'A',
-			link : linkHandler,
+			compile : CompileHandler,
+			controller: Controller,
 		};
 
 		/**
 		 * 
 		 */
-		function linkHandler(scope, element, attributes, controller,
-				transcludeFn) {
-			var observer = attributes.$observe("left", function(value) {
-				element[0].style.left = value + "px";
-			});
+		function CompileHandler( element, attributes, transclude ) {
+			return {
+				
+				pre: function preLink( scope, element, attributes, controller ) {
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+					
+					var observer = attributes.$observe("left", function(value) {
+						element[0].style.left = value + "px";
+					});
 
-			element.on('$destroy', function() {
-				observer();
-			});
+					element.on('$destroy', function() {
+						observer();
+					});
+				}
+			}
+		}
+		
+		/**
+		 * 
+		 */
+		function Controller() {
 		}
 	}
-	;
 
 	/**
 	 * @ngdoc directive
 	 * 
 	 * @usage
 	 */
-	function EitsRightPositionDirective() {
+	function RightPositionDirective() {
 		return {
 			restrict : 'A',
-			link : linkHandler,
+			compile : CompileHandler,
+			controller: Controller,
 		};
-
+		
 		/**
 		 * 
 		 */
-		function linkHandler(scope, element, attributes, controller,
-				transcludeFn) {
-			var observer = attributes.$observe("right", function(value) {
-				element[0].style.right = value + "px";
-			});
+		function CompileHandler( element, attributes, transclude ) {
+			return {
+				
+				pre: function preLink( scope, element, attributes, controller ) {
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+					
+					var observer = attributes.$observe("right", function(value) {
+						element[0].style.right = value + "px";
+					});
 
-			element.on('$destroy', function() {
-				observer();
-			});
+					element.on('$destroy', function() {
+						observer();
+					});
+				}
+			}
+		}
+		
+		/**
+		 * 
+		 */
+		function Controller() {
 		}
 	}
-	;
 
 	/**
 	 * @ngdoc directive
 	 * 
 	 * @usage
 	 */
-	function EitsTopPositionDirective() {
+	function TopPositionDirective() {
 		return {
 			restrict : 'A',
-			link : linkHandler,
+			compile : CompileHandler,
+			controller: Controller,
 		};
 
 		/**
 		 * 
 		 */
-		function linkHandler(scope, element, attributes, controller,
-				transcludeFn) {
-			var observer = attributes.$observe("top", function(value) {
-				element[0].style.top = value + "px";
-			});
+		function CompileHandler( element, attributes, transclude ) {
+			return {
+				
+				pre: function preLink( scope, element, attributes, controller ) {
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+					
+					var observer = attributes.$observe("top", function(value) {
+						element[0].style.top = value + "px";
+					});
 
-			element.on('$destroy', function() {
-				observer();
-			});
+					element.on('$destroy', function() {
+						observer();
+					});
+				}
+			}
+		}
+		
+		/**
+		 * 
+		 */
+		function Controller() {
 		}
 	}
-	;
 
 	/**
 	 * @ngdoc directive
 	 * 
 	 * @usage
 	 */
-	function EitsBottomPositionDirective() {
+	function BottomPositionDirective() {
 		return {
 			restrict : 'A',
-			link : linkHandler,
+			compile : CompileHandler,
+			controller: Controller,
 		};
-
+		
 		/**
 		 * 
 		 */
-		function linkHandler(scope, element, attributes, controller,
-				transcludeFn) {
-			var observer = attributes.$observe("bottom", function(value) {
-				element[0].style.bottom = value + "px";
-			});
+		function CompileHandler( element, attributes, transclude ) {
+			return {
+				
+				pre: function preLink( scope, element, attributes, controller ) {
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+					
+					var observer = attributes.$observe("bottom", function(value) {
+						element[0].style.bottom = value + "px";
+					});
 
-			element.on('$destroy', function() {
-				observer();
-			});
+					element.on('$destroy', function() {
+						observer();
+					});
+				}
+			}
+		}
+		
+		/**
+		 * 
+		 */
+		function Controller() {
 		}
 	};
 	
@@ -226,95 +317,129 @@
 	 * 
 	 * @usage
 	 */
-	function EitsHorizontalAlignDirective($log, $window) {
+	function HorizontalCenterDirective( $log, $window ) {
 		return {
 			restrict : 'A',
 			require : [ '^width' ],
-			link : {
-				post : postLinkHandler
-			}
+			compile : CompileHandler,
+			controller: Controller,
 		}
-
+		
 		/**
 		 * 
 		 */
-		function postLinkHandler(scope, element, attributes) {
-			var updateHorizontalPosition = function (){
-				var horizontalAlign = parseInt(attributes.horizontalAlign)
-				if (typeof horizontalAlign != 'number') {
-					$log
-							.error("Error: the value of <horizontal-align> must be a number!");
-					return false;
+		function CompileHandler( element, attributes, transclude ) {
+			return {
+				
+				pre: function preLink( scope, element, attributes, controller ) {
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+					
+					var window = angular.element($window);
+					window.bind("resize", function() {
+						updatePosition( element, attributes.horizontalCenter );
+					});
+
+					var observer = attributes.$observe("horizontalCenter", function(value) {
+						updatePosition( element, value );
+					});
+					element.on('$destroy', function() {
+						observer();//unwatch
+						window.unbind("resize");
+					});
 				}
-	
-				var parentWidth = parseInt(element.parent().css('width'));
-				element.css('left',
-						 (((parentWidth / 2) - parseInt(element[0].style.width) / 2) + horizontalAlign)
-										+ 'px');
 			}
 			
-			var observer = attributes.$observe("horizontalAlign", function(value) {
-				updateHorizontalPosition();
-			});
-			
-			var w = angular.element($window);
-			w.bind("resize", function(){
-				updateHorizontalPosition();
-			})
-			
-			element.on('$destroy', function() {
-				observer();
-				w.unbind("resize");
-			});
-		}
-	}
-	
-	/**
-	 * @ngdoc directive
-	 * 
-	 * @usage
-	 */
-	function EitsVerticalAlignDirective($log, $window) {
-		return {
-			restrict : 'A',
-			require : [ '^height' ],
-			link : {
-				post : postLinkHandler
+			/**
+			 *
+			 */
+			function updatePosition( element, value ) {
+				value = parseInt(value);
+				
+				if ( typeof value != 'number' ) {
+					$log.warn("Error: the value of <horizontal-center> must be a number!");
+					return false;
+				}
+				
+				var parentElement = element.parent();
+				var parentWidth = parentElement.width();
+				
+				var elementWidth = element.width();
+
+				element.css('left', ((parentWidth/2) - (elementWidth/2) + value)+'px');
 			}
 		}
 		
 		/**
 		 * 
 		 */
-		function postLinkHandler(scope, element, attributes) {
+		function Controller() {
+		}
+	}
+	
+
+	/**
+	 * @ngdoc directive
+	 * 
+	 * @usage
+	 */
+	function VerticalCenterDirective( $log, $window ) {
+		return {
+			restrict : 'A',
+			require : [ '^height' ],
+			compile : CompileHandler,
+			controller: Controller,
+		}
+		
+		/**
+		 * 
+		 */
+		function CompileHandler( element, attributes, transclude ) {
+			return {
+				
+				pre: function preLink( scope, element, attributes, controller ) {
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+					
+					var window = angular.element($window);
+					window.bind("resize", function() {
+						updatePosition( element, attributes.verticalCenter );
+					});
+
+					var observer = attributes.$observe("verticalCenter", function(value) {
+						updatePosition( element, value );
+					});
+					element.on('$destroy', function() {
+						observer();//unwatch
+						window.unbind("resize");
+					});
+				}
+			}
 			
-			var updateVerticalPosition = function (){
-				var verticalAlign = parseInt(attributes.verticalAlign);
-				if (typeof verticalAlign != 'number') {
-					$log
-							.error("Error: the value of <vertical-align> must be a number!");
+			/**
+			 *
+			 */
+			function updatePosition( element, value ) {
+				value = parseInt(value);
+				
+				if ( typeof value != 'number' ) {
+					$log.warn("Error: the value of <vertical-center> must be a number!");
 					return false;
 				}
 				
-				var parentWidth = parseInt(element.parent().css('height'));
-				element.css('top',
-								(((parentWidth / 2) - parseInt(element[0].style.height) / 2) + verticalAlign)
-										+ 'px');
-			}
-			
-			var observer = attributes.$observe("verticalAlign", function(value) {
-				updateVerticalPosition();
-			});
+				var parentElement = element.parent();
+				var parentHeight = parentElement.height();
+				
+				var elementHeight = element.height();
 
-			var w = angular.element($window);
-			w.bind("resize", function(){
-				updateVerticalPosition();
-			});
-			
-			element.on('$destroy', function() {
-				observer();
-				w.unbind("resize");
-			});		
+				element.css('top', ((parentHeight/2) - (elementHeight/2) + value)+'px');
+			}
+		}
+		
+		/**
+		 * 
+		 */
+		function Controller() {
 		}
 	}
 

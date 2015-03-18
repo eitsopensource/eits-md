@@ -22,25 +22,22 @@
 	
 	<body ng-controller="AppCtrl">
 		
-		<!-- 
 		<eits-box>
-			<md-button x="0" y="0">Test</md-button>
-			<md-button x="20" y="20">Test</md-button>
-			<button id="bt" x="40" y="40" ng-click="changePosition()">Testing BTT</button>
-			<input x="60" y="60"/>
-			<input x="80" y="80"/>
-			<input x="0" y="100" width="100%"/>
+			<md-button x="0" y="0">BUTTON 01</md-button>
+			<md-button x="20" y="20">BUTTON 02</md-button>
+			<input type="text" y="50" width="100%"/>
 			
-			<div x="0" y="130" width="200" height="100" style="background: green;">Green Div</div>
+			<div y="100" left="10" right="10" height="50" style="background: red;">RED DIV</div>
 			
-			<div y="250" left="10" right="10" height="100" style="background: red;">Red Div</div>
+			<div bottom="20" width="100%" style="background: purple;">PURPLE DIV</div>
 			
-			<div left="20" right="20" style="background: black;">BuTTON</div>
+			<div width="100" height="100" horizontal-center="0" vertical-center="0" style="background: yellow;">CENTER YELLOW DIV</div>
+			
 		</eits-box>
-		 -->
 		 
-		 <eits-box ng-init="values = {show:true}">
-		 	<input type="text" ng-model="values.gap" right="0" placeholder="size?"/>
+		<!-- 
+		<eits-box ng-init="values = {show:true}">
+			<input type="text" ng-model="values.gap" right="0" placeholder="size?"/>
 		 	<input type="checkbox" ng-model="values.show" right="0" y="50" value="show?"/>
 		 	
 			<div height="{{values.gap}}" width="{{values.gap}}" y="150" 
@@ -48,6 +45,7 @@
 				<span>DIV GREEN</span>
 			</div>
 		</eits-box>
+		-->
 		
 	</body>
 </html>

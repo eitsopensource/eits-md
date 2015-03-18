@@ -13,26 +13,25 @@
         "version": "1.0.0",
         "path": "/webjars/eits-md/1.0.0",
     })
-    .directive('width', EitsWidthDirective)
-	.directive('height', EitsHeightDirective);
+    .directive('width', WidthDirective)
+	.directive('height', HeightDirective);
 	
 	/**
 	 * @ngdoc directive
 	 * 
 	 * @usage
 	 */
-	function EitsWidthDirective() {
+	function WidthDirective() {
 		return {
 			restrict: 'A',
-			compile: compileHandler,
-			controller: function() {
-			}
+			compile: CompileHandler,
+			controller: Controller,
 		};
 		
 		/**
 		 * 
 		 */
-		function compileHandler( element, attributes, transclude ) {
+		function CompileHandler( element, attributes, transclude ) {
 			return {
 				pre: function preLink( scope, element, attributes, controller ) { 
 				},
@@ -48,23 +47,26 @@
 			}
 
 			updateSize( element, attributes.width );
+			
+			function updateSize( element, value ) {
+				if ( value ) {
+	        		if ( value.indexOf('%') > 0 ) {
+	        			element[0].style.width = value;
+	        		}
+	        		else {
+	        			element[0].style.width = value+"px";
+	        		}
+	        	}
+				else {
+					element[0].style.width = null;				
+				}
+			}
 		}
 		
 		/**
 		 * 
 		 */
-		function updateSize( element, value ) {
-			if ( value ) {
-        		if ( value.indexOf('%') > 0 ) {
-        			element[0].style.width = value;
-        		}
-        		else {
-        			element[0].style.width = value+"px";
-        		}
-        	}
-			else {
-				element[0].style.width = null;				
-			}
+		function Controller() {
 		}
 	};
 	
@@ -73,18 +75,17 @@
 	 * 
 	 * @usage
 	 */
-	function EitsHeightDirective() {
+	function HeightDirective() {
 		return {
 			restrict: 'A',
-			compile: compileHandler,
-			controller: function() {
-			}
+			compile: CompileHandler,
+			controller: Controller,
 		};
 		
 		/**
 		 * 
 		 */
-		function compileHandler( element, attributes, transclude ) {
+		function CompileHandler( element, attributes, transclude ) {
 			return {
 				pre: function preLink( scope, element, attributes, controller ) { 
 				},
@@ -100,25 +101,30 @@
 			}
 
 			updateSize( element, attributes.height );
+			
+			/**
+			 * 
+			 */
+			function updateSize( element, value ) {
+				if ( value ) {
+	        		if ( value.indexOf('%') > 0 ) {
+	        			element[0].style.height = value;
+	        		}
+	        		else {
+	        			element[0].style.height = value+"px";
+	        		}
+	        	}
+				else {
+					element[0].style.height = null;
+				}
+			}
 		}
 		
 		/**
 		 * 
 		 */
-		function updateSize( element, value ) {
-			if ( value ) {
-        		if ( value.indexOf('%') > 0 ) {
-        			element[0].style.height = value;
-        		}
-        		else {
-        			element[0].style.height = value+"px";
-        		}
-        	}
-			else {
-				element[0].style.height = null;				
-			}
+		function Controller() {
 		}
 	};
-	
 
 })();
