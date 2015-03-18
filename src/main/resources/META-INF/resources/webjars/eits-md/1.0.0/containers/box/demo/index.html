@@ -22,6 +22,7 @@
 	
 	<body ng-controller="AppCtrl">
 		
+		<!-- 
 		<eits-box>
 			<md-button x="0" y="0">Test</md-button>
 			<md-button x="20" y="20">Test</md-button>
@@ -35,6 +36,17 @@
 			<div y="250" left="10" right="10" height="100" style="background: red;">Red Div</div>
 			
 			<div left="20" right="20" style="background: black;">BuTTON</div>
+		</eits-box>
+		 -->
+		 
+		 <eits-box ng-init="values = {show:true}">
+		 	<input type="text" ng-model="values.gap" right="0" placeholder="size?"/>
+		 	<input type="checkbox" ng-model="values.show" right="0" y="50" value="show?"/>
+		 	
+			<div height="{{values.gap}}" width="{{values.gap}}" y="150" 
+				style="background: green;" ng-if="values.show">
+				<span>DIV GREEN</span>
+			</div>
 		</eits-box>
 		
 	</body>

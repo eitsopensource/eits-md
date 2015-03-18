@@ -32,26 +32,38 @@
 		/**
 		 * 
 		 */
-		function compileHandler(  element, attributes, controller, transcludeFn ) {
-            var observer = attributes.$observe( "width", function( value ){
-            	validate(value);
-            });
-            
-			element.on('$destroy', function() {
-				observer();
-			});
-			
-			validate(attributes.width);
-			
-			function validate( value ) {
-				if ( value ) {
-            		if ( value.indexOf('%') > 0 ) {
-            			element[0].style.width = value;
-            		}
-            		else {
-            			element[0].style.width = value+"px";            			
-            		}
-            	}
+		function compileHandler( element, attributes, transclude ) {
+			return {
+				pre: function preLink( scope, element, attributes, controller ) { 
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+
+					var observer = attributes.$observe( "width", function( value ){
+						updateSize( element, value );
+					});
+					element.on('$destroy', function() {
+						observer();//unwatch
+					});
+				}
+			}
+
+			updateSize( element, attributes.width );
+		}
+		
+		/**
+		 * 
+		 */
+		function updateSize( element, value ) {
+			if ( value ) {
+        		if ( value.indexOf('%') > 0 ) {
+        			element[0].style.width = value;
+        		}
+        		else {
+        			element[0].style.width = value+"px";
+        		}
+        	}
+			else {
+				element[0].style.width = null;				
 			}
 		}
 	};
@@ -72,28 +84,41 @@
 		/**
 		 * 
 		 */
-		function compileHandler( element, attributes, controller, transcludeFn ) {
-			var observer = attributes.$observe( "height", function( value ){
-				validate(value);
-			});
-			
-			element.on('$destroy', function() {
-				observer();
-			});
-			
-			validate(attributes.height);
-			
-			function validate( value ) {
-				if ( value ) {
-					if ( value.indexOf('%') > 0 ) {
-            			element[0].style.height = value;
-            		}
-            		else {
-            			element[0].style.height = value+"px";            			
-            		}
-            	}
+		function compileHandler( element, attributes, transclude ) {
+			return {
+				pre: function preLink( scope, element, attributes, controller ) { 
+				},
+				post: function postLink( scope, element, attributes, controller ) {
+
+					var observer = attributes.$observe( "height", function( value ){
+						updateSize( element, value );
+					});
+					element.on('$destroy', function() {
+						observer();//unwatch
+					});
+				}
+			}
+
+			updateSize( element, attributes.height );
+		}
+		
+		/**
+		 * 
+		 */
+		function updateSize( element, value ) {
+			if ( value ) {
+        		if ( value.indexOf('%') > 0 ) {
+        			element[0].style.height = value;
+        		}
+        		else {
+        			element[0].style.height = value+"px";
+        		}
+        	}
+			else {
+				element[0].style.height = null;				
 			}
 		}
 	};
+	
 
 })();

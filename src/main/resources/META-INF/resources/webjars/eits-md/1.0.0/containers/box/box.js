@@ -6,17 +6,19 @@
 	 * @name material.components.list
 	 * @description List module
 	 */
-	angular.module('eits.containers.box',
-			[ 'eits-material-core', 'material.core', ])
-			.directive('x', EitsXPositionDirective)
-			.directive('y', EitsYPositionDirective)
-			.directive('left', EitsLeftPositionDirective)
-			.directive('right', EitsRightPositionDirective)
-			.directive('bottom', EitsBottomPositionDirective)
-			.directive('top', EitsTopPositionDirective)
-			.directive('eitsBox', EitsBoxDirective)
-			.directive('horizontalAlign', EitsHorizontalAlignDirective)
-			.directive('verticalAlign', EitsVerticalAlignDirective);
+	angular.module('eits.containers.box', [ 
+		'eits-material-core', 
+		'material.core',
+	])
+	.directive('x', EitsXPositionDirective)
+	.directive('y', EitsYPositionDirective)
+	.directive('left', EitsLeftPositionDirective)
+	.directive('right', EitsRightPositionDirective)
+	.directive('bottom', EitsBottomPositionDirective)
+	.directive('top', EitsTopPositionDirective)
+	.directive('horizontalAlign', EitsHorizontalAlignDirective)
+	.directive('verticalAlign', EitsVerticalAlignDirective)
+	.directive('eitsBox', EitsBoxDirective);
 
 	/**
 	 * @ngdoc directive
