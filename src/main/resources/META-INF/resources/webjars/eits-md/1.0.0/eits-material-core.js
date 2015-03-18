@@ -24,15 +24,27 @@
 	function EitsWidthDirective() {
 		return {
 			restrict: 'A',
-			link: linkHandler,
+			compile: compileHandler,
+			controller: function() {
+			}
 		};
 		
 		/**
 		 * 
 		 */
-		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
+		function compileHandler(  element, attributes, controller, transcludeFn ) {
             var observer = attributes.$observe( "width", function( value ){
-            	if ( value ) {
+            	validate(value);
+            });
+            
+			element.on('$destroy', function() {
+				observer();
+			});
+			
+			validate(attributes.width);
+			
+			function validate( value ) {
+				if ( value ) {
             		if ( value.indexOf('%') > 0 ) {
             			element[0].style.width = value;
             		}
@@ -40,11 +52,7 @@
             			element[0].style.width = value+"px";            			
             		}
             	}
-            });
-            
-			element.on('$destroy', function() {
-				observer();
-			});
+			}
 		}
 	};
 	
@@ -56,27 +64,35 @@
 	function EitsHeightDirective() {
 		return {
 			restrict: 'A',
-			link: linkHandler,
+			compile: compileHandler,
+			controller: function() {
+			}
 		};
 		
 		/**
 		 * 
 		 */
-		function linkHandler( scope, element, attributes, controller, transcludeFn ) {
+		function compileHandler( element, attributes, controller, transcludeFn ) {
 			var observer = attributes.$observe( "height", function( value ){
-            	if ( value ) {
-            		if ( value.indexOf('%') > 0 ) {
+				validate(value);
+			});
+			
+			element.on('$destroy', function() {
+				observer();
+			});
+			
+			validate(attributes.height);
+			
+			function validate( value ) {
+				if ( value ) {
+					if ( value.indexOf('%') > 0 ) {
             			element[0].style.height = value;
             		}
             		else {
             			element[0].style.height = value+"px";            			
             		}
             	}
-			});
-			
-			element.on('$destroy', function() {
-				observer();
-			});
+			}
 		}
 	};
 
