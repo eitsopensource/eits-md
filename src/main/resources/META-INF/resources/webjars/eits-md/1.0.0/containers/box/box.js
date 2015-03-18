@@ -95,7 +95,7 @@
 				post: function postLink( scope, element, attributes, controller ) {
 					
 					var observer = attributes.$observe("x", function(value) {
-						element[0].style.left = value + "px";
+						element.css('left', value+'px');
 					});
 
 					element.on('$destroy', function() {
@@ -175,7 +175,7 @@
 				post: function postLink( scope, element, attributes, controller ) {
 					
 					var observer = attributes.$observe("left", function(value) {
-						element[0].style.left = value + "px";
+						element.css('left', value+'px');
 					});
 
 					element.on('$destroy', function() {
@@ -215,7 +215,7 @@
 				post: function postLink( scope, element, attributes, controller ) {
 					
 					var observer = attributes.$observe("right", function(value) {
-						element[0].style.right = value + "px";
+						element.css('right', value+'px');
 					});
 
 					element.on('$destroy', function() {
@@ -255,7 +255,7 @@
 				post: function postLink( scope, element, attributes, controller ) {
 					
 					var observer = attributes.$observe("top", function(value) {
-						element[0].style.top = value + "px";
+						element.css('top', value+'px');
 					});
 
 					element.on('$destroy', function() {
@@ -295,7 +295,7 @@
 				post: function postLink( scope, element, attributes, controller ) {
 					
 					var observer = attributes.$observe("bottom", function(value) {
-						element[0].style.bottom = value + "px";
+						element.css('bottom', value+'px');
 					});
 
 					element.on('$destroy', function() {
