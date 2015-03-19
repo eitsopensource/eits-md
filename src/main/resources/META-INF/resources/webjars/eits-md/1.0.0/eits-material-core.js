@@ -1,6 +1,8 @@
 (function() {
 'use strict';
 
+	window.MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || {instance:"failed to get the MutationObserver"};
+
 	/**
 	 * @ngdoc module
 	 * @name material.components.list

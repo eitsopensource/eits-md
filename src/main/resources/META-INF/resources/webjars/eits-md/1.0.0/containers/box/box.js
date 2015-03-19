@@ -320,7 +320,7 @@
 	function HorizontalCenterDirective( $log, $window ) {
 		return {
 			restrict : 'A',
-			require : [ '^width' ],
+			require : [ 'width' ],
 			compile : CompileHandler,
 			controller: Controller,
 		}
@@ -386,7 +386,7 @@
 	function VerticalCenterDirective( $log, $window ) {
 		return {
 			restrict : 'A',
-			require : [ '^height' ],
+			require : [ 'height' ],
 			compile : CompileHandler,
 			controller: Controller,
 		}
@@ -400,7 +400,7 @@
 				pre: function preLink( scope, element, attributes, controller ) {
 				},
 				post: function postLink( scope, element, attributes, controller ) {
-					
+
 					var window = angular.element($window);
 					window.bind("resize", function() {
 						updatePosition( element, attributes.verticalCenter );
@@ -409,6 +409,7 @@
 					var observer = attributes.$observe("verticalCenter", function(value) {
 						updatePosition( element, value );
 					});
+
 					element.on('$destroy', function() {
 						observer();//unwatch
 						window.unbind("resize");
