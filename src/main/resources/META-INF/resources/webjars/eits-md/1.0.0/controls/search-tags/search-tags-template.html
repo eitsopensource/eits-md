@@ -1,0 +1,33 @@
+ <div layout="row" layout-align="end end">
+
+     <div class="search-tags search-tags-closed" ng-class="{ 'search-tags-focused': newTag.text || tagList.items.length > 0 }">
+
+         <div class="search-tags-container">
+
+             <label class="search-tags-label"><i class="md md-icon-search"></i></label>
+
+             <ul class="tag-list">
+                 <li class="tag-item" ng-repeat="tag in tagList.items track by $index">
+                     <div class="text-tag">
+                         <span class="ng-binding" title="{{tag}}">{{tag}}</span>
+                     </div>
+                     <a class="remove-button" ng-click="tagList.remove($index)">×</a>
+                 </li>
+             </ul>
+
+             <input class="search-tags-input" ng-model="newTag.text"
+                    ng-change="eventHandlers.input.change(newTag.text)"
+                    ng-keydown="eventHandlers.input.keydown($event)"
+                    ng-blur="eventHandlers.input.blur($event)"
+                    ng-paste="eventHandlers.input.paste($event)"
+                    ng-class="{'invalid-tag': newTag.invalid}"
+                    placeholder="{{placeholder}}"
+                    maxlength="{{maxLength}}">
+
+             <span class="span-text">{{newTag.text}}</span>
+             <span class="search-tags-cancel" ng-click="clear()"><i class="md md-icon-cancel"></i></span>
+         </div>
+
+     </div>
+
+ </div>

@@ -1,0 +1,99 @@
+.search-tags {
+    position	: relative;
+    overflow	: hidden;
+    transition	: all ease-in-out 500ms;
+}
+
+.search-tags-closed {
+    width	: 50px;
+}
+
+.search-tags-focused .search-tags-cancel {
+    -webkit-transform	: translateX(0);
+    -moz-transform		: translateX(0);
+    -ms-transform		: translateX(0);
+    -o-transform		: translateX(0);
+    transform			: translateX(0); 
+}
+
+.search-tags-container {
+    position	: relative;
+    min-height	: 40px;
+    width		: 100%;
+    padding		: 0 40px 0 49px;
+    height		: 100%;
+}
+
+.search-tags-label {
+    position	: absolute;
+    top			: 0;
+    left		: 0;
+    height		: 40px;
+    width		: 40px;
+    font-size	: 24px;
+    font-size	: 1.5rem;
+    cursor		: pointer;
+}
+
+.search-tags-label .md {
+    position	: absolute;
+    top			: 9px;
+    left		: 8px;
+}
+
+.search-tags-input {
+    height		: 30px;
+    margin		: 0;
+    padding		: 0;
+    border		: none;
+    outline		: 0;
+    background	: none;
+    font-size	: 14px;
+    color		: rgba(255,255,255,0.87);
+}
+
+.search-tags-cancel {
+    position	: absolute;
+    top			: 0;
+    right		: 0;
+    height		: 40px;
+    width		: 40px;
+    font-size	: 24px;
+    font-size	: 1.5rem;
+    text-align	: center;
+    cursor		: pointer;
+    
+    -webkit-transform	: translateX(40px);
+    -moz-transform		: translateX(40px);
+    -ms-transform		: translateX(40px);
+    -o-transform		: translateX(40px);
+    transform			: translateX(40px);
+    
+    -webkit-transition-property	: -webkit-transform;
+    -moz-transition-property	: -moz-transform;
+    transition-property			: transform;
+    -webkit-transition-duration	: 0.4s;
+    -moz-transition-duration	: 0.4s;
+    transition-duration			: 0.4s;
+    
+    -webkit-transition-timing-function	: cubic-bezier(0.23, 1, 0.32, 1);
+    -moz-transition-timing-function		: cubic-bezier(0.23, 1, 0.32, 1);
+    transition-timing-function			: cubic-bezier(0.23, 1, 0.32, 1); 
+}
+
+.search-tags-cancel .md {
+    line-height	: 40px; 
+}
+
+.search-tags-animation {
+    width	: 100%;
+}
+
+.span-text{
+    position	: absolute;
+    visibility	: hidden;
+    width		: auto;
+    white-space	: pre;
+    font-size	: 14px;
+}
+
