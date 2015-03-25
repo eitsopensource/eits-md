@@ -1,8 +1,6 @@
 (function() {
 'use strict';
 
-	window.MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || {instance:"failed to get the MutationObserver"};
-
 	/**
 	 * @ngdoc module
 	 * @name material.components.list
@@ -36,12 +34,11 @@
 		function CompileHandler( element, attributes, transclude ) {
 			return {
 				pre: function preLink( scope, element, attributes, controller ) { 
-				},
-				post: function postLink( scope, element, attributes, controller ) {
-
 					var observer = attributes.$observe( "width", function( value ){
 						updateSize( element, value );
 					});
+				},
+				post: function postLink( scope, element, attributes, controller ) {
 					element.on('$destroy', function() {
 						observer();//unwatch
 					});
@@ -90,12 +87,11 @@
 		function CompileHandler( element, attributes, transclude ) {
 			return {
 				pre: function preLink( scope, element, attributes, controller ) { 
-				},
-				post: function postLink( scope, element, attributes, controller ) {
-
 					var observer = attributes.$observe( "height", function( value ){
 						updateSize( element, value );
 					});
+				},
+				post: function postLink( scope, element, attributes, controller ) {
 					element.on('$destroy', function() {
 						observer();//unwatch
 					});

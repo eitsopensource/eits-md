@@ -320,7 +320,6 @@
 	function HorizontalCenterDirective( $log, $window ) {
 		return {
 			restrict : 'A',
-			require : [ 'width' ],
 			compile : CompileHandler,
 			controller: Controller,
 		}
@@ -386,7 +385,6 @@
 	function VerticalCenterDirective( $log, $window ) {
 		return {
 			restrict : 'A',
-			require : [ 'height' ],
 			compile : CompileHandler,
 			controller: Controller,
 		}
