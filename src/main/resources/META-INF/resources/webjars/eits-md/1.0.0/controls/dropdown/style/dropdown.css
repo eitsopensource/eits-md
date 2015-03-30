@@ -1,0 +1,88 @@
+.drop {
+    float:left;
+    position: relative;
+}
+
+.dd {
+    position:relative;
+
+    padding:20px;
+    height:68px;
+}
+
+.dd-menu {
+    position: absolute;
+    z-index: 1000;
+    font-size: 14px;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    background-clip: padding-box;
+    -webkit-transition: all 0.3s ease;
+    opacity:0;
+    -webkit-transform: scale(1);
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+}
+
+.dd-menu.right-top.active {
+    -webkit-transform-origin: right top 0px;
+    -webkit-transform: scale(1);
+    left: -140px;
+}
+
+.dd-menu.right-bottom.active {
+    -webkit-transform-origin: right bottom 0px;
+    -webkit-transform: scale(1);
+    opacity:1;
+    top: -225px;
+    left: -145px;
+}
+
+.dd-menu.left-bottom.active {
+    -webkit-transform-origin: left bottom 0px;
+    top: -300px;
+}
+
+.dd-menu ul {
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    position:relative;
+}
+
+.dd-menu.active {
+    opacity:1;
+    -webkit-transform-origin: left top 0px;
+    -webkit-transform: scale(1);
+    top: 25px;
+    left: 0px;
+}
+
+.dd-menu li {
+    color:#666;
+    margin: 0;
+    padding: 5px 5px 5px 15px;
+    height: 24px;
+    list-style: none;
+    opacity: 0;
+    cursor:pointer;
+    transform: translateY(0px);
+}
+.dd-menu li:hover{
+    background:#eee;;
+}
+.dd-menu li {
+    -webkit-transition: all 1.0s ease;
+    transform: translateY(-30%);
+}
+.dd-menu.active li {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
