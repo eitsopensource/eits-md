@@ -56,28 +56,28 @@
                  */
                 scope.iconMenu = attributes.iconMenu;
                 /**
-                 * define a orienta��o do menu do dropdown
+                 * define a orientaçaão do menu do dropdown
                  */
                 var animateOrientation = getAnimationClass(element.find('.dd'), ddMenu)
 
                 /**
-                 * define a orienta��o do menu.
+                 * define a orientacão do menu.
                  */
                 scope.menuOrientation = attributes.menuOrientation == undefined ? animateOrientation : attributes.menuOrientation;
 
                 /**
-                 * verifica se existe width definido pelo usu�rio
+                 * verifica se existe width definido pelo usuário
                  */
                 scope.menuWidth = attributes.menuWidth == undefined ? setWidth('250px') : setWidth(attributes.menuWidth);
                 /**
-                 * verifica se height width definido pelo usu�rio
+                 * verifica se height width definido pelo usuário
                  */
                 scope.menuHeight = attributes.menuHeight == undefined ? setHeight('250px') : setHeight(attributes.menuHeight);
 
                 definePosition(element.find('.dd'), ddMenu,animateOrientation);
 
                 /**
-                 * verifica se o evento do click est� sendo feio pela div do icone
+                 * verifica se o evento do click está sendo feio pela div do icone
                  */
                 $document.bind('click', function(ev) {
 
@@ -86,7 +86,7 @@
 
                     } else {
                         /**
-                         * remove a classe ativa do menu caso existir, e adiciona novamente o menu a partir do icone que est� sendo clicado
+                         * remove a classe ativa do menu caso existir, e adiciona novamente o menu a partir do icone que está sendo clicado
                          */
                         $('.dd-menu').removeClass('active');
                         if( $(ev.target).closest('eits-dropdown').length > 0 ) {
@@ -104,7 +104,8 @@
             }
         }
         /**
-         * Seta o valor do width quando definido pelo usua�rio
+         * Seta o valor do width quando definido pelo usuaário
+         * @param menuWidth
          */
         function setWidth(menuWidth){
             element.find('.dd-menu').css({
@@ -113,7 +114,8 @@
         }
 
         /**
-         width * Seta o valor do height quando definido pelo usua�rio
+         * Seta o valor do height quando definido pelo usuaário
+         * @param menuHeight
          */
         function setHeight(menuHeight){
             element.find('.dd-menu').css({
@@ -122,12 +124,10 @@
         }
 
         /**
-         * ,
+         * monta o nome da classe css de acordo com a posição dele na tela
          * @param element
          * @param menuElement
          * @returns {string}
-         * monta o nome da classe css de acordo com a posi��o dele na tela
-         *
          */
         function getAnimationClass(element, menuElement) {
             var width = menuElement.parent().width();
@@ -142,13 +142,11 @@
         }
 
         /**
-         *
+         * define a posição do menu em relação ao botão responsavel pelo evento de click
          * @param button
          * @param menu
          * @param animationOrientation
-         * define a posi��o do menu em rela��o ao bot�o responsavel pelo evento de click
          */
-
         function definePosition(button, menu, animationOrientation) {
             var menuWidth = menu.width();
             var buttonWidth = button.width();
