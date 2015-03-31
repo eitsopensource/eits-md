@@ -1,0 +1,44 @@
+<div ng-transclude></div>
+<div id="md-table-template">
+	<table class="eits-table" ng-class="customClass">
+
+		<thead>
+			<tr class="eits-table-headers-row">
+
+				<th class="eits-table-header" ng-if="multiSelection == true">
+					<a href="#">
+					</a>
+				</th>
+
+				<th ng-repeat="h in columns" class="eits-table-header">
+					<a href="#" ng-if="h.sortable" ng-click="reverse=!reverse;order(h.field,reverse)">
+						{{h.header}}
+						<i class="ion-android-arrow-dropup"></i>
+						<i class="ion-android-arrow-dropdown"></i>
+						<!--<i ng-show="reverse &amp;&amp; h.field == predicate" class="ion-android-arrow-dropup"></i>-->
+						<!--<i ng-show="!reverse &amp;&amp; h.field == predicate" class="ion-android-arrow-dropdown"></i>-->
+					</a>
+					<span ng-if="!h.sortable">{{h.header}}</span>
+				</th>
+
+				<th class="eits-table-header"></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr ng-repeat="c in content" class="eits-table-content-row">
+				<td class="eits-table-selection-item" ng-if="multiSelection == true">
+					<div>
+                    	<md-checkbox md-no-ink aria-label="Checkbox No Ink" class="md-primary" ng-change="selectItem(c, !checkBoxControl[c[identifier]])" ng-model="checkBoxControl[c[identifier]]"></md-checkbox>
+                	</div>
+				</td>
+
+				<td ng-repeat="h in columns" ng-style="{'width': h.width}" ng-class="customClass[h.field]" ng-click="onItemClick({item: c})" class="eits-table-content">{{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}</td>
+			</tr>
+		</tbody>
+
+	</table>
+
+</div>
+
+</div>
