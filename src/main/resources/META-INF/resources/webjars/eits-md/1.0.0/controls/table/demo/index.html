@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" lang="pt" ng-app="eits.controls.table.sample">
+    
+	<head>
+		<title>eits-md :: eits-table</title>
+
+		<meta charset="UTF-8">
+
+		<link rel="stylesheet" href="/webjars/angular-material/0.8.3/angular-material.css">
+		<link rel="stylesheet" href="../style/style.css">
+		<link rel="stylesheet" href="/webjars/eits-md/1.0.0/controls/search-tags/style/search-tags.css">
+		<link rel="stylesheet" href="/webjars/eits-md/1.0.0/controls/search-tags/style/tags.css">
+		<link rel="stylesheet" href="/webjars/eits/1.0.0/material-design-iconic-font/css/material-design-iconic-font.css">
+
+		<!-- JQuery -->
+		<script type="text/javascript" src="/webjars/jquery/2.1.3/jquery.min.js"></script>
+		
+		<!-- AngularJS -->
+		<script type="text/javascript" src="/webjars/angularjs/1.3.14/angular.js"></script>
+		<script type="text/javascript" src="/webjars/angularjs/1.3.14/angular-animate.min.js"></script>
+		<script type="text/javascript" src="/webjars/angularjs/1.3.14/angular-aria.min.js"></script>
+		<script type="text/javascript" src="/webjars/angular-material/0.8.3/angular-material.js"/></script>
+		
+		<script type="text/javascript" src="/webjars/eits-md/1.0.0/eits-material-core.js"></script>
+		<script type="text/javascript" src="/webjars/eits-md/1.0.0/containers/box/box.js"></script>
+		<script type="text/javascript" src="/webjars/eits-md/1.0.0/controls/table/table.js"></script>
+		<script type="text/javascript" src="/webjars/eits-md/1.0.0/controls/search-tags/search-tags.js"></script>
+		<script type="text/javascript" src="table-demo.js"></script>
+	</head>
+	
+	<body ng-controller="AppCtrl">
+		
+    	<md-toolbar layout="column" class="md-tall"><span flex="flex"></span>
+	      	<div class="md-toolbar-tools">
+	        	<eits-box width="98%" height="60">
+		          	
+		          	<div ng-hide="showSearch" class="md-toolbar-item md-breadcrumb">
+		          		<span ng-click="methodToResetSelection()">Eits Table</span>
+		          	</div>
+		          	
+				</eits-box>
+	      	</div>
+    	</md-toolbar>
+    	
+	    <md-content layout="column" flex="flex" ng-click="showSearch = false">
+	      	<eits-table content="content" multi-selection="true" on-selection-change="updateSelectedItens(selectedItens)"
+						on-item-click="openDetail(item)" on-scroll-end="sendMoreData(page)">
+
+				<column-group>
+					<table-column header="Nome" field="name" sortable="true"/>
+					<table-column header="Descrição" field="description" sortable="false"/>
+					<table-column header="Modificado pela última vez" field="last_modified" sortable="false"/>
+				</column-group>
+
+				<pager infinity-scroll-pager>
+				</pager>
+			</eits-table>
+	    </md-content>
+		
+	</body>
+</html>
