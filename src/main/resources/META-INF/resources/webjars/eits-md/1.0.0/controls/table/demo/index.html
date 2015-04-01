@@ -29,30 +29,31 @@
 	</head>
 	
 	<body ng-controller="AppCtrl">
-		
-    	<md-toolbar layout="column" class="md-tall"><span flex="flex"></span>
+
+    	<md-toolbar layout="column" class="md-tall">
+			<span flex="flex"></span>
 	      	<div class="md-toolbar-tools">
 	        	<eits-box width="98%" height="60">
-		          	
+
 		          	<div ng-hide="showSearch" class="md-toolbar-item md-breadcrumb">
 		          		<span ng-click="methodToResetSelection()">Eits Table</span>
 		          	</div>
-		          	
+
 				</eits-box>
 	      	</div>
     	</md-toolbar>
-    	
-	    <md-content layout="column" flex="flex" ng-click="showSearch = false">
-	      	<eits-table content="content" multi-selection="true" on-selection-change="updateSelectedItens(selectedItens)"
-						on-item-click="openDetail(item)" on-scroll-end="sendMoreData(page)">
 
-				<column-group>
+	    <md-content layout="column" flex="flex" ng-click="showSearch = false">
+	      	<eits-table content="content" multi-selection="true" on-selection-change="updateSelectedItens(selectedItens)" on-item-click="openDetail(item)" reset-selection="resetSelection()">
+
+				<columns>
 					<table-column header="Nome" field="name" sortable="true"/>
 					<table-column header="Descrição" field="description" sortable="false"/>
 					<table-column header="Modificado pela última vez" field="last_modified" sortable="false"/>
-				</column-group>
+				</columns>
 
-				<pager infinity-scroll-pager>
+				<pager>
+					<infinity-scroll-pager on-scroll-end="sendMoreData(page)"></infinity-scroll-pager>
 				</pager>
 			</eits-table>
 	    </md-content>

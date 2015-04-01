@@ -49,32 +49,29 @@ angular.module('eits.controls.table.sample', [
                 last_modified: 'Jun 5, 2014'
             }];
 
-        $scope.sortable = ['name', 'description', 'last_modified'];
 
-        //
+        // Evento disparado pela directiva ao selecionar ou deselecionar um item da table
         $scope.updateSelectedItens = function (selectedItens) {
             $log.log(selectedItens);
         };
 
-        //
+        // Evento disparado pela table ao clicar em um item da table
         $scope.openDetail = function (item) {
             $log.log(item);
         };
 
-        $scope.onScrollEnd = function (first, max, pager) {
-            //load async
-            //function( result ) {
-            //    pager.load( result );
-            //}
-            //content.push( result);
-        }
-
+        // Evento disparado ao atingir o fundo da table através do scroll
         $scope.sendMoreData = function (page) {
 
             $log.log(page);
-            $http.get('http://echo.jsontest.com/id/8/name/Henrique/description/Cara_legal/last_modified/June')
+            $http.get('http://echo.jsontest.com/id/8/name/Henrique'+page+'/description/Cara_legal/last_modified/June')
                 .success(function (data, status, headers, config) {
-                    $scope.content.push(data);
+                	var size = 20;
+                	var result = new Array();
+                	for (var i = 0; i < size; i++) {
+                		result.push( angular.copy(data) );
+					}
+                    $scope.content = $scope.content.concat(result);
                 })
                 .error(function (data, status, headers, config) {
 

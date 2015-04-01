@@ -9,7 +9,7 @@
     angular.module('eits.controls.table',
         ['eits-material-core', 'material.core'])
         .directive('eitsTable', TableDirective)
-        .directive('columnGroup', ColumnDirective)
+        .directive('columns', ColumnDirective)
         .directive('tableColumn', TableColumnDirective)
         .directive('pager', PagerDirective)
         .directive('infinityScrollPager', InfiniteScrollPagerDirective)
@@ -33,13 +33,10 @@
             transclude: true,
             scope: {
                 content: '=',
-                sortable: '=?',
                 multiSelection: '=?',
                 onSelectionChange: '&?',
                 onItemClick: '&?',
-                onScrollEnd: '&?',
-                resetSelection: '=?',
-                identifier: '@'
+                resetSelection: '&?'
             },
             controller: Controller,
             templateUrl: Template
@@ -51,36 +48,37 @@
         function Controller($scope, $filter, $window) {
 
             // Tratamento inicial de atributos e variáveis.
-            var orderBy = $filter('orderBy');
-            $scope.tablePage = 1;
-
             $scope.checkBoxControl = [];
             $scope.selectedItens = [];
-
-            $scope.identifier = $scope.identifier != undefined ? $scope.identifier : 'id';
             $scope.multiSelection = $scope.multiSelection != undefined ? $scope.multiSelection : false;
             $scope.onItemClick = $scope.onItemClick != undefined ? $scope.onItemClick : function(element){};
             $scope.onSelectionChange = $scope.onSelectionChange != undefined ? $scope.onSelectionChange : function(elements){};
+
+            // Instância de uma função de filtro
+            var orderBy = $filter('orderBy');
 
             // Setter do atributo de colunas.
             this.setColumns = function(columns) {
                 $scope.columns = columns;
             }
 
-            //
-            this.configPagerTypeInfiniteScroll = function() {
+            // Método que define a paginação por scroll.
+            this.configPagerTypeInfiniteScroll = function(scrollEndFn) {
+
+                $scope.onScrollEnd = scrollEndFn;
+            	$scope.pagerType = "scroll";
+            	
                 // Método assíncrono que é ativado ao atingir o fundo da grid através do evento de scroll do mouse.
                 // Ele faz uma requisição ao para a aplicação passando o número da próxima página do conteúdo.
                 angular.element($window).bind("scroll", function () {
 
-                    var element = angular.element('.eits-table')
+                    var element = angular.element('eits-table');
                     var contentHeight = element[0].offsetHeight;
                     var yOffset = window.pageYOffset;
                     var y = yOffset + window.innerHeight;
 
                     if (y >= contentHeight) {
-                        $scope.tablePage++;
-                        $scope.onScrollEnd({ page: $scope.tablePage});
+                        $scope.onScrollEnd( { page: $scope.content ? $scope.content.length : 0} );
                         $scope.$apply();
                     }
                 });
@@ -92,13 +90,10 @@
                 $scope.predicate = predicate;
             };
 
-            // Ordenação inicial de acordo com o primeiro campo dos campos ordenáveis.
-            //$scope.order($scope.sortable[0], false);
-
             // Método que armazena os ítens selecionados em um array separado.
             $scope.selectItem = function (item, incluso) {
                 if (incluso) {
-                    var i = $scope.content.indexOf(item);
+                    var i = $scope.selectedItens.indexOf(item);
                     $scope.selectedItens.splice(i, 1);
 
                 } else if (!incluso && $scope.selectedItens.length == 0) {
@@ -111,13 +106,6 @@
                 // Manda o array de itens selecionados para a aplicação.
                 $scope.onSelectionChange({ selectedItens: $scope.selectedItens});
             }
-
-            // Método que recarrega a tabela a partir de um novo conteúdo.
-            //$scope.reloadData = function (content) {
-            //    $scope.content = angular.copy(content);
-            //    $scope.resetSelection();
-            //    $scope.tablePage = 1;
-            //};
 
             // Método que limpa a seleção de registros marcados.
             $scope.resetSelection = function () {
@@ -184,7 +172,7 @@
     function TableColumnDirective() {
         return {
             restrict : 'E',
-            require: '^columnGroup',
+            require: '^columns',
             priority: 3,
             scope: {
                 header: '@',
@@ -203,7 +191,7 @@
                     columnGroupCtrl.setColumn({
                         header: scope.header,
                         field: scope.field,
-                        sortable: scope.sortable != undefined ? scope.sortable : false
+                        sortable: scope.sortable != undefined ? scope.sortable : true
                     })
                 },
                 post: function postLink(scope, iElement, iAttrs, columnGroupCtrl) {
@@ -236,7 +224,7 @@
                 },
                 post: function ( scope, element, attrs, eitsTableCtrl ) {
                     if (scope.pagerType == 'infinite-scroll') {
-                        eitsTableCtrl.configPagerTypeInfiniteScroll();
+                        eitsTableCtrl.configPagerTypeInfiniteScroll(scope.scrollEndFn);
                     }
                 }
             }
@@ -247,9 +235,11 @@
          */
         function Controller($scope){
             $scope.pagerType = 'number';
+            $scope.scrollEndFn = function(){};
 
-            this.setPagerTypeInfiniteScrollPager = function(){
+            this.setPagerTypeInfiniteScrollPager = function(scrollEndFn){
                 $scope.pagerType = 'infinite-scroll';
+                $scope.scrollEndFn = scrollEndFn;
             }
         }
 
@@ -263,10 +253,12 @@
      */
     function InfiniteScrollPagerDirective() {
         return {
-            restrict : 'A',
+            restrict : 'E',
             require: '^pager',
             priority: 5,
-            scope: true,
+            scope: {
+                onScrollEnd: '&?'
+            },
             compile: CompileHandler
         };
 
@@ -276,7 +268,7 @@
         function CompileHandler() {
             return {
                 pre: function preLink(scope, iElement, iAttrs, pagerCtrl) {
-                    pagerCtrl.setPagerTypeInfiniteScrollPager();
+                    pagerCtrl.setPagerTypeInfiniteScrollPager(scope.onScrollEnd);
                 },
                 post: function postLink(scope, iElement, iAttrs, pagerCtrl) {
                 }
