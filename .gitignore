@@ -14,3 +14,4 @@ pids
 logs
 results
 node_modules
+src/main/resources/META-INF/.idea/
