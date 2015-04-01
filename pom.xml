@@ -16,6 +16,7 @@
 		<angularjs.version>1.3.14</angularjs.version>
 		<angular-material.version>0.8.3</angular-material.version>
 		<jquery.version>2.1.3</jquery.version>
+		<momentjs.version>2.9.0</momentjs.version>
 	</properties>
 
 	<developers>
@@ -50,6 +51,11 @@
 		    <groupId>org.webjars</groupId>
 		    <artifactId>angular-material</artifactId>
 		    <version>${angular-material.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>momentjs</artifactId>
+		    <version>${momentjs.version}</version>
 		</dependency>
 	</dependencies>
 
