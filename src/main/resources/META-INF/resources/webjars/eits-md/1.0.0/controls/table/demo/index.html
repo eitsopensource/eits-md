@@ -47,13 +47,14 @@
 	      	<eits-table content="content" multi-selection="true" on-selection-change="updateSelectedItens(selectedItens)" on-item-click="openDetail(item)" reset-selection="resetSelection()">
 
 				<columns>
-					<table-column header="Nome" field="name" sortable="true"/>
+					<table-column header="Foto" thumbnail="thumbnail" width="40">
+					<table-column header="Nome" field="name" sortable="true" width="40%"/>
 					<table-column header="Descrição" field="description" sortable="false"/>
 					<table-column header="Modificado pela última vez" field="last_modified" sortable="false"/>
 				</columns>
 
 				<pager>
-					<infinity-scroll-pager on-scroll-end="sendMoreData(page)"></infinity-scroll-pager>
+					<infinity-scroll-pager on-scroll-end="sendMoreData(size)"></infinity-scroll-pager>
 				</pager>
 			</eits-table>
 	    </md-content>

@@ -8,42 +8,49 @@ angular.module('eits.controls.table.sample', [
         $scope.content = [
             {
                 id: 1,
+                thumbnail: 'http://www.eits.com.br/images/eits-topo.png',
                 name: 'Bruno Mars',
                 description: 'Human',
                 last_modified: 'Jun 5, 2014'
             },
             {
                 id: 2,
+                thumbnail: 'http://www.eits.com.br/images/eits-topo.png',
                 name: 'AT-AT',
                 description: 'Robot',
                 last_modified: 'Jun 5, 2014'
             },
             {
                 id: 3,
+                thumbnail: 'http://www.eits.com.br/images/eits-topo.png',
                 name: 'Mark Ronson',
                 description: 'Human',
                 last_modified: 'Jun 5, 2014'
             },
             {
                 id: 4,
+                thumbnail: 'http://www.eits.com.br/images/eits-topo.png',
                 name: 'Daft Punk',
                 description: 'Human-Robot',
                 last_modified: 'Jun 5, 2014'
             },
             {
                 id: 5,
+                thumbnail: 'http://www.eits.com.br/images/eits-topo.png',
                 name: 'Lady Gaga',
                 description: 'Undefined',
                 last_modified: 'Jun 5, 2014'
             },
             {
                 id: 6,
+                thumbnail: 'http://www.eits.com.br/images/eits-topo.png',
                 name: 'Mark Ronson',
                 description: 'Human',
                 last_modified: 'Jun 5, 2014'
             },
             {
                 id: 7,
+                thumbnail: 'http://www.eits.com.br/images/eits-topo.png',
                 name: 'Mark Ronson',
                 description: 'Human',
                 last_modified: 'Jun 5, 2014'
@@ -61,10 +68,9 @@ angular.module('eits.controls.table.sample', [
         };
 
         // Evento disparado ao atingir o fundo da table através do scroll
-        $scope.sendMoreData = function (page) {
+        $scope.sendMoreData = function (size) {
 
-            $log.log(page);
-            $http.get('http://echo.jsontest.com/id/8/name/Henrique'+page+'/description/Cara_legal/last_modified/June')
+            $http.get('http://echo.jsontest.com/id/8/name/Henrique'+size+'/description/Cara_legal/last_modified/June')
                 .success(function (data, status, headers, config) {
                 	var size = 20;
                 	var result = new Array();
@@ -76,6 +82,5 @@ angular.module('eits.controls.table.sample', [
                 .error(function (data, status, headers, config) {
 
                 });
-
         }
     });

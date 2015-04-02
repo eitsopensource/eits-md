@@ -21,39 +21,37 @@
 					<span ng-if="!h.sortable">{{h.header}}</span>
 				</th>
 
-				<th class="eits-table-header"></th>
 			</tr>
 		</thead>
 
 		<tbody>
 			<tr ng-repeat="c in content" class="eits-table-content-row">
+
 				<td class="eits-table-selection-item" ng-if="multiSelection == true">
 					<div>
                     	<md-checkbox md-no-ink aria-label="Checkbox No Ink" class="md-primary" ng-change="selectItem(c, !checkBoxControl[c.$$hashKey])" ng-model="checkBoxControl[c.$$hashKey]"></md-checkbox>
                 	</div>
 				</td>
 
-				<td ng-repeat="h in columns" ng-style="{'width': h.width}" ng-class="customClass[h.field]" ng-click="onItemClick({item: c})" class="eits-table-content">{{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}</td>
+				<td ng-repeat="h in columns" ng-style="{'width': h.width}" ng-click="onItemClick({item: c})" class="eits-table-content">
+
+					<span ng-if="h.thumbnail == false">
+						{{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}
+					</span>
+
+					<div class="eits-table-thumbs" ng-if="h.thumbnail != false">
+						<div style="background-image:url({{c[h.thumbnail]}})"></div>
+					</div>
+
+				</td>
+
 			</tr>
 		</tbody>
 
 	</table>
 
-    <div layout="row" class="md-table-footer" ng-if="pagerType == 'number'">
-		<span class="md-table-count-info">
-			Rows per page : <a href="#" ng-click="goToPage(0); count=10">10</a>
-			,<a href="#" ng-click="goToPage(0); count=25">25</a>
-			,<a href="#" ng-click="goToPage(0); count=50">50</a>
-			,<a href="#" ng-click="goToPage(0); count=100">100</a>
-			(current is {{count}})
-		</span>
-		<span flex="flex"></span>
-		<span ng-show="nbOfPages() &gt; 1">
-			<md-button ng-disabled="tablePage==0" ng-click="tablePage=tablePage-1" aria-label="Previous Page" class="md-primary md-hue-2"><i style="font-size:16px;" class="ion-chevron-left"></i></md-button><a href="#" ng-repeat="i in getNumber(nbOfPages()) track by $index">
-			<md-button ng-click="goToPage($index)" class="md-primary md-hue-2 md-table-footer-item"><span ng-class="{ 'md-table-active-page': tablePage==$index}">{{$index+1}}</span></md-button></a>
-			<md-button ng-disabled="tablePage==nbOfPages()-1" ng-click="tablePage=tablePage+1" aria-label="Next Page" class="md-primary md-hue-2"><i style="font-size:16px;" class="ion-chevron-right"></i></md-button>
-		</span>
-	</div>
+	<md-progress-circular ng-if="showLoadingCircle" style="margin:0 auto" class="md-primary" md-mode="indeterminate"></md-progress-circular>
+
 </div>
 
 </div>
