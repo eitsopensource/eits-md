@@ -12,20 +12,20 @@ angular.module('eits.create.date.picker', [
     })
     .config(function($mdThemingProvider) {
         $mdThemingProvider.definePalette('amazingPaletteName', {
-            '50': 'FFEBEE',
-            '100': 'FFCDD2',
-            '200': 'EF9A9A',
-            '300': 'E57373',
-            '400': 'EF5350',
-            '500': 'F44336',
-            '600': 'E53935',
-            '700': 'D32F2F',
-            '800': 'C62828',
-            '900': 'B71C1C',
-            'A100': 'FF8A80',
-            'A200': 'FF5252',
-            'A400': 'FF1744',
-            'A700': 'D50000',
+            '50': 'E3F2FD',
+            '100': 'BBDEFB',
+            '200': '90CAF9',
+            '300': '64B5F6',
+            '400': '42A5F5',
+            '500': '2196F3',
+            '600': '1E88E5',
+            '700': '1976D2',
+            '800': '1565C0',
+            '900': '0D47A1',
+            'A100': '82B1FF',
+            'A200': '448AFF',
+            'A400': '2979FF',
+            'A700': '2962FF',
             'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
                                                 // on this palette should be dark or light
             'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default

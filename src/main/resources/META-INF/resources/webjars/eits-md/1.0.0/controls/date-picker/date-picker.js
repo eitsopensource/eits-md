@@ -16,7 +16,7 @@
      * @returns {{restrict: string, scope: {model: string, label: string, fixedLabel: string}, compile: CompileHandler, templateUrl: Template, controller: Controller}}
      * @constructor
      */
-    function DatePickerDirective( $CONFIG, $timeout, $document, $mdTheming,$injector) {
+    function DatePickerDirective( $CONFIG, $timeout, $document, $mdColorPalette, $mdTheming) {
         return {
             restrict: 'AE',
             scope: {
@@ -46,9 +46,8 @@
                 },
                 post: function postLink( scope, element, attributes, controller ) {
 
+                    $mdColorPalette
                     $mdTheming
-
-                    var themeCss = $injector.has('$MD_THEME_CSS') ? $injector.get('$MD_THEME_CSS') : '';
 
                     //Carrega a configuração padrão caso o atributo não conter valor adicionado
                     scope.options = {
@@ -74,39 +73,59 @@
                     }
 
                     //============================= Definição do tema conforme a configuração =============================
+
+                    //var color500 = '#2196F3', color700 = '#1976D2';
+
+                    var color500 = 'rgb('+$mdColorPalette.blue[500]['value'][0]+","+
+                                          $mdColorPalette.blue[500]['value'][1]+","+
+                                          $mdColorPalette.blue[500]['value'][2]+')' ,
+
+                        color700 = 'rgb('+$mdColorPalette.blue[700]['value'][0]+","+
+                                          $mdColorPalette.blue[700]['value'][1]+","+
+                                          $mdColorPalette.blue[700]['value'][2]+')';
+
                     scope.hoverDay = function(){
                         //Adciona a cor de fundo do hover para os dias
-                        angular.element('.date-picker-day a:hover').css({'background-color': '#03A9F4', 'color': '#FFFFFF'}); //Número da paleta {500}- background-color
+                        angular.element('.date-picker-day a:hover').css({'background-color': color500, 'color': '#FFFFFF'});
                     };
 
                     scope.leaveDay = function(){
                         //Remove a cor de fundo do hover para os dias
                         angular.element('.date-picker-day a').css({'background-color': 'transparent', 'color': 'inherit'});
                         //Matem o dia corrente com a cor de texto
-                        angular.element('.date-picker-day-is-today a').css('color','#0288D1'); //Número da paleta {700}
+                        angular.element('.date-picker-day-is-today a').css('color',color700);
                         //Mantem a cor de fundo do dia selecionado
-                        angular.element('.date-picker-day-is-selected a').css({'background-color': '#03A9F4', 'color': '#FFFFFF'}); //Número da paleta {500}- background-color
+                        angular.element('.date-picker-day-is-selected a').css({'background-color': color500, 'color': '#FFFFFF'});
                     };
 
                     scope.hoverYear = function(){
                         //Adciona a cor de texto do hover para os anos
-                        angular.element('.date-picker-year:hover span').css('color','#0288D1'); //Número da paleta {700}
+                        angular.element('.date-picker-year:hover span').css('color',color700);
                         //Mantem a cor de fundo e do texto do ano selecionado
-                        angular.element('.date-picker-year-is-active span').css({'background-color': '#03A9F4', 'color': '#FFFFFF'}); //Número da paleta {500}- background-color
+                        angular.element('.date-picker-year-is-active span').css({'background-color': color500, 'color': '#FFFFFF'});
                     };
 
                     scope.leaveYear = function(){
                         //Remove a cor de texto do hover para os anos
                         angular.element('.date-picker-year span').css('color','inherit');
                         //Mantem a cor de fundo e do texto do ano selecionado
-                        angular.element('.date-picker-year-is-active span').css({'background-color': '#03A9F4', 'color': '#FFFFFF'}); //Número da paleta {500}- background-color
+                        angular.element('.date-picker-year-is-active span').css({'background-color': color500, 'color': '#FFFFFF'});
                     };
 
                     //Define a cor de fundo do tema do dia da semana corrente
-                    element.find('.date-picker-current-day-of-week').css('background-color','#0288D1'); //Número da paleta {700}
+                    element.find('.date-picker-current-day-of-week').css('background-color',color700);
 
                     //Define a cor de fundo do tema do dia corrente
-                    element.find('.date-picker-current-date').css('background-color','#03A9F4'); //Número da paleta {500}
+                    element.find('.date-picker-current-date').css('background-color',color500);
+
+                    scope.setColors = function(){
+                        //Define a cor de texto do dia corrente
+                        angular.element('.date-picker-day-is-today a').css('color',color700);
+                        //Define a cor de fundo do dia selecionado
+                        angular.element('.date-picker-day-is-selected a').css({'background-color': color500, 'color': '#FFFFFF'});
+                        //Define a cor de fundo do ano selecionado
+                        angular.element('.date-picker-year-is-active span').css({'background-color': color500, 'color': '#FFFFFF'});
+                    };
 
                     //=====================================================================================================
                 }
@@ -227,30 +246,23 @@
 
             $scope.openPicker = function() {
 
-                //Define a cor de texto do dia corrente
-                angular.element('.date-picker-day-is-today a').css('color','#0288D1');
-                //Define a cor de fundo do dia selecionado
-                angular.element('.date-picker-day-is-selected a').css({'background-color': '#03A9F4', 'color': '#FFFFFF'}); //Número da paleta {500}- background-color
-
                 $scope.yearSelection = false;
 
                 $datePickerFilter = angular.element('<div/>', {
                     class: 'date-filter'
                 });
 
-                $datePickerFilter
-                    .appendTo('body')
-                    .bind('click', function() {
+                $datePickerFilter.appendTo('body').bind('click', function() {
                         $scope.closePicker();
                     });
 
-                $datePicker
-                    .appendTo('body')
-                    .show();
+                $datePicker.appendTo('body').show();
 
                 $timeout(function() {
                     $datePickerFilter.addClass('date-filter-is-shown');
                     $datePicker.addClass('date-picker-is-shown');
+
+                    $scope.setColors();
                 }, 100);
             };
 
@@ -280,8 +292,7 @@
 
                     $yearSelector.scrollTop($yearSelector.scrollTop() + $activeYear.position().top - $yearSelector.height()/2 + $activeYear.height()/2);
 
-                    //Define a cor de fundo do ano selecionado
-                    angular.element('.date-picker-year-is-active span').css({'background-color': '#03A9F4', 'color': '#FFFFFF'});
+                    $scope.setColors();
                 });
             };
 
@@ -312,6 +323,12 @@
                 for (var k = 7 - (lastDayOfMonth.day() === 0 ? 7 : lastDayOfMonth.day()); k > 0; k--) {
                     $scope.emptyLastDays.push({});
                 }
+
+                $timeout(function() {
+                    if( $scope.setColors ) {
+                        $scope.setColors();
+                    }
+                });
 
                 $scope.days = days;
             }

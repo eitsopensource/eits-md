@@ -218,7 +218,7 @@
     text-align	: center; 
 }
 
-/**/
+/***** Estido do botão *****/
 
 .btn {
     z-index			: 2;
@@ -265,7 +265,7 @@
     line-height		: 36px; 
 }
 
-/**/
+/***** Estido da cor de texto *****/
 .tc-white {
     color	: #FFFFFF !important;
 }

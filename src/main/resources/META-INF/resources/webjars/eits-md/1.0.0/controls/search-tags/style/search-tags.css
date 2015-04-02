@@ -97,3 +97,52 @@
     font-size	: 14px;
 }
 
+/************ Tags *************/
+
+.tag-list {
+    margin			: 0;
+    padding			: 5px 0 0 0;
+    list-style-type	: none;
+}
+
+.tag-item {
+    max-width			: 200px;
+    margin				: 0 4px 4px 0;
+    padding			    : 0 5px;
+    display			    : inline-block;
+    float				: left;
+    font				: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height				: 30px;
+    line-height		    : 27px;
+    border				: 1px solid #5bc0de;
+    border-radius		: 3px;
+    background-color	: #5bc0de;
+}
+
+.tag-item .text-tag{
+    max-width		: 173px;
+    text-overflow	: ellipsis;
+    overflow		: hidden;
+    white-space	    : nowrap;
+    float			: left;
+}
+
+.invalid-tag {
+    color	: red;
+}
+
+.tag-item .remove-button {
+    margin			: 3px 0px 0 5px;
+    padding		    : 0;
+    border			: none;
+    background		: none;
+    cursor			: pointer;
+    vertical-align	: middle;
+    font			: bold 16px Arial, sans-serif;
+    color			: #585858;
+}
+.tag-item .remove-button:active {
+    color	: red;
+}
+
+
