@@ -47,7 +47,8 @@
 	      	<eits-table content="content" multi-selection="true" on-selection-change="updateSelectedItens(selectedItens)" on-item-click="openDetail(item)" reset-selection="resetSelection()">
 
 				<columns>
-					<table-column header="Nome" field="name" sortable="true"/>
+					<table-column header="Foto" thumbnail="thumbnail" column-width="40px">
+					<table-column header="Nome" field="name" sortable="true" column-width="40%"/>
 					<table-column header="Descrição" field="description" sortable="false"/>
 					<table-column header="Modificado pela última vez" field="last_modified" sortable="false"/>
 				</columns>
