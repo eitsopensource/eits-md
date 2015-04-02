@@ -36,30 +36,3 @@ angular.module('eits.create.date.picker', [
             .primaryPalette('amazingPaletteName')
             .backgroundPalette('amazingPaletteName')
     });
-
-//.config(function($mdThemingProvider) {
-//    $mdThemingProvider.definePalette('amazingPaletteName', {
-//        '50': '84ffff',
-//        '100': '18ffff',
-//        '200': '00e5ff',
-//        '300': '00b8d4',
-//        '400': '29b6f6',
-//        '500': '03a9f4',
-//        '600': '039be5',
-//        '700': '0288d1',
-//        '800': '0277bd',
-//        '900': '01579b',
-//        'A100': '80d8ff',
-//        'A200': '40c4ff',
-//        'A400': '00b0ff',
-//        'A700': '0091ea',
-//        'contrastDefaultColor': 'light',    // whether, by default, text (contrast)
-//                                            // on this palette should be dark or light
-//        'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
-//            '200', '300', '400', 'A100'],
-//        'contrastLightColors': undefined    // could also specify this if default was 'dark'
-//    });
-//    $mdThemingProvider.theme('default')
-//        .primaryPalette('amazingPaletteName')
-//});
-
