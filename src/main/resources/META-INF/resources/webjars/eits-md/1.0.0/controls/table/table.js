@@ -175,12 +175,13 @@
         return {
             restrict : 'E',
             require: '^columns',
+            priority: 1,
             scope: {
                 header: '@',
                 field: '@',
                 sortable: '=?',
                 thumbnail: '@?',
-                columnWidth: '@?'
+                width: '@?'
             },
             compile: CompileHandler
         };
@@ -191,12 +192,22 @@
         function CompileHandler() {
             return {
                 pre: function preLink(scope, iElement, iAttrs, columnGroupController) {
+                    var header = scope.header;
+                    var field = scope.field;
+                    var sortable = scope.sortable != undefined ? scope.sortable : true;
+                    var thumbnail = scope.thumbnail != undefined ? scope.thumbnail : false;
+                    var width = scope.width != undefined ? scope.width : '';
+
+                    if ( width.indexOf('%') < 0 && width.length > 0) {
+                        width = width+"px";
+                    }
+
                     columnGroupController.setColumn({
-                        header: scope.header,
-                        field: scope.field,
-                        sortable: scope.sortable != undefined ? scope.sortable : true,
-                        thumbnail: scope.thumbnail != undefined ? scope.thumbnail : false,
-                        columnWidth: scope.columnWidth != undefined ? scope.columnWidth : 'auto'
+                        header: header,
+                        field: field,
+                        sortable: sortable,
+                        thumbnail: thumbnail,
+                        width: width
                     })
                 },
                 post: function postLink(scope, iElement, iAttrs, columnGroupController) {
