@@ -53,6 +53,7 @@
             // Tratamento inicial de atributos e variáveis.
             $scope.checkBoxControl = [];
             $scope.selectedItens = [];
+            $scope.showLoadingCircle = true;
             $scope.multiSelection = $scope.multiSelection != undefined ? $scope.multiSelection : false;
             $scope.onItemClick = $scope.onItemClick != undefined ? $scope.onItemClick : function(element){};
             $scope.onSelectionChange = $scope.onSelectionChange != undefined ? $scope.onSelectionChange : function(elements){};
@@ -81,11 +82,16 @@
                     var y = yOffset + window.innerHeight;
 
                     if (y >= contentHeight) {
-                        $scope.onScrollEnd( { page: $scope.content ? $scope.content.length : 0} );
+                        $scope.onScrollEnd( { size: $scope.content ? $scope.content.length : 0} );
+                        $scope.showLoadingCircle = true;
                         $scope.$apply();
                     }
                 });
-            }
+            };
+
+            $scope.$watch('content', function(){
+                $scope.showLoadingCircle = false;
+            })
 
             // Ordena o conteúdo a partir do o campo e a ordem(reversa ou não)
             $scope.order = function (predicate, reverse) {

@@ -68,10 +68,9 @@ angular.module('eits.controls.table.sample', [
         };
 
         // Evento disparado ao atingir o fundo da table através do scroll
-        $scope.sendMoreData = function (page) {
+        $scope.sendMoreData = function (size) {
 
-            $log.log(page);
-            $http.get('http://echo.jsontest.com/id/8/name/Henrique'+page+'/description/Cara_legal/last_modified/June')
+            $http.get('http://echo.jsontest.com/id/8/name/Henrique'+size+'/description/Cara_legal/last_modified/June')
                 .success(function (data, status, headers, config) {
                 	var size = 20;
                 	var result = new Array();
