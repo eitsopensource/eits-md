@@ -1,0 +1,33 @@
+/***********************************************************/
+ /** As cores devem seguir o padrão do material design conforme*/
+ /** o número das paletas. Segue o link de exemplo:*/
+ /***/
+ /** http://www.google.com/design/spec/style/color.html#*/
+ /***/
+ /***********************************************************/
+
+/*.date-picker-current-day-of-week {*/
+    /*background-color: #0288D1;  *//* Número da paleta {700} */
+/*}*/
+
+/*.date-picker-day-is-today a {*/
+    /*color	: #0288D1;          *//* Número da paleta {700} */
+/*}*/
+
+/*.date-picker-year:hover span {*/
+    /*color	: #0288D1;          *//* Número da paleta {700} */
+/*}*/
+
+/*.date-picker-current-date {*/
+    /*background-color: #03A9F4;  *//* Número da paleta {500} */
+/*}*/
+
+/*.date-picker-day a:hover, .date-picker-day-is-selected a {*/
+    /*background-color: #03A9F4;  *//* Número da paleta {500} */
+    /*color			: #FFFFFF;*/
+/*}*/
+
+/*.date-picker-year-is-active span {*/
+    /*background-color: #03A9F4;  *//* Número da paleta {500} */
+    /*color			: #FFFFFF !important;*/
+/*}*/

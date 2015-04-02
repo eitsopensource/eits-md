@@ -1,0 +1,283 @@
+.date {
+    position	: relative; 
+}
+
+.date-filter {
+    position	    : fixed;
+    top			    : 0;
+    right		    : 0;
+    bottom		    : 0;
+    left		    : 0;
+    z-index		    : 999;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity		    : 0;
+    -webkit-transition-property	: opacity;
+    -moz-transition-property	: opacity;
+    transition-property			: opacity;
+    -webkit-transition-duration	: 0.6s;
+    -moz-transition-duration	: 0.6s;
+    transition-duration			: 0.6s;
+    -webkit-transition-timing-function	: cubic-bezier(0.23, 1, 0.32, 1);
+    -moz-transition-timing-function		: cubic-bezier(0.23, 1, 0.32, 1);
+    transition-timing-function			: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.date-filter-is-shown {
+    opacity	: 1; 
+}
+
+.date-input, .date-input input {
+    cursor	: pointer !important; 
+}
+
+.date-picker {
+    display		: none;
+    position	: fixed;
+    top			: 32px;
+    left		: 50%;
+    z-index		: 1000;
+    width		: 280px;
+    margin-left	: -140px;
+    background-color	: #FFFFFF;
+    opacity				: 0;
+    box-shadow			: 0 9px 18px rgba(0, 0, 0, 0.5);
+    -webkit-transform	: translateY(-50px);
+    -moz-transform		: translateY(-50px);
+    -ms-transform		: translateY(-50px);
+    -o-transform		: translateY(-50px);
+    transform			: translateY(-50px);
+    -webkit-transition-property	: opacity, -webkit-transform;
+    -moz-transition-property	: opacity, -moz-transform;
+    transition-property			: opacity, transform;
+    -webkit-transition-duration	: 0.6s;
+    -moz-transition-duration	: 0.6s;
+    transition-duration			: 0.6s;
+    -webkit-transition-timing-function	: cubic-bezier(0.23, 1, 0.32, 1);
+    -moz-transition-timing-function		: cubic-bezier(0.23, 1, 0.32, 1);
+    transition-timing-function			: cubic-bezier(0.23, 1, 0.32, 1); 
+}
+
+.date-picker-is-shown {
+    opacity				: 1;
+    -webkit-transform	: translateY(0);
+    -moz-transform		: translateY(0);
+    -ms-transform		: translateY(0);
+    -o-transform		: translateY(0);
+    transform			: translateY(0); 
+}
+
+.date-picker-current-day-of-week span {
+    display			: block;
+    font-size		: 14px;
+    font-size		: 0.875rem;
+    color			: #FFFFFF;
+    line-height		: 32px;
+    text-align		: center;
+    text-transform	: capitalize; 
+}
+
+.date-picker-current-date {
+    padding		: 8px 0;
+}
+
+.date-picker-current-date span, .date-picker-current-date strong, .date-picker-current-date a {
+    display		: block;
+    font-weight	: 400;
+    text-align	: center; 
+}
+
+.date-picker-current-date span,
+.date-picker-current-date a {
+    font-size	: 24px;
+    font-size	: 1.5rem;
+    line-height	: 32px; 
+}
+
+.date-picker-current-date span {
+    text-transform	: uppercase; 
+}
+
+.date-picker-current-date strong {
+    font-size	: 60px;
+    font-size	: 3.75rem;
+    line-height	: 1; 
+}
+
+.date-picker-current-date a {
+    cursor		: pointer;
+    font-style	: normal; 
+}
+
+.date-picker-nav {
+    position	: relative; 
+}
+
+.date-picker-nav span {
+    display			: block;
+    font-size		: 14px;
+    font-size		: 0.875rem;
+    font-weight		: 500;
+    line-height		: 40px;
+    text-align		: center;
+    text-transform	: capitalize; 
+}
+
+.date-picker-nav button {
+    position: absolute !important;
+    top		: 8px; 
+}
+
+.date-picker-nav button:first-child {
+    left	: 16px; 
+}
+
+.date-picker-nav button:last-child {
+    right	: 16px; 
+}
+
+.date-picker-days-of-week {
+    padding	: 0 16px; 
+}
+
+.date-picker-days-of-week span {
+    display			: inline-block;
+    vertical-align	: top;
+    width			: 14.28571%;
+    font-size		: 12px;
+    font-size		: 0.75rem;
+    font-weight		: 400;
+    color			: rgba(0, 0, 0, 0.54);
+    line-height		: 24px;
+    text-align		: center;
+    text-transform	: uppercase; 
+}
+
+.date-picker-days {
+    padding	: 0 16px; 
+}
+
+.date-picker-day {
+    display			: inline-block;
+    vertical-align	: top;
+    width			: 14.08571%;
+    padding			: 4px 0; 
+}
+
+.date-picker-day-is-empty {
+    width: 13.9%;
+}
+
+.date-picker-day a {
+    display			: block;
+    height			: 32px;
+    width			: 32px;
+    margin			: 0 auto;
+    border-radius	: 50%;
+    font-size		: 12px;
+    font-size		: 0.75rem;
+    font-weight		: 400;
+    line-height		: 32px;
+    text-align		: center; 
+}
+
+.date-picker-day-is-today a {
+    font-weight	: 500;
+}
+
+.date-picker-day a:hover, .date-picker-day-is-selected a {
+    cursor	: pointer;
+}
+
+.date-picker-year-selector {
+    position	: relative;
+    overflow-x	: hidden;
+    overflow-y	: auto;
+    -webkit-overflow-scrolling: touch; 
+}
+
+.date-picker-year {
+    display	: block;
+    cursor	: pointer; 
+}
+
+.date-picker-year span {
+    display			: block;
+    height			: 65px;
+    width			: 65px;
+    margin			: 0 auto;
+    border-radius	: 50%;
+    font-size		: 16px;
+    font-size		: 1rem;
+    line-height		: 65px;
+    text-align		: center; 
+}
+
+.date-picker-actions {
+    padding		: 8px;
+    border-top	: 1px solid rgba(0, 0, 0, 0.12);
+    text-align	: center; 
+}
+
+/***** Estido do botão *****/
+
+.btn {
+    z-index			: 2;
+    display			: inline-block;
+    vertical-align	: top;
+    margin			: 0;
+    padding			: 0;
+    border			: none;
+    border-radius	: 2px;
+    background-color: transparent;
+    font-weight		: 400;
+    text-align		: center;
+    text-transform	: uppercase;
+    cursor			: pointer; 
+}
+
+.btn, .btn:hover, .btn:active, .btn:focus {
+    text-decoration	: none;
+    outline			: none; 
+}
+
+.btn::-moz-focus-inner {
+    border	: 0;
+    padding	: 0; 
+}
+
+.btn .ripple {
+    z-index	: -1; 
+}
+
+.btn-xs {
+    padding-left	: 10px;
+    padding-right	: 10px;
+    font-size		: 11px;
+    font-size		: 0.6875rem;
+    line-height		: 24px; 
+}
+
+.btn-m {
+    padding-left	: 14px;
+    padding-right	: 14px;
+    font-size		: 13px;
+    font-size		: 0.8125rem;
+    line-height		: 36px; 
+}
+
+/***** Estido da cor de texto *****/
+.tc-white {
+    color	: #FFFFFF !important;
+}
+
+.tc-white-1 {
+    color	: #FFFFFF !important;
+}
+
+.tc-white-2 {
+    color	: rgba(255, 255, 255, 0.7) !important;
+}
+
+.tc-white-3 {
+    color	: rgba(255, 255, 255, 0.3) !important;
+}

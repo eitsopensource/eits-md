@@ -20,7 +20,7 @@
         maxTags     : 50,
         minLength   : 3,
         maxLength   : 144
-    }
+    };
 
     /**
      *
@@ -46,7 +46,7 @@
                 maxLength   : '@',
                 maxTags     : '@',
                 tags        : '=',
-                changeTag   : '&'
+                changeTag   : '='
             },
             compile: CompileHandler,
             templateUrl: Template,
@@ -113,7 +113,7 @@
 
 
                             //Retorna a lista de tags para uma função criada no escopo da controller na interface
-                            scope.changeTag( {tags : self.items} );
+                            scope.changeTag( self.items );
 
                             //Retorna a lista de tags para o escopo na interface
                             scope.tags = self.items;

@@ -1,0 +1,71 @@
+<div class="date">
+
+    <!-- Date picker input -->
+    <md-input-container class="date-input"flex ng-click="openPicker()">
+        <label>{{ label }}</label>
+        <input type="text" ng-model="selected.model" ng-readonly="true">
+    </md-input-container>
+
+
+    <!-- Date picker -->
+    <div class="date-picker">
+        <!-- Current day of week -->
+        <div class="date-picker-current-day-of-week">
+            <span>{{ moment(selected.date).format('dddd') }}</span>
+        </div>
+
+        <!-- Current date -->
+        <div class="date-picker-current-date">
+            <span ng-class="{ 'tc-white-1': !yearSelection, 'tc-white-3': yearSelection }">{{ moment(selected.date).format('MMM') }}</span>
+            <strong ng-class="{ 'tc-white-1': !yearSelection, 'tc-white-3': yearSelection }">{{ moment(selected.date).format('DD') }}</strong>
+            <a ng-class="{ 'tc-white-3': !yearSelection, 'tc-white-1': yearSelection }" ng-click="displayYearSelection()">{{ moment(selected.date).format('YYYY') }}</a>
+        </div>
+
+        <!-- Calendar -->
+        <div class="date-picker-calendar" ng-if="!yearSelection">
+            <div class="date-picker-nav">
+                <md-button class="btn btn-xs md-primary" lx-ripple ng-click="previousMonth()">
+                    <i class="md md-icon-chevron-left"></i>
+                </md-button>
+
+                <span>{{ activeDate.format('MMMM YYYY') }}</span>
+
+                <md-button class="btn btn-xs md-primary" ng-click="nextMonth()">
+                    <i class="md md-icon-chevron-right"></i>
+                </md-button>
+            </div>
+
+            <div class="date-picker-days-of-week">
+                <span ng-repeat="day in daysOfWeek">{{ day }}</span>
+            </div>
+
+            <div class="date-picker-days">
+                <span class="date-picker-day date-picker-day-is-empty" ng-repeat="x in emptyFirstDays">&nbsp;</span>
+
+                <div class="date-picker-day"
+                     ng-class="{ 'date-picker-day-is-selected': day.selected, 'date-picker-day-is-today': day.today }"
+                     ng-repeat="day in days">
+                    <a ng-mouseover="hoverDay(this)" ng-mouseleave="leaveDay()" ng-click="select(day)">{{ day ? day.format('D') : '' }}</a>
+                </div>
+
+                <span class="date-picker-day date-picker-day-is-empty" ng-repeat="x in emptyLastDays">&nbsp;</span>
+            </div>
+        </div>
+
+        <!-- Year selection -->
+        <div class="date-picker-year-selector" ng-show="yearSelection">
+            <a class="date-picker-year"
+               ng-class="{ 'date-picker-year-is-active': year == activeDate.format('YYYY') }"
+               ng-repeat="year in years"
+               ng-click="selectYear(year)"
+               ng-if="yearSelection">
+                <span ng-mouseover="hoverYear()" ng-mouseleave="leaveYear()">{{ year }}</span>
+            </a>
+        </div>
+
+        <!-- Actions -->
+        <div class="date-picker-actions">
+            <md-button class="btn btn-m md-primary" ng-click="closePicker()">Ok</md-button>
+        </div>
+    </div>
+</div>

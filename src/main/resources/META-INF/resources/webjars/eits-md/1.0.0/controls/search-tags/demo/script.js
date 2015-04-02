@@ -1,6 +1,5 @@
 angular.module('eits.create.search.tags', [
 	'ngMaterial',
-
     'eits.search.tags',
     'eits-material-core',
     'eits.containers.box'
