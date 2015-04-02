@@ -1,5 +1,6 @@
 <div ng-transclude></div>
 <div id="md-table-template">
+	<table id="header-fixed"></table>
 	<table class="eits-table" ng-class="customClass">
 
 		<thead>
@@ -27,13 +28,19 @@
 
 		<tbody>
 			<tr ng-repeat="c in content" class="eits-table-content-row">
+
 				<td class="eits-table-selection-item" ng-if="multiSelection == true">
 					<div>
                     	<md-checkbox md-no-ink aria-label="Checkbox No Ink" class="md-primary" ng-change="selectItem(c, !checkBoxControl[c.$$hashKey])" ng-model="checkBoxControl[c.$$hashKey]"></md-checkbox>
                 	</div>
 				</td>
 
-				<td ng-repeat="h in columns" ng-style="{'width': h.width}" ng-class="customClass[h.field]" ng-click="onItemClick({item: c})" class="eits-table-content">{{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}</td>
+				<td ng-repeat="h in columns" ng-style="{'width': h.columnWidth}" ng-click="onItemClick({item: c})" class="eits-table-content">
+					<span ng-if="h.thumbnail == false">{{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}</span>
+					<div class="eits-table-thumbs" ng-if="h.thumbnail != false">
+						<div style="background-image:url({{c[h.thumbnail]}})"></div>
+					</div>
+				</td>
 			</tr>
 		</tbody>
 

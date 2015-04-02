@@ -29,7 +29,6 @@
     function TableDirective($CONFIG) {
         return {
             restrict: 'E',
-            terminal: true,
             transclude: true,
             scope: {
                 content: '=',
@@ -40,6 +39,10 @@
             },
             controller: Controller,
             templateUrl: Template
+            //link: function(scope, element){
+            //    console.log(element);
+            //    angular.element('thead')
+            //}
         }
 
         /**
@@ -132,7 +135,6 @@
         return {
             restrict : 'E',
             scope: true,
-            priority: 2,
             require: '^eitsTable',
             compile : LinkHandler,
             controller: Controller
@@ -143,10 +145,10 @@
          */
         function LinkHandler() {
             return {
-                pre: function ( scope, element, attrs, eitsTableCtrl ) {
+                pre: function ( scope, element, attrs, eitsTableController ) {
                 },
-                post: function ( scope, element, attrs, eitsTableCtrl ) {
-                    eitsTableCtrl.setColumns(scope.columns);
+                post: function ( scope, element, attrs, eitsTableController ) {
+                    eitsTableController.setColumns(scope.columns);
                 }
             }
         }
@@ -173,11 +175,12 @@
         return {
             restrict : 'E',
             require: '^columns',
-            priority: 3,
             scope: {
                 header: '@',
                 field: '@',
-                sortable: '=?'
+                sortable: '=?',
+                thumbnail: '@?',
+                columnWidth: '@?'
             },
             compile: CompileHandler
         };
@@ -187,14 +190,16 @@
          */
         function CompileHandler() {
             return {
-                pre: function preLink(scope, iElement, iAttrs, columnGroupCtrl) {
-                    columnGroupCtrl.setColumn({
+                pre: function preLink(scope, iElement, iAttrs, columnGroupController) {
+                    columnGroupController.setColumn({
                         header: scope.header,
                         field: scope.field,
-                        sortable: scope.sortable != undefined ? scope.sortable : true
+                        sortable: scope.sortable != undefined ? scope.sortable : true,
+                        thumbnail: scope.thumbnail != undefined ? scope.thumbnail : false,
+                        columnWidth: scope.columnWidth != undefined ? scope.columnWidth : 'auto'
                     })
                 },
-                post: function postLink(scope, iElement, iAttrs, columnGroupCtrl) {
+                post: function postLink(scope, iElement, iAttrs, columnGroupController) {
                 }
             };
         }
@@ -209,7 +214,6 @@
         return {
             restrict : 'E',
             scope: true,
-            priority: 4,
             require: '^eitsTable',
             compile : LinkHandler,
             controller: Controller
@@ -220,11 +224,11 @@
          */
         function LinkHandler() {
             return {
-                pre: function ( scope, element, attrs, eitsTableCtrl ) {
+                pre: function ( scope, element, attrs, eitsTableController ) {
                 },
-                post: function ( scope, element, attrs, eitsTableCtrl ) {
+                post: function ( scope, element, attrs, eitsTableController ) {
                     if (scope.pagerType == 'infinite-scroll') {
-                        eitsTableCtrl.configPagerTypeInfiniteScroll(scope.scrollEndFn);
+                        eitsTableController.configPagerTypeInfiniteScroll(scope.scrollEndFn);
                     }
                 }
             }
@@ -255,7 +259,6 @@
         return {
             restrict : 'E',
             require: '^pager',
-            priority: 5,
             scope: {
                 onScrollEnd: '&?'
             },
@@ -267,10 +270,10 @@
          */
         function CompileHandler() {
             return {
-                pre: function preLink(scope, iElement, iAttrs, pagerCtrl) {
-                    pagerCtrl.setPagerTypeInfiniteScrollPager(scope.onScrollEnd);
+                pre: function preLink(scope, iElement, iAttrs, pagerController) {
+                    pagerController.setPagerTypeInfiniteScrollPager(scope.onScrollEnd);
                 },
-                post: function postLink(scope, iElement, iAttrs, pagerCtrl) {
+                post: function postLink(scope, iElement, iAttrs, pagerController) {
                 }
             };
         }
@@ -285,7 +288,6 @@
         return {
             restrict : 'E',
             require: '^pager',
-            priority: 5,
             scope: true,
             compile: CompileHandler
         };
@@ -295,10 +297,10 @@
          */
         function CompileHandler() {
             return {
-                pre: function preLink(scope, iElement, iAttrs, pagerCtrl) {
-                    pagerCtrl.setPagerTypeNumberScrollPager();
+                pre: function preLink(scope, iElement, iAttrs, pagerController) {
+                    pagerController.setPagerTypeNumberScrollPager();
                 },
-                post: function postLink(scope, iElement, iAttrs, pagerCtrl) {
+                post: function postLink(scope, iElement, iAttrs, pagerController) {
                 }
             };
         }
