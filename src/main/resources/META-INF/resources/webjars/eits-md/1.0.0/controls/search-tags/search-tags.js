@@ -46,7 +46,8 @@
                 maxLength   : '@',
                 maxTags     : '@',
                 tags        : '=',
-                changeTag   : '='
+                changeTag   : '=',
+                tagsString  : '='
             },
             compile: CompileHandler,
             templateUrl: Template,
@@ -112,11 +113,14 @@
                         changeTag = function () {
 
 
-                            //Retorna a lista de tags para uma função criada no escopo da controller na interface
+                            //Retorna um array de tags para uma função criada no escopo da controller na interface
                             scope.changeTag( self.items );
 
-                            //Retorna a lista de tags para o escopo na interface
+                            //Retorna um array de tags para o escopo na interface
                             scope.tags = self.items;
+
+                            //Retorna uma string de tags separadas por virgula
+                            scope.tagsString = self.items.toString();
                         };
 
                         self.items = [];

@@ -9,4 +9,6 @@ angular.module('eits.create.search.tags', [
     $scope.list = function( listTags ){
         console.log(listTags);
     };
+
+
 });
