@@ -13,7 +13,9 @@
         .directive('tableColumn', TableColumnDirective)
         .directive('pager', PagerDirective)
         .directive('infinityScrollPager', InfiniteScrollPagerDirective)
-        .directive('numberPager', NumberPagerDirective);
+        .directive('numberPager', NumberPagerDirective)
+        .directive('filter', FilterDirective)
+        .directive('sideFilter', SideFilterDirective);
 
     /**
      * @ngdoc directive
@@ -35,43 +37,85 @@
                 multiSelection: '=?',
                 onSelectionChange: '&?',
                 onItemClick: '&?',
-                resetSelection: '&?'
+                filterFlag: '=?'
             },
+            compile: CompileHandler,
             controller: Controller,
             templateUrl: Template
-            //link: function(scope, element){
-            //    console.log(element);
-            //    angular.element('thead')
-            //}
         }
 
         /**
          *
          */
-        function Controller($scope, $filter, $window) {
+        function CompileHandler() {
+            return {
+                pre: function preLink(scope, iElement) {
+                    iElement[0].clearSelection = function() {
+                        scope.clearSelection();
+                    }
+                },
+                post: function postLink() {
+                }
+            };
+        }
+
+        /**
+         *
+         */
+        function Controller($scope, $filter, $window, $templateCache) {
 
             // Tratamento inicial de atributos e variáveis.
             $scope.checkBoxControl = [];
             $scope.selectedItens = [];
             $scope.showLoadingCircle = true;
             $scope.multiSelection = $scope.multiSelection != undefined ? $scope.multiSelection : false;
-            $scope.onItemClick = $scope.onItemClick != undefined ? $scope.onItemClick : function(element){};
-            $scope.onSelectionChange = $scope.onSelectionChange != undefined ? $scope.onSelectionChange : function(elements){};
+            $scope.onItemClick = $scope.onItemClick != undefined ? $scope.onItemClick : function (element) {
+            };
+            $scope.onSelectionChange = $scope.onSelectionChange != undefined ? $scope.onSelectionChange : function (elements) {
+            };
+
+            $scope.sidebarFlag = false;
+            $scope.sidebarTitle = "Filtros";
 
             // Instância de uma função de filtro
             var orderBy = $filter('orderBy');
 
             // Setter do atributo de colunas.
-            this.setColumns = function(columns) {
+            this.setColumns = function (columns) {
+                for (var i = 0; i < columns.length; i++) {
+                    if (columns[i].contentToRender != null) {
+                        columns[i].columnId = i.toString();
+
+                        $templateCache.put(columns[i].columnId, columns[i].contentToRender.html());
+                    }
+                }
+
                 $scope.columns = columns;
+
+            }
+
+            //
+            this.setFitlerCloseEvent = function (closeEvent) {
+                $scope.sidebarCloseEvent = closeEvent;
+            }
+
+            //
+            this.setFilterFlagEvents = function (filterFlagHandler, filterFlagStatusHandler) {
+                $scope.filterFlagHandler = filterFlagHandler;
+                $scope.filterFlagStatusHandler = filterFlagStatusHandler;
+            }
+
+            //
+            this.setSidebarTitle = function (title) {
+                $scope.sidebarTitle = title;
             }
 
             // Método que define a paginação por scroll.
-            this.configPagerTypeInfiniteScroll = function(scrollEndFn) {
+            this.configPagerTypeInfiniteScroll = function (scrollEndFn) {
 
                 $scope.onScrollEnd = scrollEndFn;
-            	$scope.pagerType = "scroll";
-            	
+                $scope.pagerType = "scroll";
+
                 // Método assíncrono que é ativado ao atingir o fundo da grid através do evento de scroll do mouse.
                 // Ele faz uma requisição ao para a aplicação passando o número da próxima página do conteúdo.
                 angular.element($window).bind("scroll", function () {
@@ -81,17 +125,47 @@
                     var yOffset = window.pageYOffset;
                     var y = yOffset + window.innerHeight;
 
-                    if (y >= contentHeight) {
-                        $scope.onScrollEnd( { size: $scope.content ? $scope.content.length : 0} );
+                    if (y >= contentHeight && !$scope.showLoadingCircle) {
+                        $scope.onScrollEnd({size: $scope.content ? $scope.content.length : 0});
                         $scope.showLoadingCircle = true;
                         $scope.$apply();
                     }
                 });
             };
 
-            $scope.$watch('content', function(){
+            //
+            this.getSidebarElement = function () {
+                var sidebarTemplate = angular.element("eits-table-sidebar-content");
+                return sidebarTemplate;
+            }
+
+            //
+            this.enableSidebar = function () {
+                $scope.sidebarFlag = true;
+            }
+
+            //
+            this.disableSidebar = function () {
+                $scope.sidebarFlag = false;
+            }
+
+            $scope.showSideBar = false;
+
+            //
+            $scope.toggleSidebar = function () {
+                $scope.showSideBar = !$scope.showSideBar;
+
+                if (!$scope.showSideBar) {
+                    $scope.sidebarCloseEvent();
+                }
+
+                $scope.filterFlagStatusHandler($scope.showSideBar);
+            }
+
+            //
+            $scope.$watch('content', function () {
                 $scope.showLoadingCircle = false;
-            })
+            });
 
             // Ordena o conteúdo a partir do o campo e a ordem(reversa ou não)
             $scope.order = function (predicate, reverse) {
@@ -113,14 +187,14 @@
                 }
 
                 // Manda o array de itens selecionados para a aplicação.
-                $scope.onSelectionChange({ selectedItens: $scope.selectedItens});
+                $scope.onSelectionChange({selectedItens: $scope.selectedItens});
             }
 
             // Método que limpa a seleção de registros marcados.
-            $scope.resetSelection = function () {
-                $scope.selectedItens.splice(0, $scope.selectedItens.length);
-                $scope.checkBoxControl.splice(0, $scope.checkBoxControl.length);
-                $scope.onSelectionChange([]);
+            $scope.clearSelection = function () {
+                $scope.selectedItens = [];
+                $scope.checkBoxControl = [];
+                $scope.onSelectionChange({selectedItens: []});
             }
         }
 
@@ -139,10 +213,10 @@
      */
     function ColumnDirective() {
         return {
-            restrict : 'E',
+            restrict: 'E',
             scope: true,
             require: '^eitsTable',
-            compile : LinkHandler,
+            compile: LinkHandler,
             controller: Controller
         };
 
@@ -151,9 +225,9 @@
          */
         function LinkHandler() {
             return {
-                pre: function ( scope, element, attrs, eitsTableController ) {
+                pre: function (scope, element, attrs, eitsTableController) {
                 },
-                post: function ( scope, element, attrs, eitsTableController ) {
+                post: function (scope, element, attrs, eitsTableController) {
                     eitsTableController.setColumns(scope.columns);
                 }
             }
@@ -162,9 +236,9 @@
         /**
          *
          */
-        function Controller($scope){
+        function Controller($scope) {
             $scope.columns = [];
-            this.setColumn = function(column){
+            this.setColumn = function (column) {
                 $scope.columns.push(column);
             }
         }
@@ -179,14 +253,12 @@
      */
     function TableColumnDirective() {
         return {
-            restrict : 'E',
+            restrict: 'E',
             require: '^columns',
-            priority: 1,
             scope: {
                 header: '@',
                 field: '@',
                 sortable: '=?',
-                thumbnail: '@?',
                 width: '@?'
             },
             compile: CompileHandler
@@ -201,19 +273,24 @@
                     var header = scope.header;
                     var field = scope.field;
                     var sortable = scope.sortable != undefined ? scope.sortable : true;
-                    var thumbnail = scope.thumbnail != undefined ? scope.thumbnail : false;
                     var width = scope.width != undefined ? scope.width : '';
 
-                    if ( width.indexOf('%') < 0 && width.length > 0) {
-                        width = width+"px";
+                    var contentToRender = null;
+
+                    if (iElement.children() != null && iElement.children()[0] != undefined) {
+                        contentToRender = iElement.children()[0].localName == "column-template" ? iElement.children() : null;
+                    }
+
+                    if (width.indexOf('%') < 0 && width.length > 0) {
+                        width = width + "px";
                     }
 
                     columnGroupController.setColumn({
                         header: header,
                         field: field,
                         sortable: sortable,
-                        thumbnail: thumbnail,
-                        width: width
+                        width: width,
+                        contentToRender: contentToRender
                     })
                 },
                 post: function postLink(scope, iElement, iAttrs, columnGroupController) {
@@ -229,10 +306,10 @@
      */
     function PagerDirective() {
         return {
-            restrict : 'E',
+            restrict: 'E',
             scope: true,
             require: '^eitsTable',
-            compile : LinkHandler,
+            compile: LinkHandler,
             controller: Controller
         };
 
@@ -241,9 +318,9 @@
          */
         function LinkHandler() {
             return {
-                pre: function ( scope, element, attrs, eitsTableController ) {
+                pre: function (scope, element, attrs, eitsTableController) {
                 },
-                post: function ( scope, element, attrs, eitsTableController ) {
+                post: function (scope, element, attrs, eitsTableController) {
                     if (scope.pagerType == 'infinite-scroll') {
                         eitsTableController.configPagerTypeInfiniteScroll(scope.scrollEndFn);
                     }
@@ -254,17 +331,16 @@
         /**
          *
          */
-        function Controller($scope){
+        function Controller($scope) {
             $scope.pagerType = 'number';
-            $scope.scrollEndFn = function(){};
+            $scope.scrollEndFn = function () {
+            };
 
-            this.setPagerTypeInfiniteScrollPager = function(scrollEndFn){
+            this.setPagerTypeInfiniteScrollPager = function (scrollEndFn) {
                 $scope.pagerType = 'infinite-scroll';
                 $scope.scrollEndFn = scrollEndFn;
             }
         }
-
-
     }
 
     /**
@@ -274,7 +350,7 @@
      */
     function InfiniteScrollPagerDirective() {
         return {
-            restrict : 'E',
+            restrict: 'E',
             require: '^pager',
             scope: {
                 onScrollEnd: '&?'
@@ -303,7 +379,7 @@
      */
     function NumberPagerDirective() {
         return {
-            restrict : 'E',
+            restrict: 'E',
             require: '^pager',
             scope: true,
             compile: CompileHandler
@@ -318,6 +394,96 @@
                     pagerController.setPagerTypeNumberScrollPager();
                 },
                 post: function postLink(scope, iElement, iAttrs, pagerController) {
+                }
+            };
+        }
+    }
+
+    /**
+     * @ngdoc directive
+     *
+     * @usage
+     */
+    function FilterDirective() {
+        return {
+            restrict: 'E',
+            require: '^eitsTable',
+            controller: Controller
+        };
+
+        /**
+         *
+         */
+        function Controller() {
+        }
+    }
+
+    /**
+     * @ngdoc directive
+     *
+     * @usage
+     */
+    function SideFilterDirective() {
+        return {
+            restrict: 'E',
+            require: ['^eitsTable', '^filter'],
+            scope: {
+                onClose: '&?',
+                title: '@',
+                onFilter: '&?',
+                opened: '=?',
+                enabled: '=?'
+            },
+            compile: CompileHandler
+        };
+
+        /**
+         *
+         */
+        function CompileHandler() {
+            return {
+                pre: function preLink(scope, iElement, iAttrs) {
+                },
+                post: function postLink(scope, iElement, iAttrs, controllers) {
+
+                    controllers[0].enableSidebar();
+
+                    if (scope.enabled != undefined) {
+
+                        var filterFlagHandler = function (value) {
+                            scope.enabled = value;
+                        }
+
+                        var filterFlagStatusHandler = function (value) {
+                            scope.opened = value;
+                        }
+
+                        controllers[0].setFilterFlagEvents(filterFlagHandler, filterFlagStatusHandler);
+                    }
+
+                    var onCloseEvent = scope.onClose != undefined ? scope.onClose : function () {
+                    };
+
+                    controllers[0].setFitlerCloseEvent(onCloseEvent);
+
+                    controllers[0].setSidebarTitle(scope.title);
+
+                    var template = controllers[0].getSidebarElement();
+
+                    var childrenElements = iElement.children();
+                    for (var i = 0; i < childrenElements.length; i++) {
+
+                        var filterHtml = childrenElements[i];
+
+                        angular.element(filterHtml).addClass('filter-field');
+
+                        if (filterHtml.getAttribute("label")) {
+                            var labelString = '<p class="filter-label">' + filterHtml.getAttribute("label") + '</p>';
+                            angular.element(filterHtml).prepend(labelString);
+                        }
+
+                        template.append(filterHtml);
+                    }
                 }
             };
         }

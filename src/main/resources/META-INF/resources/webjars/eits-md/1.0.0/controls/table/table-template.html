@@ -1,5 +1,6 @@
-<div ng-transclude></div>
-<div id="md-table-template">
+<div ng-transclude style="display:none;"></div>
+<div id="eits-table-template">
+
 	<table class="eits-table" ng-class="customClass">
 
 		<thead>
@@ -22,27 +23,30 @@
 				</th>
 
 			</tr>
+			
+			<md-button style="  position: absolute; right: 18px; top: 17px;" ng-if="sidebarFlag" ng-click="toggleSidebar()" aria-label="Filtros">
+				<md-icon class="md-icon-filter-list md-icon-lg" style="height: 15px;"></md-icon>
+			</md-button>
+			
 		</thead>
 
 		<tbody>
-			<tr ng-repeat="c in content" class="eits-table-content-row">
+			<tr ng-repeat="row in content" class="eits-table-content-row">
 
 				<td class="eits-table-selection-item" ng-if="multiSelection == true">
 					<div>
-                    	<md-checkbox md-no-ink aria-label="Checkbox No Ink" class="md-primary" ng-change="selectItem(c, !checkBoxControl[c.$$hashKey])" ng-model="checkBoxControl[c.$$hashKey]"></md-checkbox>
+                    	<md-checkbox md-no-ink aria-label="Checkbox No Ink" class="md-primary" ng-change="selectItem(row, !checkBoxControl[row.$$hashKey])" ng-model="checkBoxControl[row.$$hashKey]"></md-checkbox>
                 	</div>
 				</td>
 
-				<td ng-repeat="h in columns" ng-style="{'width': h.width}" ng-click="onItemClick({item: c})" class="eits-table-content">
+				<td ng-repeat="h in columns" ng-style="{'width': h.width}" ng-click="onItemClick({item: row})" class="eits-table-content">
 
-					<span ng-if="h.thumbnail == false">
-						{{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}
+					<span ng-if="h.contentToRender == null">
+						{{(h.field.indexOf('date') > 0) ? $filter('date')(row[h.field]) : row[h.field];}}
 					</span>
 
-					<div class="eits-table-thumbs" ng-if="h.thumbnail != false">
-						<div style="background-image:url({{c[h.thumbnail]}})"></div>
+					<div class="eits-table-thumbs" ng-if="h.contentToRender != null" ng-include="h.columnId">
 					</div>
-
 				</td>
 
 			</tr>
@@ -52,8 +56,20 @@
 
 	<md-progress-circular ng-if="showLoadingCircle" style="margin:0 auto" class="md-primary" md-mode="indeterminate"></md-progress-circular>
 
-</div>
+    <eits-table-sidebar ng-show="sidebarFlag">
+        <md-sidenav style="height: 100%;" class="md-sidenav-right md-whiteframe-z2" md-is-locked-open="showSideBar" md-component-id="sideFilter">
+			
+			<div layout="row">
+				<h1 class="md-toolbar-tools filters-title">{{sidebarTitle}}</h1>
+				<md-switch class="md-primary filter-switch" ng-model="filterFlag" ng-change="filterFlagHandler(filterFlag)" md-no-ink aria-label="Habilitar filtros"></md-switch>
+			</div>
+			<md-button ng-click="toggleSidebar()" class="md-icon-button filters-close" aria-label="More">
+				<md-icon style="height: 15px;" class="md-icon-close md-icon-lg"></md-icon>
+			</md-button>
+			<md-divider></md-divider>
 
-</div>
+			<eits-table-sidebar-content class="md-padding" layout="column"></eits-table-sidebar-content>
+		</md-sidenav>
+    </eits-table-sidebar>
 
 </div>

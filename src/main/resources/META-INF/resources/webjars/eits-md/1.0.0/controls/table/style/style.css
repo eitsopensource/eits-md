@@ -1,3 +1,5 @@
+/* EITS TABLE */
+
 .eits-table a {
 	text-decoration: none;
 }
@@ -30,7 +32,7 @@
 }
 
 .eits-table {
-	min-width: 100%;
+	width: 100%;
 	border-collapse: collapse;
 }
 
@@ -145,4 +147,61 @@
 .eits-table md-checkbox {
 	width: 20px;
 	height: 32px;
+}
+
+/* FILTERS SIDEBAR */
+
+eits-table-sidebar {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	background-color: #f7f7f7;
+}
+
+eits-table-sidebar md-sidenav{
+	background-color: #f7f7f7;
+}
+
+eits-table-sidebar .filter-switch {
+/* 	position: absolute; */
+/* 	left: 59px; */
+/* 	top: 3px; */
+}
+
+eits-table-sidebar .filters-close {
+	position: absolute;
+	right: 27px;
+	top: 15px;
+}
+
+eits-table-sidebar-content {
+	float: left;
+	padding: 0 15px;
+	width: 100%;
+}
+
+eits-table-sidebar .md-toolbar-tools {
+	height: 60px;
+	width: auto;
+}
+
+eits-table-sidebar-content .filter-label {
+	margin: 0;
+	font-size: 12px;
+}
+
+eits-table-sidebar-content .filter-field {
+	margin: 10px auto;
+	display: inline-block;
+}
+
+eits-table-sidebar-content md-select {
+	margin: 0;
+}
+
+.eits-table-sidebar.ng-enter, .eits-table-sidebar.ng-leave {
+	-webkit-transition:0.5s linear all;
+	transition:0.5s linear all;
+	right: 0px;
 }
