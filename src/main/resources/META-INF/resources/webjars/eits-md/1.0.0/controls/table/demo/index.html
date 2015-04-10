@@ -8,8 +8,6 @@
 
 		<link rel="stylesheet" href="/webjars/angular-material/0.8.3/angular-material.css">
 		<link rel="stylesheet" href="../style/style.css">
-		<link rel="stylesheet" href="/webjars/eits-md/1.0.0/controls/search-tags/style/search-tags.css">
-		<link rel="stylesheet" href="/webjars/eits-md/1.0.0/controls/search-tags/style/tags.css">
 		<link rel="stylesheet" href="/webjars/eits/1.0.0/material-design-iconic-font/css/material-design-iconic-font.css">
 
 		<!-- JQuery -->
@@ -19,12 +17,11 @@
 		<script type="text/javascript" src="/webjars/angularjs/1.3.14/angular.js"></script>
 		<script type="text/javascript" src="/webjars/angularjs/1.3.14/angular-animate.min.js"></script>
 		<script type="text/javascript" src="/webjars/angularjs/1.3.14/angular-aria.min.js"></script>
-		<script type="text/javascript" src="/webjars/angular-material/0.8.3/angular-material.js"/></script>
+		<script type="text/javascript" src="/webjars/angular-material/0.8.3/angular-material.js"></script>
 		
 		<script type="text/javascript" src="/webjars/eits-md/1.0.0/eits-material-core.js"></script>
 		<script type="text/javascript" src="/webjars/eits-md/1.0.0/containers/box/box.js"></script>
 		<script type="text/javascript" src="/webjars/eits-md/1.0.0/controls/table/table.js"></script>
-		<script type="text/javascript" src="/webjars/eits-md/1.0.0/controls/search-tags/search-tags.js"></script>
 		<script type="text/javascript" src="table-demo.js"></script>
 	</head>
 	
@@ -36,7 +33,7 @@
 	        	<eits-box width="98%" height="60">
 
 		          	<div ng-hide="showSearch" class="md-toolbar-item md-breadcrumb">
-		          		<span ng-click="methodToResetSelection()">Eits Table</span>
+		          		<span ng-click="resetSelection()">Eits Table {{filter.tipoGraduacao}}</span>
 		          	</div>
 
 				</eits-box>
@@ -44,10 +41,20 @@
     	</md-toolbar>
 
 	    <md-content layout="column" flex="flex" ng-click="showSearch = false">
-	      	<eits-table content="content" multi-selection="true" on-selection-change="updateSelectedItens(selectedItens)" on-item-click="openDetail(item)" reset-selection="resetSelection()">
+
+	      	<eits-table id="eitsTable" content="content" multi-selection="true" on-selection-change="updateSelectedItens(selectedItens)" on-item-click="openDetail(item)">
 
 				<columns>
-					<table-column header="Foto" thumbnail="thumbnail" width="40">
+					<table-column header="Foto" width="40" sortable="false">
+						<column-template>
+							<div style="background-image:url({{row.thumbnail}})"></div>
+						</column-template>
+					</table-column>
+					<table-column header="Foto 2" width="40" sortable="false">
+						<column-template>
+							<div style="background-image:url({{row.outra}})"></div>
+						</column-template>
+					</table-column>
 					<table-column header="Nome" field="name" sortable="true" width="40%"/>
 					<table-column header="Descrição" field="description" sortable="false"/>
 					<table-column header="Modificado pela última vez" field="last_modified" sortable="false"/>
@@ -56,6 +63,32 @@
 				<pager>
 					<infinity-scroll-pager on-scroll-end="sendMoreData(size)"></infinity-scroll-pager>
 				</pager>
+
+				<filter>
+					<side-filter id="sideFilter" enabled="filter.enabled" opened="filter.opened"
+								 on-close="onCloseHandler()" title="Titulo filtro"
+								 on-filter="onFilterHandler(event, filter)">
+
+						<filter-container label="Tipo Graduação">
+							<md-select placeholder="Selecione um tipo de gradução" ng-model="filter.tipoCurso">
+								<md-option ng-value="tipoCurso.valor" ng-repeat="tipoCurso in tiposCursos">{{tipoCurso.nome}}</md-option>
+							</md-select>
+						</filter-container>
+
+						<filter-container label="Modalidade">
+							<md-select placeholder="Selecione um tipo de modalidade" ng-model="filter.modalidade">
+								<md-option ng-value="modalidade.valor" ng-repeat="modalidade in modalidades">{{modalidade.nome}}</md-option>
+							</md-select>
+						</filter-container>
+
+						<filter-container>
+							<md-input-container>
+								<label>Filtro teste</label>
+								<input type="text" ng-model="filter.opa">
+							</md-input-container>
+						</filter-container>
+					</side-filter>
+				</filter>
 			</eits-table>
 	    </md-content>
 		
