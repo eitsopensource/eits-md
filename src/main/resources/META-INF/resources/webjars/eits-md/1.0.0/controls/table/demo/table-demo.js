@@ -63,6 +63,24 @@ angular.module('eits.controls.table.sample', [
                 last_modified: 'Jun 5, 2014'
             }];
 
+        $scope.contentAlt = [
+            {
+                id: 1,
+                thumbnail: 'http://www.eits.com.br/images/eits-topo.png',
+                outra: 'http://static.ddmcdn.com/gif/earliest-dogs-660x433-130306-akita-660x433.jpg',
+                name: 'Bruno Mars',
+                description: 'Human',
+                last_modified: 'Jun 5, 2014'
+            },
+            {
+                id: 2,
+                thumbnail: 'http://www.eits.com.br/images/eits-topo.png',
+                outra: 'http://static.ddmcdn.com/gif/earliest-dogs-660x433-130306-akita-660x433.jpg',
+                name: 'AT-AT',
+                description: 'Robot',
+                last_modified: 'Jun 5, 2014'
+            }];
+
 
         // Evento disparado pela directiva ao selecionar ou deselecionar um item da table
         $scope.updateSelectedItens = function (selectedItens) {
@@ -82,7 +100,7 @@ angular.module('eits.controls.table.sample', [
         $scope.filter = {
             enabled: false,
             opa: "",
-            modalidade: ""
+            modalidade: "nado borboleta"
         };
 
         // Evento disparado ao atingir o fundo da table através do scroll
@@ -133,8 +151,13 @@ angular.module('eits.controls.table.sample', [
         ];
 
         // invoca o método da table que limpa a seleção atual de registros.
-        $scope.clearSelection = function(){
+        $scope.clearSelection = function () {
             eitsTable.clearSelection();
+        }
+
+        // evento disparado pelo filtro da table quando ocorre alteração no objeto de filtros
+        $scope.onFilterHandler = function (filters) {
+            $log.log("Filter Change Handler: ", filters);
         }
 
     });

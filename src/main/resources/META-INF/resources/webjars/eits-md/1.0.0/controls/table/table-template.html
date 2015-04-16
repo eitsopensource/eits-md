@@ -1,75 +1,84 @@
 <div ng-transclude style="display:none;"></div>
 <div id="eits-table-template">
 
-	<table class="eits-table" ng-class="customClass">
+    <table class="eits-table" ng-class="customClass" fixed-header>
 
-		<thead>
-			<tr class="eits-table-headers-row">
+        <thead>
+        <tr class="eits-table-headers-row">
 
-				<th class="eits-table-header" ng-if="multiSelection == true">
-					<a href="#">
-					</a>
-				</th>
+            <th class="eits-table-header" ng-if="multiSelection == true">
+                <a href="#">
+                </a>
+            </th>
 
-				<th ng-repeat="h in columns" class="eits-table-header">
-					<a href="#" ng-if="h.sortable" ng-click="reverse=!reverse;order(h.field,reverse)">
-						{{h.header}}
-						<i class="ion-android-arrow-dropup"></i>
-						<i class="ion-android-arrow-dropdown"></i>
-						<!--<i ng-show="reverse &amp;&amp; h.field == predicate" class="ion-android-arrow-dropup"></i>-->
-						<!--<i ng-show="!reverse &amp;&amp; h.field == predicate" class="ion-android-arrow-dropdown"></i>-->
-					</a>
-					<span ng-if="!h.sortable">{{h.header}}</span>
-				</th>
+            <th ng-repeat="h in columns" class="eits-table-header">
+                <a href="#" ng-if="h.sortable" ng-click="reverse=!reverse;order(h.field,reverse)">
+                    {{h.header}}
+                    <i class="ion-android-arrow-dropup"></i>
+                    <i class="ion-android-arrow-dropdown"></i>
+                </a>
+                <span ng-if="!h.sortable">{{h.header}}</span>
+            </th>
+        </tr>
 
-			</tr>
-			
-			<md-button style="  position: absolute; right: 18px; top: 17px;" ng-if="sidebarFlag" ng-click="toggleSidebar()" aria-label="Filtros">
-				<md-icon class="md-icon-filter-list md-icon-lg" style="height: 15px;"></md-icon>
-			</md-button>
-			
-		</thead>
+        <md-button style="position: absolute; right: 18px; top: 17px;" ng-if="sidebarFlag" ng-click="toggleSidebar()"
+                   aria-label="Filtros">
+            <md-icon class="md-icon-filter-list md-icon-lg" style="height: 15px;"></md-icon>
+        </md-button>
 
-		<tbody>
-			<tr ng-repeat="row in content" class="eits-table-content-row">
+        </thead>
+        <!--</md-subheader>-->
 
-				<td class="eits-table-selection-item" ng-if="multiSelection == true">
-					<div>
-                    	<md-checkbox md-no-ink aria-label="Checkbox No Ink" class="md-primary" ng-change="selectItem(row, !checkBoxControl[row.$$hashKey])" ng-model="checkBoxControl[row.$$hashKey]"></md-checkbox>
-                	</div>
-				</td>
+        <tbody>
 
-				<td ng-repeat="h in columns" ng-style="{'width': h.width}" ng-click="onItemClick({item: row})" class="eits-table-content">
+        <tr ng-repeat="row in content" class="eits-table-content-row">
 
-					<span ng-if="h.contentToRender == null">
-						{{(h.field.indexOf('date') > 0) ? $filter('date')(row[h.field]) : row[h.field];}}
-					</span>
+            <td class="eits-table-selection-item" ng-if="multiSelection == true">
+                <div>
+                    <md-checkbox md-no-ink aria-label="Checkbox No Ink" class="md-primary"
+                                 ng-change="selectItem(row, !checkBoxControl[row.$$hashKey])"
+                                 ng-model="checkBoxControl[row.$$hashKey]"></md-checkbox>
+                </div>
+            </td>
 
-					<div class="eits-table-thumbs" ng-if="h.contentToRender != null" ng-include="h.columnId">
-					</div>
-				</td>
+            <td ng-repeat="h in columns" ng-style="{'width': h.width}" ng-click="onItemClick({item: row})"
+                class="eits-table-content">
 
-			</tr>
-		</tbody>
+                            <span ng-if="h.contentToRender == null">
+                                {{(h.field.indexOf('date') > 0) ? $filter('date')(row[h.field]) : row[h.field];}}
+                            </span>
 
-	</table>
+                <div class="eits-table-thumbs" ng-if="h.contentToRender != null" ng-include="h.columnId">
+                </div>
+            </td>
 
-	<md-progress-circular ng-if="showLoadingCircle" style="margin:0 auto" class="md-primary" md-mode="indeterminate"></md-progress-circular>
+        </tr>
+        </tbody>
+    </table>
+
+    <md-progress-circular ng-if="showLoadingCircle" style="margin:0 auto" class="md-primary"
+                          md-mode="indeterminate"></md-progress-circular>
 
     <eits-table-sidebar ng-show="sidebarFlag">
-        <md-sidenav style="height: 100%;" class="md-sidenav-right md-whiteframe-z2" md-is-locked-open="showSideBar" md-component-id="sideFilter">
-			
-			<div layout="row">
-				<h1 class="md-toolbar-tools filters-title">{{sidebarTitle}}</h1>
-				<md-switch class="md-primary filter-switch" ng-model="filterFlag" ng-change="filterFlagHandler(filterFlag)" md-no-ink aria-label="Habilitar filtros"></md-switch>
-			</div>
-			<md-button ng-click="toggleSidebar()" class="md-icon-button filters-close" aria-label="More">
-				<md-icon style="height: 15px;" class="md-icon-close md-icon-lg"></md-icon>
-			</md-button>
-			<md-divider></md-divider>
+        <md-sidenav style="height: 100%;" class="md-sidenav-right md-whiteframe-z2" md-is-locked-open="showSideBar"
+                    md-component-id="sideFilter">
 
-			<eits-table-sidebar-content class="md-padding" layout="column"></eits-table-sidebar-content>
-		</md-sidenav>
+            <div layout="row">
+                <h1 class="md-toolbar-tools filters-title">{{sidebarTitle}}</h1>
+                <md-switch class="md-primary filter-switch" ng-model="filterFlag"
+                           ng-change="filterFlagHandler(filterFlag)" md-no-ink
+                           aria-label="Habilitar filtros"></md-switch>
+            </div>
+
+            <md-button ng-click="toggleSidebar()" class="md-icon-button filters-close" aria-label="More">
+                <md-icon style="height: 15px;" class="md-icon-close md-icon-lg"></md-icon>
+            </md-button>
+
+            <md-divider></md-divider>
+
+            <eits-table-sidebar-content class="md-padding" layout="column"></eits-table-sidebar-content>
+
+        </md-sidenav>
     </eits-table-sidebar>
 
 </div>
