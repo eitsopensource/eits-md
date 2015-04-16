@@ -15,7 +15,8 @@
         .directive('infinityScrollPager', InfiniteScrollPagerDirective)
         .directive('numberPager', NumberPagerDirective)
         .directive('filter', FilterDirective)
-        .directive('sideFilter', SideFilterDirective);
+        .directive('sideFilter', SideFilterDirective)
+        .directive('fixedHeader', FixedHeaderDirective);
 
     /**
      * @ngdoc directive
@@ -47,14 +48,14 @@
         /**
          *
          */
-        function CompileHandler() {
+        function CompileHandler($compile) {
             return {
                 pre: function preLink(scope, iElement) {
-                    iElement[0].clearSelection = function() {
+                    iElement[0].clearSelection = function () {
                         scope.clearSelection();
                     }
                 },
-                post: function postLink() {
+                post: function postLink(scope, iElement) {
                 }
             };
         }
@@ -62,7 +63,7 @@
         /**
          *
          */
-        function Controller($scope, $filter, $window, $templateCache) {
+        function Controller($scope, $filter, $window, $templateCache, $element) {
 
             // Tratamento inicial de atributos e variáveis.
             $scope.checkBoxControl = [];
@@ -118,14 +119,15 @@
 
                 // Método assíncrono que é ativado ao atingir o fundo da grid através do evento de scroll do mouse.
                 // Ele faz uma requisição ao para a aplicação passando o número da próxima página do conteúdo.
-                angular.element($window).bind("scroll", function () {
+                angular.element($window).on("scroll", function (event) {
 
-                    var element = angular.element('eits-table');
-                    var contentHeight = element[0].offsetHeight;
-                    var yOffset = window.pageYOffset;
-                    var y = yOffset + window.innerHeight;
+                    var $window = angular.element(window);
+                    var docViewTop = $window.scrollTop();
+                    var docViewBottom = docViewTop + $window.height();
+                    var elemTop = $element.offset().top;
+                    var elemBottom = elemTop + $element.height();
 
-                    if (y >= contentHeight && !$scope.showLoadingCircle) {
+                    if (docViewBottom >= (elemBottom - 50) && !$scope.showLoadingCircle) {
                         $scope.onScrollEnd({size: $scope.content ? $scope.content.length : 0});
                         $scope.showLoadingCircle = true;
                         $scope.$apply();
@@ -423,7 +425,7 @@
      *
      * @usage
      */
-    function SideFilterDirective() {
+    function SideFilterDirective($compile) {
         return {
             restrict: 'E',
             require: ['^eitsTable', '^filter'],
@@ -432,6 +434,7 @@
                 title: '@',
                 onFilter: '&?',
                 opened: '=?',
+                filters: '=',
                 enabled: '=?'
             },
             compile: CompileHandler
@@ -447,6 +450,10 @@
                 post: function postLink(scope, iElement, iAttrs, controllers) {
 
                     controllers[0].enableSidebar();
+
+                    scope.$watch('filters', function (value) {
+                        scope.onFilter({filters: value});
+                    }, true);
 
                     if (scope.enabled != undefined) {
 
@@ -465,17 +472,18 @@
                     };
 
                     controllers[0].setFitlerCloseEvent(onCloseEvent);
-
                     controllers[0].setSidebarTitle(scope.title);
 
                     var template = controllers[0].getSidebarElement();
-
                     var childrenElements = iElement.children();
+
                     for (var i = 0; i < childrenElements.length; i++) {
 
                         var filterHtml = childrenElements[i];
-
                         angular.element(filterHtml).addClass('filter-field');
+
+                        var childScope = angular.element(filterHtml).children().scope();
+                        var ngModelController = angular.element(filterHtml).children().data('$ngModelController');
 
                         if (filterHtml.getAttribute("label")) {
                             var labelString = '<p class="filter-label">' + filterHtml.getAttribute("label") + '</p>';
@@ -484,6 +492,100 @@
 
                         template.append(filterHtml);
                     }
+                }
+            };
+        }
+    }
+
+    /**
+     * @ngdoc directive
+     *
+     * @usage
+     */
+    function FixedHeaderDirective($timeout) {
+        return {
+            restrict: 'A',
+            compile: CompileHandler
+        };
+
+        /**
+         *
+         */
+        function CompileHandler() {
+            return {
+                pre: function preLink(scope, iElement, iAttrs) {
+                },
+                post: function postLink(scope, iElement, iAttrs) {
+
+                    //
+                    $timeout(function(){
+                        var fixedHeader = angular.element(document.createElement("DIV"));
+
+                        fixedHeader.addClass('fixed-header');
+
+                        var childrenTh = iElement.children('thead').children().children();
+                        var childrenTd = iElement.children('tbody').children().children();
+
+                        for (var i = 0; childrenTh.length > i; i++) {
+
+                            var thElement = angular.element(childrenTh[i]).clone();
+                            thElement.css('width', childrenTd[i].clientWidth);
+                            fixedHeader.append(thElement);
+                        }
+
+                        iElement.prepend(fixedHeader);
+                    }, 0);
+
+                    //
+                    angular.element(window).on("resize", function(){
+                        var fixedHeaderDiv = angular.element(iElement.children('div'));
+
+                        var childrenTh = fixedHeaderDiv.children();
+                        var childrenTd = iElement.children('tbody').children().children();
+
+                        for (var i = 0; childrenTd.length > i; i++) {
+                            angular.element(childrenTh[i]).css('width', childrenTd[i].clientWidth);
+                        }
+
+                    });
+
+                    //
+                    angular.element(window).on("scroll", function (event) {
+
+                        var isOutOfScreen =  function(elem) {
+                            var $elem = angular.element(elem);
+                            var $window = angular.element(window);
+
+                            var docViewTop = $window.scrollTop();
+                            var docViewBottom = docViewTop + $window.height();
+
+                            var elemTop = $elem.offset().top;
+                            var elemBottom = elemTop + $elem.height();
+
+                            return ((elemTop >= docViewBottom) || (elemBottom <= docViewTop));
+                        }
+
+                        var isScrolledIntoView =  function(elem) {
+                            var $elem = angular.element(elem);
+                            var $window = angular.element(window);
+
+                            var docViewTop = $window.scrollTop();
+                            var docViewBottom = docViewTop + $window.height();
+
+                            var elemTop = $elem.offset().top;
+                            var elemBottom = elemTop + $elem.height();
+
+                            return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+                        }
+
+                        var fixedHeaderDiv = angular.element(iElement.children('div'));
+
+                        if (!isScrolledIntoView(iElement.children('thead')) && !isOutOfScreen(iElement[0]) && fixedHeaderDiv.css('visibility') == 'hidden') {
+                            fixedHeaderDiv.addClass('visible');
+                        } else if ((isScrolledIntoView(iElement.children('thead')) && fixedHeaderDiv.css('visibility') == 'visible') || isOutOfScreen(iElement[0])) {
+                            fixedHeaderDiv.removeClass('visible');
+                        }
+                    });
                 }
             };
         }
