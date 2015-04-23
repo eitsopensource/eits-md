@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" lang="pt" ng-app="eits.containers.vbox.sample">
+
+    <head>
+        <title>eits-md :: eits-vbox</title>
+
+        <link rel="stylesheet" href="/webjars/angular-material/0.8.3/angular-material.css">
+
+        <!-- JQuery -->
+        <script type="text/javascript" src="/webjars/jquery/2.1.3/jquery.min.js"></script>
+
+        <!-- AngularJS -->
+        <script type="text/javascript" src="/webjars/angularjs/1.3.14/angular.js"></script>
+        <script type="text/javascript" src="/webjars/angularjs/1.3.14/angular-animate.min.js"></script>
+        <script type="text/javascript" src="/webjars/angularjs/1.3.14/angular-aria.min.js"></script>
+        <script type="text/javascript" src="/webjars/angular-material/0.8.3/angular-material.js"/></script>
+
+        <script type="text/javascript" src="/webjars/eits-md/1.0.0/eits-material-core.js"></script>
+        <script type="text/javascript" src="/webjars/eits-md/1.0.0/containers/vbox/vbox.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+
+    <body ng-controller="AppCtrl">
+        <md-content layout="row">
+            <md-input-container>
+                <label>padding top</label>
+                <input type="text" ng-model="paddingTop">
+            </md-input-container>
+            <md-input-container>
+                <label>padding right</label>
+                <input type="text" ng-model="paddingRight">
+            </md-input-container>
+            <md-input-container>
+                <label>padding bottom</label>
+                <input type="text" ng-model="paddingBottom">
+            </md-input-container>
+            <md-input-container>
+                <label>padding left</label>
+                <input type="text" ng-model="paddingLeft">
+            </md-input-container>
+            <md-input-container>
+                <label>gap</label>
+                <input type="text" ng-model="gap">
+            </md-input-container>
+            <md-input-container>
+                <label>vertical align</label>
+                <input type="text" ng-model="verticalAlign">
+            </md-input-container>
+            <md-input-container>
+                <label>horizontal align</label>
+                <input type="text" ng-model="horizontalAlign">
+            </md-input-container>
+        </md-content>
+
+        <eits-vbox height="400" style="border: 1px solid gray;"
+                   vertical-align="verticalAlign" horizontal-align="horizontalAlign" gap="gap"
+                   padding-bottom="paddingBottom" padding-left="paddingLeft" padding-top="paddingTop" padding-right="paddingRight">
+            <md-button class="md-raised">Button 01</md-button>
+            <md-button class="md-raised">Button 01</md-button>
+            <md-button class="md-raised">Button 01</md-button>
+        </eits-vbox>
+
+    </body>
+</html>

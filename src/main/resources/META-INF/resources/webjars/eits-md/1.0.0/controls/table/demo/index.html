@@ -33,7 +33,7 @@
 	        	<eits-box width="98%" height="60">
 
 		          	<div ng-hide="showSearch" class="md-toolbar-item md-breadcrumb">
-		          		<span ng-click="resetSelection()">Eits Table {{filter.tipoGraduacao}}</span>
+		          		<span ng-click="resetSelection()">Eits Table</span>
 		          	</div>
 
 				</eits-box>
@@ -42,7 +42,7 @@
 
 	    <md-content layout="column" flex="flex" ng-click="showSearch = false">
 
-	      	<eits-table id="eitsTable" content="content" multi-selection="true" on-selection-change="updateSelectedItens(selectedItens)" on-item-click="openDetail(item)">
+			<eits-table id="eitsTable" content="content" multi-selection="true" on-selection-change="updateSelectedItens(selectedItens)" on-item-click="openDetail(item)">
 
 				<columns>
 					<table-column header="Foto" width="40" sortable="false">
@@ -50,14 +50,14 @@
 							<div style="background-image:url({{row.thumbnail}})"></div>
 						</column-template>
 					</table-column>
-					<table-column header="Foto 2" width="40" sortable="false">
+					<table-column header="Foto 2" width="40" sortable="false" width="40">
 						<column-template>
 							<div style="background-image:url({{row.outra}})"></div>
 						</column-template>
 					</table-column>
 					<table-column header="Nome" field="name" sortable="true" width="40%"/>
-					<table-column header="Descrição" field="description" sortable="false"/>
-					<table-column header="Modificado pela última vez" field="last_modified" sortable="false"/>
+					<table-column header="Descrição" field="description" sortable="false" width="40"/>
+					<table-column header="Modificado pela última vez" field="last_modified" width="20" sortable="false"/>
 				</columns>
 
 				<pager>
@@ -66,8 +66,8 @@
 
 				<filter>
 					<side-filter id="sideFilter" enabled="filter.enabled" opened="filter.opened"
-								 on-close="onCloseHandler()" title="Titulo filtro"
-								 on-filter="onFilterHandler(event, filter)">
+								 on-close="onCloseHandler()" title="Titulo filtro" filters="filter"
+								 on-filter="onFilterHandler(filter)">
 
 						<filter-container label="Tipo Graduação">
 							<md-select placeholder="Selecione um tipo de gradução" ng-model="filter.tipoCurso">
@@ -90,6 +90,7 @@
 					</side-filter>
 				</filter>
 			</eits-table>
+
 	    </md-content>
 		
 	</body>
