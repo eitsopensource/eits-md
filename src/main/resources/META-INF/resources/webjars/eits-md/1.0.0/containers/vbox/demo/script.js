@@ -1,6 +1,6 @@
-angular.module('eits.containers.hbox.sample', [
+angular.module('eits.containers.vbox.sample', [
     'ngMaterial',
-    'eits.containers.hbox'
+    'eits.containers.vbox'
 ])
     .controller('AppCtrl', function ($scope) {
 

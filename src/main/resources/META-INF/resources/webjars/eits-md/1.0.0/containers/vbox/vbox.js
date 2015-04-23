@@ -7,25 +7,25 @@
      * @description
      * List module
      */
-    angular.module('eits.containers.hbox', [
+    angular.module('eits.containers.vbox', [
         'eits-material-core',
         'material.core',
     ])
-        .directive('eitsHbox', EitsHBoxDirective);
+        .directive('eitsVbox', EitsVBoxDirective);
 
     /**
      * @ngdoc directive
-     * @name eitsHBox
-     * @module eits.containers.hbox
+     * @name eitsVBox
+     * @module eits.containers.vbox
      *
      * @restrict E
      *
      * @description
-     * The `<eits-hbox>` directive is a list container for 1..n components.
+     * The `<eits-vbox>` directive is a list container for 1..n components.
      *
      * @usage
      */
-    function EitsHBoxDirective($CONFIG) {
+    function EitsVBoxDirective($CONFIG) {
         return {
             restrict: 'E',
             replace: true,
@@ -48,7 +48,7 @@
          *
          */
         function getTemplate(element, attributes) {
-            return $CONFIG.path + '/containers/hbox/hbox-template.html';
+            return $CONFIG.path + '/containers/vbox/vbox-template.html';
         }
 
         /**
@@ -63,10 +63,7 @@
 
                     element.css('display', 'flex');
 
-                    // Array com os elementos dentro da HBox
-                    var children = element.children();
-
-                    // Tratamento inicial dos atributos
+                    // Tratamento dos atributos
                     scope.verticalAlign = scope.verticalAlign != undefined ? scope.verticalAlign : null;
                     scope.horizontalAlign = scope.horizontalAlign != undefined ? scope.horizontalAlign : null;
                     scope.gap = scope.gap != undefined ? sizeStringFormatter(scope.gap) : null;
@@ -90,20 +87,17 @@
                     }
 
                     // Tratamento dos elementos filhos
-                    for (var i = 0; children.length > i; i++) {
-                        var child = angular.element(children[i]);
-
-                        if (scope.gap != null) {
-                            if (i > 0) child.css('margin-left', scope.gap);
-                            if (i < children.length - 1) child.css('margin-right', scope.gap);
-                        }
+                    if (scope.gap != null) {
+                        // Array com os elementos dentro da HBox
+                        var children = element.children();
+                        setGapBetweenElements(children, scope.gap);
                     }
-
-                    // Trata o alinhamento horizontal
-                    setHorizontalAlign(element, scope.horizontalAlign);
 
                     // Trata o alinhamento vertical
                     setVerticalAlign(element, scope.verticalAlign);
+
+                    // Trata o alinhamento horizontal
+                    setHorizontalAlign(element, scope.horizontalAlign);
                 }
             }
         }
@@ -123,7 +117,7 @@
                 if (newValue != oldValue) $element.css('padding-left', sizeStringFormatter(newValue));
             });
             $scope.$watch('horizontalAlign', function (newValue, oldValue) {
-                if (newValue != oldValue) setHorizontalAlign($element, newValue);
+                if (newValue != oldValue) setHorizontalAlign($element, value);
             });
             $scope.$watch('verticalAlign', function (newValue, oldValue) {
                 if (newValue != oldValue) setVerticalAlign($element, newValue);
@@ -137,37 +131,16 @@
         }
 
         /**
-         * 
+         *
          * @param element
          * @param value
          */
         function setVerticalAlign(element, value) {
             if (value == 'top') {
-                element.css('align-items', 'flex-start');
-                element.css('-webkit-align-items', 'flex-start');
-                element.css('-ms-flex-align', 'flex-start');
-            } else if (value == 'bottom') {
-                element.css('align-items', 'flex-end');
-                element.css('-webkit-align-items', 'flex-end');
-                element.css('-ms-flex-align', 'flex-end');
-            } else if (value == 'center') {
-                element.css('align-items', 'center');
-                element.css('-webkit-align-items', 'center');
-                element.css('-ms-flex-align', 'center');
-            }
-        }
-        
-        /**
-         * 
-         * @param element
-         * @param value
-         */
-        function setHorizontalAlign(element, value) {
-            if (value == 'left') {
                 element.css('justify-content', 'flex-start');
                 element.css('-webkit-justify-content', 'flex-start');
                 element.css('-ms-flex-pack', 'flex-start');
-            } else if (value == 'right') {
+            } else if (value == 'bottom') {
                 element.css('justify-content', 'flex-end');
                 element.css('-webkit-justify-content', 'flex-end');
                 element.css('-ms-flex-pack', 'flex-end');
@@ -175,6 +148,27 @@
                 element.css('justify-content', 'center');
                 element.css('-webkit-justify-content', 'center');
                 element.css('-ms-flex-pack', 'center');
+            }
+        }
+
+        /**
+         *
+         * @param element
+         * @param value
+         */
+        function setHorizontalAlign(element, value) {
+            if (value == 'left') {
+                element.css('align-items', 'flex-start');
+                element.css('-webkit-align-items', 'flex-start');
+                element.css('-ms-flex-align', 'flex-start');
+            } else if (value == 'right') {
+                element.css('align-items', 'flex-end');
+                element.css('-webkit-align-items', 'flex-end');
+                element.css('-ms-flex-align', 'flex-end');
+            } else if (value == 'center') {
+                element.css('align-items', 'center');
+                element.css('-webkit-align-items', 'center');
+                element.css('-ms-flex-align', 'center');
             }
         }
 
@@ -189,8 +183,8 @@
                 var child = angular.element(elements[i]);
                 var formattedValue = sizeStringFormatter(gapValue);
 
-                if (i > 0) child.css('margin-left', formattedValue);
-                if (i < elements.length - 1) child.css('margin-right', formattedValue);
+                if (i > 0) child.css('margin-top', formattedValue);
+                if (i < elements.length - 1) child.css('margin-bottom', formattedValue);
             }
         }
 
