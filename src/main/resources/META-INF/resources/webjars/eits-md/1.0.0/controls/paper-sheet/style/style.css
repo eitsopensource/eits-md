@@ -1,0 +1,35 @@
+.eits-paper-sheet-item {
+    position: relative;
+    text-decoration: none;
+    box-sizing: border-box;
+    display: block;
+    height: auto;
+    overflow: auto;
+    transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    background-color: #FFF;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+    padding: 10px 10px;
+}
+
+.eits-paper-sheet-item:hover {
+    box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
+}
+
+.eits-paper-sheet-item.clicked {
+    z-index: 1;
+    margin: 29px -20px 29px -20px;
+    padding-bottom: 3rem;
+    box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
+}
+
+.eits-paper-sheet-item.clicked .paper-sheet-opened {
+    display: inline-block;
+}
+
+.eits-paper-sheet-item .paper-sheet-opened {
+    display: none;
+}
