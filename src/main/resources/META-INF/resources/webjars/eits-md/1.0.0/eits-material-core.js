@@ -10,8 +10,8 @@
 	angular.module('eits.material.core', [
 	])
 	.constant("$CONFIG", {
-        "version": "1.0.0",
-        "path": "/webjars/eits-md/1.0.0",
+        "version": "${version}",
+        "path": "/webjars/eits-md/${version}",
     })
     .directive('width', WidthDirective)
 	.directive('height', HeightDirective);

@@ -11,10 +11,7 @@
         'eits.material.core',
         'material.core'
        ])
-       
-
        .directive('eitsDropdown', DropDownDirective)
-
 
     /**
      * @ngdoc directive
@@ -29,15 +26,16 @@
      * @usage
      */
     function DropDownDirective( $CONFIG , $compile, $document ) {
-        return {
-
-            restrict: 'AE',
-            transclude: true,
-            compile : CompileHandler,
-            templateUrl: Template,
-            controller: Controller,
-            scope   : {}
-        };
+	    return {
+	
+	        restrict: 'AE',
+	        transclude: true,
+	        compile : CompileHandler,
+	        templateUrl: Template,
+	        controller: Controller,
+	        scope   : {}
+	    };
+        
 	/**
 	 *
 	 */

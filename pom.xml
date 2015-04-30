@@ -54,6 +54,24 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.js</include>
+					<include>**/*.html</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/*.js</exclude>
+					<exclude>**/*.html</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<plugins>
             <plugin>
                 <groupId>ro.isdc.wro4j</groupId>
@@ -72,6 +90,7 @@
 			      	<minimize>false</minimize>
 			      	<ignoreMissingResources>false</ignoreMissingResources>
 			      	<wroFile>${basedir}/src/main/resources/META-INF/resources/webjars/eits-md/wro.xml</wroFile>
+			      	<destinationFolder>${project.build.directory}/classes/META-INF/resources/webjars/eits-md</destinationFolder>
 			      	<!-- 
 			      	<destinationFolder>${basedir}/src/main/webapp/wro/</destinationFolder>
 			      	<cssDestinationFolder>d:/static/css/</cssDestinationFolder>
@@ -86,7 +105,7 @@
   				<artifactId>jetty-maven-plugin</artifactId>
   				<version>${jetty.version}</version>
   				<configuration>
-  					<webAppSourceDirectory>${basedir}/src/main/resources/META-INF/resources</webAppSourceDirectory>
+  					<webAppSourceDirectory>${project.build.directory}/classes/META-INF/resources</webAppSourceDirectory>
     				<webApp>
     					<defaultsDescriptor>${basedir}/src/main/resources/org/eclipse/jetty/webapp/webdefault.xml</defaultsDescriptor>
 	    			</webApp>
