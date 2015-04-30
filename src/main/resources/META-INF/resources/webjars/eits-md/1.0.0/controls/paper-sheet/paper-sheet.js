@@ -7,7 +7,7 @@
      * @description
      */
     angular.module('eits.controls.paper-sheet',
-        ['eits-material-core', 'material.core'])
+        ['eits.material.core', 'material.core'])
         .directive('eitsPaperSheet', PaperSheetDirective)
         .directive('contentOpened', ContentOpenedDirective)
         .directive('contentClosed', ContentClosedDirective);

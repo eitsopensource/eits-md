@@ -7,7 +7,7 @@
      * @description
      */
     angular.module('eits.controls.table',
-        ['eits-material-core', 'material.core'])
+        ['eits.material.core', 'material.core'])
         .directive('eitsTable', TableDirective)
         .directive('columns', ColumnDirective)
         .directive('tableColumn', TableColumnDirective)

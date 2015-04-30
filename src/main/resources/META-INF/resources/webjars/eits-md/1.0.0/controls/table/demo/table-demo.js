@@ -1,6 +1,6 @@
 angular.module('eits.controls.table.sample', [
     'ngMaterial',
-    'eits-material-core',
+    'eits.material.core',
     'eits.controls.table',
 ])
     .controller('AppCtrl', function ($scope, $log, $http) {

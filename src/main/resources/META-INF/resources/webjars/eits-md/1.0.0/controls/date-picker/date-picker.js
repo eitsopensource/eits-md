@@ -4,7 +4,7 @@
     /**
      *
      */
-    angular.module('eits.date.picker', ['eits-material-core','material.core'])
+    angular.module('eits.date.picker', ['eits.material.core','material.core'])
 
         .directive('datePicker', DatePickerDirective);
 

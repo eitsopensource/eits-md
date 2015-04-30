@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * Teclas de atalho para a criação das tags {enter, space, comma} e o {backspace} para remover a tag criada
+     * Teclas de atalho para a criaï¿½ï¿½o das tags {enter, space, comma} e o {backspace} para remover a tag criada
      * @type {{backspace: number, enter: number, space: number, comma: number}}
      */
     var KEYS = {
@@ -13,7 +13,7 @@
     };
 
     /**
-     * Valores padrões de inicialização
+     * Valores padrï¿½es de inicializaï¿½ï¿½o
      * @type {{maxTags: number, minLength: number, maxLength: number}}
      */
     var DEFAULT = {
@@ -25,7 +25,7 @@
     /**
      *
      */
-    angular.module('eits.search.tags', ['eits-material-core','material.core'])
+    angular.module('eits.search.tags', ['eits.material.core','material.core'])
 
         .directive('eitsSearchTags', SearchDirective);
 
@@ -77,7 +77,7 @@
 
                         self.options = {};
 
-                        //Carrega a configuração padrão caso o atributo não conter valor adicionado
+                        //Carrega a configuraï¿½ï¿½o padrï¿½o caso o atributo nï¿½o conter valor adicionado
                         options = function() {
 
                             self.options = {
@@ -98,7 +98,7 @@
                             return scope.newTag.text = "";
                         };
 
-                        //Verificamos se o valor do campo é valido
+                        //Verificamos se o valor do campo ï¿½ valido
                         tagIsValid = function( ) {
                             var tag = getTagText();
 
@@ -113,7 +113,7 @@
                         changeTag = function () {
 
 
-                            //Retorna um array de tags para uma função criada no escopo da controller na interface
+                            //Retorna um array de tags para uma funï¿½ï¿½o criada no escopo da controller na interface
                             scope.changeTag( self.items );
 
                             //Retorna um array de tags para o escopo na interface
@@ -141,7 +141,7 @@
                             return tag;
                         };
 
-                        //Removemos a tag pelo índice
+                        //Removemos a tag pelo ï¿½ndice
                         self.remove = function(index) {
 
                             var tag = self.items.splice(index, 1)[0];
@@ -151,7 +151,7 @@
                             return tag;
                         };
 
-                        //Removemos a ultima tag (Função utilizada pelo backspace)
+                        //Removemos a ultima tag (Funï¿½ï¿½o utilizada pelo backspace)
                         self.removeLast = function() {
 
                             return self.remove( self.items.length - 1 );
@@ -165,7 +165,7 @@
                             self.resizeInput("");
                         };
 
-                        //Devemos verificar se o texto adicionado já existe em alguma das tags já criadas
+                        //Devemos verificar se o texto adicionado jï¿½ existe em alguma das tags jï¿½ criadas
                         self.findTag = function( items, tag) {
 
                             var item = null;
@@ -179,7 +179,7 @@
                             return item;
                         };
 
-                        //Função responsável por redimencionar o campo quando o texto for adicionado
+                        //Funï¿½ï¿½o responsï¿½vel por redimencionar o campo quando o texto for adicionado
                         self.resizeInput = function (text){
 
                             var span  = element.find('.span-text').text(text),
@@ -201,7 +201,7 @@
                         invalid  : null
                     };
 
-                    //=================== ANIMAÇÃO DO CAMPO ===================
+                    //=================== ANIMAï¿½ï¿½O DO CAMPO ===================
 
                     var $input        = element.find('.search-tags-input'),
                         $label        = element.find('.search-tags-label'),
@@ -219,7 +219,7 @@
                     });
                     //=========================================================
 
-                    //Responsável por limpar todas as tags e texto adicionado no campo
+                    //Responsï¿½vel por limpar todas as tags e texto adicionado no campo
                     scope.clear = function() {
                         
                         scope.newTag.text    = undefined;
@@ -228,7 +228,7 @@
                         $input.focus();
                     };
 
-                    //Eventos do campo para a inserção do texto e criação da tag
+                    //Eventos do campo para a inserï¿½ï¿½o do texto e criaï¿½ï¿½o da tag
                     scope.eventHandlers = {
                         input: {
                             change: function(text) {

@@ -1,7 +1,7 @@
 angular.module('eits.create.date.picker', [
     'ngMaterial',
     'eits.date.picker',
-    'eits-material-core',
+    'eits.material.core',
     'eits.containers.box'
 ])
     .controller('AppCtrlDatePicker', function($scope) {

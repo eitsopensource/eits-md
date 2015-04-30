@@ -7,7 +7,7 @@
 	 * @description List module
 	 */
 	angular.module('eits.containers.box', [ 
-		'eits-material-core', 
+		'eits.material.core', 
 		'material.core',
 	])
 	.directive('x', XPositionDirective)

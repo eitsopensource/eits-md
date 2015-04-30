@@ -8,7 +8,7 @@
      * List module
      */
     angular.module('eits.containers.vbox', [
-        'eits-material-core',
+        'eits.material.core',
         'material.core',
     ])
         .directive('eitsVbox', EitsVBoxDirective);

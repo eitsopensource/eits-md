@@ -8,7 +8,7 @@
      * List module
      */
     angular.module('eits.controls.dropdown', [
-        'eits-material-core',
+        'eits.material.core',
         'material.core'
        ])
        

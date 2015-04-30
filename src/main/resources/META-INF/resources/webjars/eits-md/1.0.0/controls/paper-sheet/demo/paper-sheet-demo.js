@@ -1,6 +1,6 @@
 angular.module('eits.controls.paper-sheet.sample', [
     'ngMaterial',
-    'eits-material-core',
+    'eits.material.core',
     'eits.controls.paper-sheet'
 ])
     .controller('AppCtrl', function ($scope, $log) {
