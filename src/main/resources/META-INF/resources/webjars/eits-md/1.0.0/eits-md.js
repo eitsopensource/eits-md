@@ -7,8 +7,14 @@
 	 * @description List module
 	 */
 	angular.module('eits-md', [ 
+	    'material.core',
 		'eits.material.core', 
-		'material.core',
+		'eits.containers.box',
+		'eits.containers.hbox',
+		'eits.containers.vbox',
+		'eits.date.picker',
+		'eits.controls.paper-sheet',
+		'eits.controls.table',
 	]);
 
 })();

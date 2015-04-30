@@ -86,11 +86,12 @@
                     </execution>
                 </executions>
                 <configuration>
+                	<contextFolder>${basedir}/src/main/resources</contextFolder>
 			      	<targetGroups>eits-md</targetGroups>
 			      	<minimize>false</minimize>
 			      	<ignoreMissingResources>false</ignoreMissingResources>
 			      	<wroFile>${basedir}/src/main/resources/META-INF/resources/webjars/eits-md/wro.xml</wroFile>
-			      	<destinationFolder>${project.build.directory}/classes/META-INF/resources/webjars/eits-md</destinationFolder>
+			      	<destinationFolder>${project.build.directory}/classes/META-INF/resources/webjars/eits-md/${version}</destinationFolder>
 			      	<!-- 
 			      	<destinationFolder>${basedir}/src/main/webapp/wro/</destinationFolder>
 			      	<cssDestinationFolder>d:/static/css/</cssDestinationFolder>
