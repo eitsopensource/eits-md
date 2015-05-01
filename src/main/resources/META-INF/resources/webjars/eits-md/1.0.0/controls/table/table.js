@@ -451,9 +451,9 @@
 
                     controllers[0].enableSidebar();
 
-                    scope.$watch('filters', function (value) {
+                    scope.$watchCollection('filters', function(value){
                         scope.onFilter({filters: value});
-                    }, true);
+                    });
 
                     if (scope.enabled != undefined) {
 
@@ -481,9 +481,6 @@
 
                         var filterHtml = childrenElements[i];
                         angular.element(filterHtml).addClass('filter-field');
-
-                        var childScope = angular.element(filterHtml).children().scope();
-                        var ngModelController = angular.element(filterHtml).children().data('$ngModelController');
 
                         if (filterHtml.getAttribute("label")) {
                             var labelString = '<p class="filter-label">' + filterHtml.getAttribute("label") + '</p>';
@@ -529,7 +526,7 @@
                         for (var i = 0; childrenTh.length > i; i++) {
 
                             var thElement = angular.element(childrenTh[i]).clone();
-                            thElement.css('width', childrenTd[i].clientWidth);
+                            thElement.css('width', angular.element(childrenTh[i]).width());
                             fixedHeader.append(thElement);
                         }
 
@@ -544,14 +541,12 @@
                         var childrenTd = iElement.children('tbody').children().children();
 
                         for (var i = 0; childrenTd.length > i; i++) {
-                            angular.element(childrenTh[i]).css('width', childrenTd[i].clientWidth);
+                            angular.element(childrenTh[i]).css('width', angular.element(childrenTd[i]).width());
                         }
-
                     });
 
                     //
                     angular.element(window).on("scroll", function (event) {
-
                         var isOutOfScreen =  function(elem) {
                             var $elem = angular.element(elem);
                             var $window = angular.element(window);

@@ -64,8 +64,12 @@
 .eits-table-content {
     white-space: nowrap;
     font-size: 0.8em;
-    padding: 16px 16px 16px 20px;
+    padding: 4px 16px 4px 20px;
     height: 72px;
+}
+
+.eits-table-content:focus {
+    outline: none;
 }
 
 .eits-table-td-more {
@@ -180,8 +184,8 @@ eits-table-sidebar .filter-switch {
 
 eits-table-sidebar .filters-close {
     position: absolute;
-    right: 27px;
-    top: 15px;
+    right: 1px;
+    top: 5px;
 }
 
 eits-table-sidebar-content {
@@ -234,7 +238,7 @@ eits-table-sidebar-content md-select {
     top: 0px;
     z-index: 10;
     background-color: white;
-    height: 60px;
+    height: 64px;
     overflow-y: hidden;
     border-bottom: 1px solid rgb(230, 230, 230);
     visibility: hidden;
