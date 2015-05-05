@@ -30,13 +30,13 @@
             restrict: 'E',
             replace: true,
             scope: {
-                verticalAlign: "=?",
-                horizontalAlign: "=?",
-                gap: "=?",
-                paddingTop: "=?",
-                paddingRight: "=?",
-                paddingBottom: "=?",
-                paddingLeft: "=?"
+                verticalAlign: "@?",
+                horizontalAlign: "@?",
+                gap: "@?",
+                paddingTop: "@?",
+                paddingRight: "@?",
+                paddingBottom: "@?",
+                paddingLeft: "@?"
             },
             transclude: true,
             compile: CompileHandler,
@@ -117,7 +117,7 @@
                 if (newValue != oldValue) $element.css('padding-left', sizeStringFormatter(newValue));
             });
             $scope.$watch('horizontalAlign', function (newValue, oldValue) {
-                if (newValue != oldValue) setHorizontalAlign($element, value);
+                if (newValue != oldValue) setHorizontalAlign($element, newValue);
             });
             $scope.$watch('verticalAlign', function (newValue, oldValue) {
                 if (newValue != oldValue) setVerticalAlign($element, newValue);

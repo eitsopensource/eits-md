@@ -30,13 +30,13 @@
             restrict: 'E',
             replace: true,
             scope: {
-                verticalAlign: "=?",
-                horizontalAlign: "=?",
-                gap: "=?",
-                paddingTop: "=?",
-                paddingRight: "=?",
-                paddingBottom: "=?",
-                paddingLeft: "=?"
+                verticalAlign: "@?",
+                horizontalAlign: "@?",
+                gap: "@?",
+                paddingTop: "@?",
+                paddingRight: "@?",
+                paddingBottom: "@?",
+                paddingLeft: "@?"
             },
             transclude: true,
             compile: CompileHandler,
