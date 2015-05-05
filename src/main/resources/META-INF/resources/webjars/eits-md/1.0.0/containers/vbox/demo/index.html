@@ -17,6 +17,7 @@
 
         <script type="text/javascript" src="/webjars/eits-md/${version}/eits-material-core.js"></script>
         <script type="text/javascript" src="/webjars/eits-md/${version}/containers/vbox/vbox.js"></script>
+        <script type="text/javascript" src="/webjars/eits-md/${version}/containers/hbox/hbox.js"></script>
         <script type="text/javascript" src="script.js"></script>
     </head>
 
@@ -51,13 +52,25 @@
                 <input type="text" ng-model="horizontalAlign">
             </md-input-container>
         </md-content>
+        
+        <eits-vbox height="80%" style="border: 1px solid gray;"
+                   vertical-align="{{verticalAlign}}" horizontal-align="{{horizontalAlign}}" gap="{{gap}}"
+                   padding-bottom="{{paddingBottom}}" padding-left="{{paddingLeft}}" padding-top="{{paddingTop}}" padding-right="{{paddingRight}}">
+            <img src="http://www.eits.com.br/images/eits-topo.png" width="300">
 
-        <eits-vbox height="400" style="border: 1px solid gray;"
-                   vertical-align="verticalAlign" horizontal-align="horizontalAlign" gap="gap"
-                   padding-bottom="paddingBottom" padding-left="paddingLeft" padding-top="paddingTop" padding-right="paddingRight">
-            <md-button class="md-raised">Button 01</md-button>
-            <md-button class="md-raised">Button 01</md-button>
-            <md-button class="md-raised">Button 01</md-button>
+            <eits-hbox height="200" width="300" vertical-align="center" gap="10" padding-right="0" padding-left="0">
+            	<md-input-container>
+	            	<label>Email</label>
+					<input type="email">
+				</md-input-container>
+            	
+            	<md-input-container>
+					<label>Senha</label>
+					<input type="password">
+				</md-input-container>
+            </eits-hbox>
+
+            <md-button width="10" class="md-raised md-primary">Login</md-button>
         </eits-vbox>
 
     </body>
