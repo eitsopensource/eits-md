@@ -5,7 +5,7 @@
 	
 	<groupId>org.webjars</groupId>
 	<artifactId>eits-webjars</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -28,6 +28,25 @@
 			<email>rodrigo@eits.com.br</email>
 		</developer>
 	</developers>
+	
+	<!-- Repositories -->
+	<repositories>
+		<repository>
+			<id>eits-repository</id>
+          	<url>http://maven.eits.com.br/content/repositories/releases</url>
+		</repository>
+	</repositories>
+	
+	<distributionManagement>
+		<repository>
+			<id>eits-repository</id>
+          	<url>http://maven.eits.com.br/content/repositories/releases</url>
+		</repository>
+  		<snapshotRepository>
+    		<id>eits-repository-snapshot</id>
+     		<url>http://maven.eits.com.br/content/repositories/snapshots/</url>
+  		</snapshotRepository>
+	</distributionManagement>
 
 	<dependencies>
     	<!-- WebJars -->

@@ -6,3 +6,6 @@ https://docs.google.com/a/eits.com.br/spreadsheets/d/13VOJmbOwGoFqONDbiJEXHuUCu2
 
 To run, execute this command using maven:
 > mvn jetty:run
+
+To deploy:
+> mvn deploy -DperformRelease=true
