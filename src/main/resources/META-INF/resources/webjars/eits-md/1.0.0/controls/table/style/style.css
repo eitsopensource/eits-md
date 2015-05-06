@@ -66,6 +66,7 @@
     font-size: 0.8em;
     padding: 4px 16px 4px 20px;
     height: 72px;
+    overflow-x: hidden;
 }
 
 .eits-table-content:focus {

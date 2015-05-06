@@ -55,6 +55,17 @@
 							<div style="background-image:url({{row.outra}})"></div>
 						</column-template>
 					</table-column>
+					<table-column header="Teste" width="40" sortable="false" width="40">
+						<column-template>
+							<md-button ng-transclude="false" class="md-icon-lg md-icon-file-download" aria-label="anexo">
+								<md-tooltip>
+									[Nome do Arquivo]
+									<md-button aria-label="Baixar">Baixar</md-button>
+								</md-tooltip>
+							</md-button>
+							<!--<span>dsbfuiyds</span>-->
+						</column-template>
+					</table-column>
 					<table-column header="Nome" field="name" sortable="true" width="40%"/>
 					<table-column header="Descrição" field="description" sortable="false" width="40"/>
 					<table-column header="Modificado pela última vez" field="last_modified" width="20" sortable="false"/>
@@ -92,6 +103,7 @@
 			</eits-table>
 
 	    </md-content>
+
 
 	</body>
 </html>
