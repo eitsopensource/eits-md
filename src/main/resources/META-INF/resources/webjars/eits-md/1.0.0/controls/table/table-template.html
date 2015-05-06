@@ -29,8 +29,7 @@
                     <md-checkbox md-no-ink aria-label="Checkbox No Ink" class="md-primary" ng-change="selectItem(row, !checkBoxControl[$index])" ng-model="checkBoxControl[$index]" ng-model-options="{ debounce: 200 }"></md-checkbox>
                 </div>
             </td>
-            <td ng-repeat="h in columns" ng-style="{'width': h.width}" ng-click="onItemClick({item: row})"
-                class="eits-table-content">
+            <td ng-repeat="h in columns" ng-style="{'width': h.width}" ng-click="gridRowSelected(row, $event)" class="eits-table-content">
                 <span ng-if="h.contentToRender == null">
                     {{::(h.field.indexOf('date') > 0) ? $filter('date')(row[h.field]) : row[h.field];}}
                 </span>

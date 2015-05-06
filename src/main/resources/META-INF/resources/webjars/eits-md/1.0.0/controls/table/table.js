@@ -63,7 +63,7 @@
         /**
          *
          */
-        function Controller($scope, $filter, $window, $templateCache, $element) {
+        function Controller($scope, $filter, $window, $templateCache, $element, $transclude) {
 
             // Tratamento inicial de atributos e variáveis.
             $scope.checkBoxControl = [];
@@ -86,13 +86,10 @@
                 for (var i = 0; i < columns.length; i++) {
                     if (columns[i].contentToRender != null) {
                         columns[i].columnId = i.toString();
-
                         $templateCache.put(columns[i].columnId, columns[i].contentToRender.html());
                     }
                 }
-
                 $scope.columns = columns;
-
             }
 
             //
@@ -149,6 +146,13 @@
             //
             this.disableSidebar = function () {
                 $scope.sidebarFlag = false;
+            }
+
+            $scope.gridRowSelected = function(row, event) {
+                var localName = event.target.localName;
+                if (localName != 'button' && localName != 'a') {
+                    $scope.onItemClick({item: row});
+                }
             }
 
             $scope.showSideBar = false;
@@ -256,6 +260,8 @@
     function TableColumnDirective() {
         return {
             restrict: 'E',
+            //transclude: true,
+            replace: true,
             require: '^columns',
             scope: {
                 header: '@',
@@ -263,7 +269,32 @@
                 sortable: '=?',
                 width: '@?'
             },
+            //template: "<ng-transclude></ng-transclude>",
             compile: CompileHandler
+            //link: function(scope, iElement, iAttrs, columnGroupController){
+            //    var header = scope.header;
+            //    var field = scope.field;
+            //    var sortable = scope.sortable != undefined ? scope.sortable : true;
+            //    var width = scope.width != undefined ? scope.width : '';
+            //
+            //    var contentToRender = null;
+            //
+            //    if (iElement.children() != null && iElement.children()[0] != undefined && iElement.children()[0] != undefined) {
+            //        contentToRender = iElement.children()[0].localName == "column-template" ? iElement.children() : null;
+            //    }
+            //
+            //    if (width.indexOf('%') < 0 && width.length > 0) {
+            //        width = width + "px";
+            //    }
+            //
+            //    columnGroupController.setColumn({
+            //        header: header,
+            //        field: field,
+            //        sortable: sortable,
+            //        width: width,
+            //        contentToRender: contentToRender
+            //    })
+            //}
         };
 
         /**
@@ -296,6 +327,28 @@
                     })
                 },
                 post: function postLink(scope, iElement, iAttrs, columnGroupController) {
+                    //var header = scope.header;
+                    //var field = scope.field;
+                    //var sortable = scope.sortable != undefined ? scope.sortable : true;
+                    //var width = scope.width != undefined ? scope.width : '';
+                    //
+                    //var contentToRender = null;
+                    //
+                    //if (iElement.children() != null && iElement.children()[0] != undefined) {
+                    //    contentToRender = iElement.children()[0].localName == "column-template" ? iElement.children() : null;
+                    //}
+                    //
+                    //if (width.indexOf('%') < 0 && width.length > 0) {
+                    //    width = width + "px";
+                    //}
+                    //
+                    //columnGroupController.setColumn({
+                    //    header: header,
+                    //    field: field,
+                    //    sortable: sortable,
+                    //    width: width,
+                    //    contentToRender: contentToRender
+                    //})
                 }
             };
         }
