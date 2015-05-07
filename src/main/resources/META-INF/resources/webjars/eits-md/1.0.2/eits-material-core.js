@@ -37,11 +37,12 @@
 					var observer = attributes.$observe( "width", function( value ){
 						updateSize( element, value );
 					});
-				},
-				post: function postLink( scope, element, attributes, controller ) {
+					
 					element.on('$destroy', function() {
 						observer();//unwatch
 					});
+				},
+				post: function postLink( scope, element, attributes, controller ) {
 				}
 			}
 
@@ -90,11 +91,12 @@
 					var observer = attributes.$observe( "height", function( value ){
 						updateSize( element, value );
 					});
-				},
-				post: function postLink( scope, element, attributes, controller ) {
+					
 					element.on('$destroy', function() {
 						observer();//unwatch
 					});
+				},
+				post: function postLink( scope, element, attributes, controller ) {
 				}
 			}
 
