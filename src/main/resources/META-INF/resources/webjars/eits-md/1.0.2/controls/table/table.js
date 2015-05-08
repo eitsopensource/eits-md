@@ -114,9 +114,7 @@
                 $scope.onScrollEnd = scrollEndFn;
                 $scope.pagerType = "scroll";
 
-                // Método assíncrono que é ativado ao atingir o fundo da grid através do evento de scroll do mouse.
-                // Ele faz uma requisição ao para a aplicação passando o número da próxima página do conteúdo.
-                angular.element($window).bind("scroll", function (event) {
+                var onScrollEvent = function (event) {
 
                     var $window = angular.element(window);
                     var docViewTop = $window.scrollTop();
@@ -129,10 +127,14 @@
                         $scope.showLoadingCircle = true;
                         $scope.$apply();
                     }
-                });
+                }
+
+                // Método assíncrono que é ativado ao atingir o fundo da grid através do evento de scroll do mouse.
+                // Ele faz uma requisição ao para a aplicação passando o número da próxima página do conteúdo.
+                angular.element($window).on("scroll", onScrollEvent);
 
                 $element.on("$destroy", function(){
-                    angular.element($window).unbind("scroll");
+                    angular.element($window).off("scroll", onScrollEvent);
                 });
             };
 
@@ -549,8 +551,7 @@
                         iElement.prepend(fixedHeader);
                     }, 0);
 
-                    //
-                    angular.element(window).on("resize", function(){
+                    var onResizeFunction = function () {
                         var fixedHeaderDiv = angular.element(iElement.children('div'));
 
                         var childrenTh = fixedHeaderDiv.children();
@@ -559,10 +560,10 @@
                         for (var i = 0; childrenTd.length > i; i++) {
                             angular.element(childrenTh[i]).css('width', angular.element(childrenTd[i]).width());
                         }
-                    });
+                    }
 
                     //
-                    angular.element(window).on("scroll", function (event) {
+                    var onScrollFunction = function(event) {
                         var isOutOfScreen =  function(elem) {
                             var $elem = angular.element(elem);
                             var $window = angular.element(window);
@@ -596,7 +597,16 @@
                         } else if ((isScrolledIntoView(iElement.children('thead')) && fixedHeaderDiv.css('visibility') == 'visible') || isOutOfScreen(iElement[0])) {
                             fixedHeaderDiv.removeClass('visible');
                         }
-                    });
+                    }
+
+                    //
+                    angular.element(window).on("scroll", onScrollFunction);
+                    angular.element(window).on("resize", onResizeFunction);
+
+                    iElement.on('$destroy', function(){
+                        angular.element(window).off("scroll", onScrollFunction);
+                        angular.element(window).off("resize", onResizeFunction);
+                    })
                 }
             };
         }
