@@ -116,7 +116,7 @@
 
                 // Método assíncrono que é ativado ao atingir o fundo da grid através do evento de scroll do mouse.
                 // Ele faz uma requisição ao para a aplicação passando o número da próxima página do conteúdo.
-                angular.element($window).on("scroll", function (event) {
+                angular.element($window).bind("scroll", function (event) {
 
                     var $window = angular.element(window);
                     var docViewTop = $window.scrollTop();
@@ -129,6 +129,10 @@
                         $scope.showLoadingCircle = true;
                         $scope.$apply();
                     }
+                });
+
+                $element.on("$destroy", function(){
+                    angular.element($window).unbind("scroll");
                 });
             };
 
@@ -164,12 +168,10 @@
                 if (!$scope.showSideBar) {
                     $scope.sidebarCloseEvent();
                 }
-
-                $scope.filterFlagStatusHandler($scope.showSideBar);
+                //$scope.filterFlagStatusHandler($scope.showSideBar);
             }
 
-            //
-            $scope.$watch('content', function () {
+            var contentWatcher = $scope.$watch('content', function () {
                 $scope.showLoadingCircle = false;
             });
 
@@ -202,6 +204,11 @@
                 $scope.checkBoxControl = [];
                 $scope.onSelectionChange({selectedItens: []});
             }
+
+            // Descadastrar os $watch da directiva
+            $element.on('$destroy', function() {
+                contentWatcher()
+            });
         }
 
         /**
@@ -260,7 +267,6 @@
     function TableColumnDirective() {
         return {
             restrict: 'E',
-            //transclude: true,
             replace: true,
             require: '^columns',
             scope: {
@@ -269,32 +275,7 @@
                 sortable: '=?',
                 width: '@?'
             },
-            //template: "<ng-transclude></ng-transclude>",
             compile: CompileHandler
-            //link: function(scope, iElement, iAttrs, columnGroupController){
-            //    var header = scope.header;
-            //    var field = scope.field;
-            //    var sortable = scope.sortable != undefined ? scope.sortable : true;
-            //    var width = scope.width != undefined ? scope.width : '';
-            //
-            //    var contentToRender = null;
-            //
-            //    if (iElement.children() != null && iElement.children()[0] != undefined && iElement.children()[0] != undefined) {
-            //        contentToRender = iElement.children()[0].localName == "column-template" ? iElement.children() : null;
-            //    }
-            //
-            //    if (width.indexOf('%') < 0 && width.length > 0) {
-            //        width = width + "px";
-            //    }
-            //
-            //    columnGroupController.setColumn({
-            //        header: header,
-            //        field: field,
-            //        sortable: sortable,
-            //        width: width,
-            //        contentToRender: contentToRender
-            //    })
-            //}
         };
 
         /**
@@ -327,28 +308,6 @@
                     })
                 },
                 post: function postLink(scope, iElement, iAttrs, columnGroupController) {
-                    //var header = scope.header;
-                    //var field = scope.field;
-                    //var sortable = scope.sortable != undefined ? scope.sortable : true;
-                    //var width = scope.width != undefined ? scope.width : '';
-                    //
-                    //var contentToRender = null;
-                    //
-                    //if (iElement.children() != null && iElement.children()[0] != undefined) {
-                    //    contentToRender = iElement.children()[0].localName == "column-template" ? iElement.children() : null;
-                    //}
-                    //
-                    //if (width.indexOf('%') < 0 && width.length > 0) {
-                    //    width = width + "px";
-                    //}
-                    //
-                    //columnGroupController.setColumn({
-                    //    header: header,
-                    //    field: field,
-                    //    sortable: sortable,
-                    //    width: width,
-                    //    contentToRender: contentToRender
-                    //})
                 }
             };
         }
@@ -487,8 +446,8 @@
                 title: '@',
                 onFilter: '&?',
                 opened: '=?',
-                filters: '=',
-                enabled: '=?'
+                filters: '='
+                //enabled: '=?'
             },
             compile: CompileHandler
         };
@@ -504,22 +463,26 @@
 
                     controllers[0].enableSidebar();
 
-                    scope.$watchCollection('filters', function(value){
-                        scope.onFilter({filters: value});
+                    var filtersWacther = scope.$watchCollection('filters', function(newValue, oldValue){
+                        if (newValue != oldValue) scope.onFilter({filters: newValue});
                     });
 
-                    if (scope.enabled != undefined) {
+                    iElement.on('$destroy', function(){
+                        filtersWacther();
+                    })
 
-                        var filterFlagHandler = function (value) {
-                            scope.enabled = value;
-                        }
-
-                        var filterFlagStatusHandler = function (value) {
-                            scope.opened = value;
-                        }
-
-                        controllers[0].setFilterFlagEvents(filterFlagHandler, filterFlagStatusHandler);
-                    }
+                    //if (scope.enabled != undefined) {
+                    //
+                    //    var filterFlagHandler = function (value) {
+                    //        scope.enabled = value;
+                    //    }
+                    //
+                    //    var filterFlagStatusHandler = function (value) {
+                    //        scope.opened = value;
+                    //    }
+                    //
+                    //    controllers[0].setFilterFlagEvents(filterFlagHandler, filterFlagStatusHandler);
+                    //}
 
                     var onCloseEvent = scope.onClose != undefined ? scope.onClose : function () {
                     };
