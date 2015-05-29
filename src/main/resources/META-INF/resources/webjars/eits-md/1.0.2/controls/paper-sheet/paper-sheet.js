@@ -91,9 +91,10 @@
                     $element.children('.eits-paper-sheet-item').toggleClass('clicked');
 
                     if( !$element.children('.eits-paper-sheet-item').hasClass('clicked') ) {
-                        $scope.onOpen();
-                    } else {
                         $scope.onClose();
+                    } else {
+                        $scope.onOpen();
+
                     }
                 }
 

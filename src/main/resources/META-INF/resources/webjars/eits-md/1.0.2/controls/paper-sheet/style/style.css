@@ -33,3 +33,16 @@
 .eits-paper-sheet-item .paper-sheet-opened {
     display: none;
 }
+
+.eits-paper-sheet-item:first-child .paper-sheet-closed{padding: 30px}
+.eits-paper-sheet-item:first-child:hover{background-color: none}
+.eits-paper-sheet-item:hover{background-color: #efefef; cursor: pointer; box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);}
+.eits-paper-sheet-item.clicked, .eits-paper-sheet-item.clicked:hover{box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37); background-color: #fff}
+.paper-sheet-closed h4{padding: 0 30px}
+.paper-sheet-closed:hover{cursor: pointer}
+.eits-paper-sheet-item.clicked .paper-sheet-closed h4{margin: 0;font-size: 20px; line-height: 60px}
+.paper-sheet-opened{padding: 30px}
+.eits-paper-sheet-item.clicked div.paper-sheet-opened{display: block}
+.eits-paper-sheet-item{padding: 0}
+
+.eits-paper-sheet-item.clicked:hover{cursor: default}

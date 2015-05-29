@@ -156,7 +156,7 @@
                  */
                 scope.menuOrientation = attributes.menuOrientation == undefined ? animateOrientation : attributes.menuOrientation;
 
-                definePosition(element.find('.dd').find('button'), ddMenu, animateOrientation);
+                definePosition(element.find('button'), ddMenu, animateOrientation);
 
                 /**
                  * verifica se o evento do click está sendo feito pela div do ícone
@@ -175,7 +175,7 @@
                             $(ev.target).closest('eits-dropdown').find('.dd-menu').addClass('active');
 
 
-                            var id = $(ev.target).parent().attr('id');
+                            var id = $(ev.target).closest('eits-dropdown').find('button').attr('id');
 
                             definePosition($('#' + id), ddMenu, animateOrientation);
 
@@ -185,6 +185,10 @@
                         }
                     }
                 });
+
+                element.bind('click', function(ev){
+                    console.log(ev.target);
+                })
 
                 ddMenu.on('click', function(e){
                     $(e.target).closest('eits-dropdown').find('.dd-menu').removeClass('active');
