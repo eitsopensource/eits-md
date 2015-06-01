@@ -68,12 +68,7 @@
         var buttonWidth = button.width();
         var buttonHeight = button.height();
 
-        var windowWidth = $(window).width();
-        var windowHeight = $(window).height();
-
         animationOrientation = animationOrientation.split('-');
-
-        console.log(animationOrientation);
 
         var rect = button[0].getBoundingClientRect();
 
@@ -82,40 +77,44 @@
         /**
          * Define a posição padrão de abrir para esquerda e para baixo
          */
-        position.y = rect.left - menuWidth;
-        position.x = rect.top;
+        position.x = rect.left;
+        position.y = rect.top;
 
-        /*if( animationOrientation[0] == 'right' ) {
-            position.y = rect.left;
-        }*/
-
-        /*if( animationOrientation[1] == 'top' ) {
-            position.x = rect.top - menuHeight;
-        }*/
+        if( animationOrientation[0] == 'right' ) {
+            position.x = rect.left;
+        }
 
         /**
          * Se distância da margem esquerda for menor que a largura do menu e orientação para direita, então abre para a direita
          */
-        if( (windowWidth - position.y) > menuWidth && animationOrientation[0] == 'right' ) {
-            position.y = rect.left;
+        if( position.x > menuWidth && animationOrientation[0] == 'right' ) {
+            position.x = rect.left + buttonWidth;
         } else {
-            position.y = rect.left - menuWidth;
+            position.x = rect.left - menuWidth;
         }
 
         /**
          * Se distância da margem topo for maior que a altura do menu e orientação para cima, então abre para cima
          */
-        if( position.x > menuHeight && animationOrientation[1] == 'top' ) {
-            position.x = rect.top - menuHeight;
+        if( position.y > menuHeight && animationOrientation[1] == 'top' ) {
+            position.y = rect.top - menuHeight;
         } else {
-            position.x = rect.top;
+            position.y = rect.top;
         }
 
-        console.log(position);
+        if ( animationOrientation[1] == 'bottom' ) {
+            position.y += buttonHeight;
+        }
+
+        if ( animationOrientation[0] == 'left' ) {
+            position.x += buttonWidth;
+        } else {
+            position.x -= buttonWidth;
+        }
 
         menu.css({
-            'left'  : (position.y + (rect.height/2) ) + 'px',
-            'top'   : (position.x + (rect.width/2) ) + 'px'
+            'left'  : position.x + 'px',
+            'top'   : position.y + 'px'
         });
     }
 
@@ -131,8 +130,6 @@
                  * adiciona atributo identificador único para o dropdown
                  */
                 element.find('.drop').attr('id', 'drop_down_' + scope.$id);
-
-                //console.log(element);
 
             },
             post: function postLink( scope, element, attributes, controller, transclude ) {
