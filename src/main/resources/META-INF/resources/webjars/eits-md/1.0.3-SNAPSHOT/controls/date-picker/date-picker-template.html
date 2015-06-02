@@ -24,13 +24,13 @@
         <!-- Calendar -->
         <div class="date-picker-calendar" ng-if="!yearSelection">
             <div class="date-picker-nav">
-                <md-button class="btn btn-xs md-primary" lx-ripple ng-click="previousMonth()">
+                <md-button class="btn btn-xs md-primary" lx-ripple ng-click="previousMonth()" aria-label="Previous Month">
                     <i class="md md-icon-chevron-left"></i>
                 </md-button>
 
                 <span>{{ activeDate.format('MMMM YYYY') }}</span>
 
-                <md-button class="btn btn-xs md-primary" ng-click="nextMonth()">
+                <md-button class="btn btn-xs md-primary" ng-click="nextMonth()" aria-label="Next Month">
                     <i class="md md-icon-chevron-right"></i>
                 </md-button>
             </div>
@@ -65,7 +65,7 @@
 
         <!-- Actions -->
         <div class="date-picker-actions">
-            <md-button class="btn btn-m md-primary" ng-click="closePicker()">Ok</md-button>
+            <md-button class="btn btn-m md-primary" ng-click="closePicker()" aria-label="Ok">Ok</md-button>
         </div>
     </div>
 </div>
