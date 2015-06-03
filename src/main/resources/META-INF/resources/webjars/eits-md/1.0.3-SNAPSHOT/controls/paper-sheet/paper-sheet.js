@@ -80,18 +80,45 @@
             };
 
             $element.on('click', function (event) {
-                if ($.contains($element[0], event.target) && $(event.target).closest('button').length == 0 && !$element.children('.eits-paper-sheet-item').hasClass('clicked')) {
+
+                if( $element.find('.paper-sheet-closed').find($(event.target)).length == 1 && $(event.target).closest('button').length == 0) {
+
+                    $.each($('eits-paper-sheet'), function(index, elem){
+                        if($(elem).attr('id') != $element.attr('id'))
+                            elem.close();
+                    });
+
+                    $element.children('.eits-paper-sheet-item').toggleClass('clicked');
+
+                    if( !$element.children('.eits-paper-sheet-item').hasClass('clicked') ) {
+                        $scope.onClose();
+                    } else {
+                        $scope.onOpen();
+
+                    }
+                }
+
+                /*if ($.contains($element.find('paper-sheet-closed'), event.target) && $(event.target).closest('button').length == 0 && !$element.children('.eits-paper-sheet-item').hasClass('clicked')) {
                     $element.children('.eits-paper-sheet-item').addClass('clicked');
                     $scope.onOpen();
                 }
+                if ( !$.contains($element[0], event.target) && $element.children('.eits-paper-sheet-item').hasClass('clicked') ) {
+                    $element.children('.eits-paper-sheet-item').removeClass('clicked');
+                    $scope.onClose();
+                }*/
             });
 
-            angular.element($window).on('click', function (event) {
-                if (!$.contains($element[0], event.target) && $element.children('.eits-paper-sheet-item').hasClass('clicked')) {
+            /*angular.element($window).on('click', function (event) {
+
+                console.log($element);
+                console.log($.contains($element[0], event.target));
+                console.log($element.find('.paper-sheet-closed').find($(event.target)).length);
+
+                if (!$.contains($element[0], event.target) && $element.find('.paper-sheet-closed').find($(event.target)).length == 0) {
                     $element.children('.eits-paper-sheet-item').removeClass('clicked');
                     $scope.onClose();
                 }
-            })
+            })*/
         }
 
         /**
