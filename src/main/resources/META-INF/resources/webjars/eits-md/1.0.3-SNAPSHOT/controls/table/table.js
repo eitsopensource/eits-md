@@ -543,6 +543,8 @@
 
                         for (var i = 0; childrenTh.length > i; i++) {
 
+                        	childrenTh[i] = $(childrenTh[i]).removeAttr("data-ng-animate")[0];
+                        	
                             var thElement = angular.element(childrenTh[i]).clone();
                             thElement.css('width', angular.element(childrenTh[i]).width());
                             fixedHeader.append(thElement);
