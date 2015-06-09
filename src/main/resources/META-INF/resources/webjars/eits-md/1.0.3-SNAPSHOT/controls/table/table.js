@@ -543,6 +543,7 @@
 
                         for (var i = 0; childrenTh.length > i; i++) {
 
+                        	//precisamos remover o data-ng-animate antes de fazer o clone, pois da bug ao dar o append posterior. 
                         	childrenTh[i] = $(childrenTh[i]).removeAttr("data-ng-animate")[0];
                         	
                             var thElement = angular.element(childrenTh[i]).clone();
