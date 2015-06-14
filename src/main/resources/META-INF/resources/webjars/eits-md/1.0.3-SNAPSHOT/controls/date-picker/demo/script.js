@@ -2,13 +2,18 @@ angular.module('eits.create.date.picker', [
     'ngMaterial',
     'eits.date.picker',
     'eits.material.core',
-    'eits.containers.box'
+    'eits.containers.box',
+    'eits.containers.vbox',
+    'eits.containers.hbox'
 ])
     .controller('AppCtrlDatePicker', function($scope) {
 
-        $scope.list = function( listTags ){
-            console.log(listTags);
+        $scope.model = {
+
+            dateStart : null,
+            dateEnd   : null
         };
+
     })
     .config(function($mdThemingProvider) {
         $mdThemingProvider.definePalette('amazingPaletteName', {

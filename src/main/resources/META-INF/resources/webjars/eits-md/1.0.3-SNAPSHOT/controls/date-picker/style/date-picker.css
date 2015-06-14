@@ -27,7 +27,8 @@
 }
 
 .date-input, .date-input input {
-    cursor	: pointer !important; 
+    cursor	: pointer !important;
+    outline : none !important;
 }
 
 .date-picker {
@@ -128,11 +129,11 @@
 }
 
 .date-picker-nav button:first-child {
-    left	: 16px; 
+    left	: 1px;
 }
 
 .date-picker-nav button:last-child {
-    right	: 16px; 
+    right	: 1px;
 }
 
 .date-picker-days-of-week {
@@ -197,7 +198,8 @@
 
 .date-picker-year {
     display	: block;
-    cursor	: pointer; 
+    cursor	: pointer;
+    outline : none;
 }
 
 .date-picker-year span {
