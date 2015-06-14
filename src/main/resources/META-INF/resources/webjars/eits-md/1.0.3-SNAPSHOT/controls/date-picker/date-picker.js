@@ -13,16 +13,18 @@
      * @param $CONFIG
      * @param $timeout
      * @param $document
-     * @returns {{restrict: string, scope: {model: string, label: string, fixedLabel: string}, compile: CompileHandler, templateUrl: Template, controller: Controller}}
+     * @returns {{restrict: string, scope: {ngModel: string, label: string, fixedLabel: string}, compile: CompileHandler, templateUrl: Template, controller: Controller}}
      * @constructor
      */
     function DatePickerDirective( $CONFIG, $timeout, $document, $mdColorPalette, $mdTheming) {
         return {
-            restrict: 'AE',
+            restrict: 'E',
+            replace: true,
             scope: {
-                model       : '=',
+                ngModel     : '=',
                 label       : '@',
-                dateFormat  : '@'
+                dateFormat  : '@',
+                identifier  : '@'
             },
             compile     : CompileHandler,
             templateUrl : Template,
@@ -51,7 +53,7 @@
 
                     //Carrega a configuração padrão caso o atributo não conter valor adicionado
                     scope.options = {
-                            dateFormat  : !attributes.dateFormat ? 'L' : attributes.dateFormat
+                        dateFormat  : !attributes.dateFormat ? 'L' : attributes.dateFormat
                     };
 
                     controller.init(element, checkLocale(attributes.locale));
@@ -60,7 +62,7 @@
                         controller.build(checkLocale(attributes.locale), false);
                     });
 
-                    scope.$watch('model', function() {
+                    scope.$watch('ngModel', function() {
                         controller.build(checkLocale(attributes.locale), true);
                     });
 
@@ -77,12 +79,12 @@
                     //var color500 = '#2196F3', color700 = '#1976D2';
 
                     var color500 = 'rgb('+$mdColorPalette.blue[500]['value'][0]+","+
-                                          $mdColorPalette.blue[500]['value'][1]+","+
-                                          $mdColorPalette.blue[500]['value'][2]+')' ,
+                            $mdColorPalette.blue[500]['value'][1]+","+
+                            $mdColorPalette.blue[500]['value'][2]+')' ,
 
                         color700 = 'rgb('+$mdColorPalette.blue[700]['value'][0]+","+
-                                          $mdColorPalette.blue[700]['value'][1]+","+
-                                          $mdColorPalette.blue[700]['value'][2]+')';
+                            $mdColorPalette.blue[700]['value'][1]+","+
+                            $mdColorPalette.blue[700]['value'][2]+')';
 
                     scope.hoverDay = function(){
                         //Adciona a cor de fundo do hover para os dias
@@ -173,13 +175,13 @@
 
                 moment.locale(activeLocale);
 
-                if (angular.isDefined($scope.model)) {
+                if (angular.isDefined($scope.ngModel) && !($scope.ngModel === null ||  $scope.ngModel === "" )) {
                     $scope.selected = {
-                        model: moment($scope.model).format($scope.options.dateFormat),
-                        date: $scope.model
+                        model: moment($scope.ngModel).format($scope.options.dateFormat),
+                        date: $scope.ngModel
                     };
 
-                    $scope.activeDate = moment($scope.model);
+                    $scope.activeDate = moment($scope.ngModel);
                 }
                 else {
                     $scope.selected = {
@@ -228,7 +230,7 @@
                     date: day.toDate()
                 };
 
-                $scope.model = day.toDate();
+                $scope.ngModel = day.toDate();
 
                 generateCalendar();
             };
@@ -238,7 +240,7 @@
 
                 $scope.selected.model = moment($scope.selected.date).year(year).format('L');
                 $scope.selected.date  = moment($scope.selected.date).year(year).toDate();
-                $scope.model          = moment($scope.selected.date).toDate();
+                $scope.ngModel        = moment($scope.selected.date).toDate();
                 $scope.activeDate     = $scope.activeDate.add(year - $scope.activeDate.year(), 'year');
 
                 generateCalendar();
@@ -253,8 +255,8 @@
                 });
 
                 $datePickerFilter.appendTo('body').bind('click', function() {
-                        $scope.closePicker();
-                    });
+                    $scope.closePicker();
+                });
 
                 $datePicker.appendTo('body').show();
 
@@ -279,16 +281,17 @@
                 }, 600);
             };
 
-            $scope.displayYearSelection = function() {
-                var calendarHeight = angular.element('.date-picker-calendar').outerHeight(),
+            $scope.displayYearSelection = function( ) {
+                var calendarHeight = angular.element('.'+$scope.identifier+' .date-picker-calendar').outerHeight(),
                     $yearSelector = angular.element('.date-picker-year-selector');
 
                 $yearSelector.css({ height: calendarHeight });
-
                 $scope.yearSelection = true;
 
-                $timeout(function() {
-                    var $activeYear = angular.element('.date-picker-year-is-active');
+                $timeout(function( ) {
+                    $yearSelector.scrollTop(0); // Precisamos zerar a posição do scroll para que o posicionamento do ano corrente seja ajustado corretamente.
+
+                    var $activeYear = angular.element('.'+$scope.identifier+' .date-picker-year-is-active');
 
                     $yearSelector.scrollTop($yearSelector.scrollTop() + $activeYear.position().top - $yearSelector.height()/2 + $activeYear.height()/2);
 

@@ -8,7 +8,7 @@
 
 
     <!-- Date picker -->
-    <div class="date-picker">
+    <div class="date-picker {{identifier}}">
         <!-- Current day of week -->
         <div class="date-picker-current-day-of-week">
             <span>{{ moment(selected.date).format('dddd') }}</span>
@@ -18,7 +18,7 @@
         <div class="date-picker-current-date">
             <span ng-class="{ 'tc-white-1': !yearSelection, 'tc-white-3': yearSelection }">{{ moment(selected.date).format('MMM') }}</span>
             <strong ng-class="{ 'tc-white-1': !yearSelection, 'tc-white-3': yearSelection }">{{ moment(selected.date).format('DD') }}</strong>
-            <a ng-class="{ 'tc-white-3': !yearSelection, 'tc-white-1': yearSelection }" ng-click="displayYearSelection()">{{ moment(selected.date).format('YYYY') }}</a>
+            <a ng-class="{ 'tc-white-3': !yearSelection, 'tc-white-1': yearSelection }" ng-click="displayYearSelection(this)">{{ moment(selected.date).format('YYYY') }}</a>
         </div>
 
         <!-- Calendar -->
@@ -28,7 +28,7 @@
                     <i class="md md-icon-chevron-left"></i>
                 </md-button>
 
-                <span>{{ activeDate.format('MMMM YYYY') }}</span>
+                <span>{{ activeDate.format('MMMM') }}</span>
 
                 <md-button class="btn btn-xs md-primary" ng-click="nextMonth()" aria-label="Next Month">
                     <i class="md md-icon-chevron-right"></i>

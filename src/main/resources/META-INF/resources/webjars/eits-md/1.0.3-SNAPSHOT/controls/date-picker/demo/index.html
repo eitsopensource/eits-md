@@ -4,7 +4,7 @@
 <head>
     <title>eits-md :: eits-date-picker</title>
 
-    <link rel="stylesheet" href="/webjars/eits/1.0.0/material-design-iconic-font/css/material-design-iconic-font.css">
+    <link rel="stylesheet" href="/webjars/eits/${version}/material-design-iconic-font/css/material-design-iconic-font.css">
     <link rel="stylesheet" href="/webjars/angular-material/${angular-material.version}/angular-material.css">
 
     <link rel="stylesheet" href="/webjars/eits-md/${version}/controls/date-picker/style/date-picker.css">
@@ -19,21 +19,42 @@
     <script type="text/javascript" src="/webjars/angularjs/${angularjs.version}/angular-aria.min.js"></script>
     <script type="text/javascript" src="/webjars/angular-material/${angular-material.version}/angular-material.js"></script>
 
-    <script type="text/javascript" src="/webjars/momentjs/2.9.0/min/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="/webjars/momentjs/${momentjs.version}/min/moment-with-locales.min.js"></script>
 
     <script type="text/javascript" src="/webjars/eits-md/${version}/eits-material-core.js"></script>
     <script type="text/javascript" src="/webjars/eits-md/${version}/containers/box/box.js"></script>
+    <script type="text/javascript" src="/webjars/eits-md/${version}/containers/vbox/vbox.js"></script>
+    <script type="text/javascript" src="/webjars/eits-md/${version}/containers/hbox/hbox.js"></script>
     <script type="text/javascript" src="/webjars/eits-md/${version}/controls/date-picker/date-picker.js"></script>
     <script type="text/javascript" src="script.js"></script>
 </head>
 
 <body ng-controller="AppCtrlDatePicker" style="overflow: hidden;">
 
-<eits-box left="300" width="200">
+    <!--
+        Descrição dos Atributos
 
-    <date-picker model="datepicker.date" label="Data nascimento" locale="pt-br" date-format="L"></date-picker>
+        label       : Definição do nome para o Placeholder do campo
+        locale      : Definição do idioma para o calendário
+        ngModel     : Definição do atributo para bindar o valor
+        identifier  : É importante definir um valor único para quando utilizar o componente <date-picker> em um mesmo escopo para evitar duplicidade e problemas com a interface
+        dateFormat  : Definição do formato da data que deve ser apresentanda no campo.
 
-</eits-box>
+        Tipos de formatos:
+        L   : 06/13/2015
+        l   : 6/13/2015
+        LL  : June 13, 2015
+        ll  : Jun 13, 2015
+        LLL : June 13, 2015 2:26 PM
+        lll : Jun 13, 2015 2:26 PM
+        LLLL: Saturday, June 13, 2015 2:26 PM
+        llll: Sat, Jun 13, 2015 2:28 PM
+    -->
+
+    <eits-hbox horizontal-align="center" gap="50">
+        <date-picker  label="Data inicial" locale="pt-br" date-format="L"  ng-model="model.dateStart" identifier="dataInicial"></date-picker>
+        <date-picker  label="Data final" locale="pt-br" date-format="L" ng-model="model.dateEnd" identifier="dataFinal"></date-picker>
+    </eits-hbox>
 
 </body>
 </html>
