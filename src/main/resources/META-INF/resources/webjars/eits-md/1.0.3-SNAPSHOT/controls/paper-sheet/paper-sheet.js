@@ -45,15 +45,35 @@
 
                 },
                 post: function postLink(scope, iElement) {
-
+                	
+                	//Se tiver o atributo 'disabled', então desabilita.
+                	if( iElement[0].hasAttribute("disabled") ) {
+                		iElement.children(".eits-paper-sheet-item").addClass("disabled");
+                	}
+                	
                     iElement[0].open = function () {
                         iElement.children('.eits-paper-sheet-item').addClass('clicked');
+                        iElement[0].enable();
                         scope.onOpen();
                     }
 
                     iElement[0].close = function () {
                         iElement.children('.eits-paper-sheet-item').removeClass('clicked');
                         scope.onClose();
+                    }
+                    
+                    //Desabilita
+                    iElement[0].disable = function () {
+                    	iElement.attr("disabled","")
+                    	iElement.children(".eits-paper-sheet-item").addClass("disabled");
+                    }
+                    
+                    //Habilita
+                    iElement[0].enable = function () {
+                    	if( iElement[0].hasAttribute("disabled") ) {
+                        	iElement.removeAttr("disabled");
+                        	iElement.children(".eits-paper-sheet-item").removeClass("disabled");
+                        }
                     }
 
                     scope.onOpen = scope.onOpen != undefined ? scope.onOpen : function () {
@@ -80,6 +100,10 @@
             };
 
             $element.on('click', function (event) {
+            	
+            	if( $element[0].hasAttribute("disabled") ) {
+            		return false;
+            	}
 
                 if( $element.find('.paper-sheet-closed').find($(event.target)).length == 1 && $(event.target).closest('button').length == 0) {
 
