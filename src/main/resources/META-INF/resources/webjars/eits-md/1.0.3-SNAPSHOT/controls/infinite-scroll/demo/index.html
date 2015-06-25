@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" lang="pt" ng-app="eits.controls.infinite-scroll.sample">
+    
+	<head>
+		<title>eits-md :: eits-table</title>
+
+		<meta charset="UTF-8">
+
+		<link rel="stylesheet" href="/webjars/angular-material/${angular-material.version}/angular-material.css">
+		<link rel="stylesheet" href="../style/style.css">
+		<link rel="stylesheet" href="/webjars/eits/${version}/material-design-iconic-font/css/material-design-iconic-font.css">
+
+		<!-- JQuery -->
+		<script type="text/javascript" src="/webjars/jquery/${jquery.version}/jquery.min.js"></script>
+		
+		<!-- AngularJS -->
+		<script type="text/javascript" src="/webjars/angularjs/${angularjs.version}/angular.js"></script>
+		<script type="text/javascript" src="/webjars/angularjs/${angularjs.version}/angular-animate.min.js"></script>
+		<script type="text/javascript" src="/webjars/angularjs/${angularjs.version}/angular-aria.min.js"></script>
+		<script type="text/javascript" src="/webjars/angular-material/${angular-material.version}/angular-material.js"></script>
+		
+		<script type="text/javascript" src="/webjars/eits-md/${version}/eits-material-core.js"></script>
+		<script type="text/javascript" src="/webjars/eits-md/${version}/containers/box/box.js"></script>
+		<script type="text/javascript" src="/webjars/eits-md/${version}/controls/infinite-scroll/infinite-scroll.js"></script>
+		<script type="text/javascript" src="infinite-scroll-demo.js"></script>
+	</head>
+	
+	<body ng-controller="AppCtrl">
+
+    	<md-toolbar layout="column" class="md-tall">
+	      	<div class="md-toolbar-tools">
+	        	<eits-box width="98%" height="60">
+
+		          	<div ng-hide="showSearch" class="md-toolbar-item md-breadcrumb">
+		          		<span ng-click="resetSelection()">Eits Infinite Scroll</span>
+		          	</div>
+
+				</eits-box>
+	      	</div>
+    	</md-toolbar>
+
+		<div height="50%" infinite-scroll="scrollEvent()" bottom-offset="0" style="overflow-y: auto;">
+			<md-content layout="row" layout-align="center center" height="150%" >
+				<md-button class="md-primary" ng-click="status = ''">Resetar</md-button>
+				{{ status }}
+			</md-content>
+		</div>
+
+	</body>
+</html>
