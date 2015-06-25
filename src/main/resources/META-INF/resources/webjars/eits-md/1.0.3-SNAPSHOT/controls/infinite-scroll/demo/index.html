@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" lang="pt" ng-app="eits.controls.infinite-scroll.sample">
+
+	<head>
+		<title>eits-md :: infinite-scroll</title>
+
+		<meta charset="UTF-8">
+
+		<link rel="stylesheet" href="/webjars/angular-material/${angular-material.version}/angular-material.css">
+
+		<!-- JQuery -->
+		<script type="text/javascript" src="/webjars/jquery/${jquery.version}/jquery.min.js"></script>
+
+		<!-- AngularJS -->
+		<script type="text/javascript" src="/webjars/angularjs/${angularjs.version}/angular.js"></script>
+		<script type="text/javascript" src="/webjars/angularjs/${angularjs.version}/angular-animate.min.js"></script>
+		<script type="text/javascript" src="/webjars/angularjs/${angularjs.version}/angular-aria.min.js"></script>
+		<script type="text/javascript" src="/webjars/angular-material/${angular-material.version}/angular-material.js"></script>
+
+		<script type="text/javascript" src="/webjars/eits-md/${version}/eits-material-core.js"></script>
+		<script type="text/javascript" src="/webjars/eits-md/${version}/containers/box/box.js"></script>
+		<script type="text/javascript" src="/webjars/eits-md/${version}/controls/infinite-scroll/infinite-scroll.js"></script>
+		<script type="text/javascript" src="infinite-scroll-demo.js"></script>
+	</head>
+
+	<body ng-controller="AppCtrl">
+
+    	<md-toolbar layout="column" layout-align="center start" layout-padding class="md-tall">
+
+            <div class="md-toolbar-item md-breadcrumb">
+                <span>Infinite Scroll</span>
+            </div>
+
+    	</md-toolbar>
+
+		<div height="50%" infinite-scroll="scrollEvent()" bottom-offset="100" style="overflow-y: auto;">
+			<md-content layout="row" layout-align="center center" height="150%" >
+				<md-button class="md-primary" ng-click="status = ''">Resetar</md-button>
+				{{ status }}
+			</md-content>
+		</div>
+
+	</body>
+</html>
