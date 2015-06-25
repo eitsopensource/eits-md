@@ -45,7 +45,7 @@
                 pre: function preLink(scope, iElement, iAttrs) {
                 },
                 post: function postLink(scope, iElement, iAttrs) {
-                    scope.bottomOffset != undefined ? scope.bottomOffset : 0;
+                    scope.bottomOffset = scope.bottomOffset != undefined ? scope.bottomOffset : 0;
                     var onScrollEvent = function (event) {
                         if (iElement.scrollTop() + iElement.innerHeight() >= (iElement[0].scrollHeight - scope.bottomOffset)) {
                             scope.infiniteScroll();
