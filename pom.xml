@@ -15,8 +15,8 @@
 		<wro4j.version>1.7.7</wro4j.version>
 		
 		<!-- Webjars -->
-		<angularjs.version>1.4.0</angularjs.version>
-		<angular-material.version>0.9.0</angular-material.version>
+		<angularjs.version>1.4.1</angularjs.version>
+		<angular-material.version>0.10.0</angular-material.version>
 		<jquery.version>2.1.4</jquery.version>
 		<momentjs.version>2.10.2</momentjs.version>
 	</properties>
@@ -107,7 +107,7 @@
                 <configuration>
                 	<contextFolder>${basedir}/src/main/resources</contextFolder>
 			      	<targetGroups>eits-md</targetGroups>
-			      	<minimize>false</minimize>
+			      	<minimize>true</minimize>
 			      	<ignoreMissingResources>false</ignoreMissingResources>
 			      	<wroFile>${basedir}/src/main/resources/META-INF/resources/webjars/eits-md/wro.xml</wroFile>
 			      	<destinationFolder>${project.build.directory}/classes/META-INF/resources/webjars/eits-md/${version}</destinationFolder>
