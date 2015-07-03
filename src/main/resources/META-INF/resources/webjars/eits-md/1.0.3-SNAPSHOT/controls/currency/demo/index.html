@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" lang="pt" ng-app="eits-currency.sample">
+
+<head>
+    <title>eits-md :: eits-currency</title>
+
+    <link rel="stylesheet" href="/webjars/eits/${version}/material-design-iconic-font/css/material-design-iconic-font.css">
+    <link rel="stylesheet" href="/webjars/angular-material/${angular-material.version}/angular-material.css">
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="/webjars/jquery/${jquery.version}/jquery.min.js"></script>
+
+    <!-- AngularJS -->
+    <script type="text/javascript" src="/webjars/angularjs/${angularjs.version}/angular.js"></script>
+    <script type="text/javascript" src="/webjars/angularjs/${angularjs.version}/angular-animate.min.js"></script>
+    <script type="text/javascript" src="/webjars/angularjs/${angularjs.version}/angular-aria.min.js"></script>
+    <script type="text/javascript" src="/webjars/angular-material/${angular-material.version}/angular-material.js"></script>
+
+    <script type="text/javascript" src="/webjars/eits-md/${version}/eits-material-core.js"></script>
+    <script type="text/javascript" src="/webjars/eits-md/${version}/controls/currency/currency.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+</head>
+
+<body ng-controller="AppCtrlCurrency">
+
+    <md-content layout="row" layout-align="center center">
+        <md-input-container>
+            <label for="inputTest">Valor numerico</label>
+            <input type="text" id="inputTest" ng-model="model.input" currency-input/>
+        </md-input-container>
+    </md-content>
+
+</body>
+</html>

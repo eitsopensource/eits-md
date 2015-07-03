@@ -15,7 +15,8 @@
 		'eits.date.picker',
 		'eits.controls.paper-sheet',
 		'eits.controls.table',
-		'eits.controls.infinite-scroll'
+		'eits.controls.infinite-scroll',
+		'eits.controls.currency'
 	]);
 
 })();
