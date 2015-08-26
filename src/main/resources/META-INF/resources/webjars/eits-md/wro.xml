@@ -32,5 +32,6 @@
         <css>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/table/style/style.css</css>
         
         <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/infinite-scroll/infinite-scroll.js</js>
+        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/currency/currency.js</js>
     </group>
 </groups>
