@@ -11,7 +11,7 @@
 	])
 	.constant("$CONFIG", {
         "version": "${version}",
-        "path": "/webjars/eits-md/${version}",
+        "path": "./webjars/eits-md/${version}",
     })
     .directive('width', WidthDirective)
 	.directive('height', HeightDirective);
