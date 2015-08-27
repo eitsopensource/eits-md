@@ -39,7 +39,7 @@
 	
 	<distributionManagement>
 		<repository>
-			<id>eits-repository</id>
+			<id>eits-repository-release</id>
           	<url>http://maven.eits.com.br/content/repositories/releases</url>
 		</repository>
   		<snapshotRepository>
@@ -111,12 +111,6 @@
 			      	<ignoreMissingResources>false</ignoreMissingResources>
 			      	<wroFile>${basedir}/src/main/resources/META-INF/resources/webjars/eits-md/wro.xml</wroFile>
 			      	<destinationFolder>${project.build.directory}/classes/META-INF/resources/webjars/eits-md/${version}</destinationFolder>
-			      	<!-- 
-			      	<destinationFolder>${basedir}/src/main/webapp/wro/</destinationFolder>
-			      	<cssDestinationFolder>d:/static/css/</cssDestinationFolder>
-			      	<jsDestinationFolder>d:/static/js/</jsDestinationFolder>
-			      	<contextFolder>${basedir}/src/main/webapp/</contextFolder>
-			      	-->
                 </configuration>
             </plugin>
         
@@ -125,9 +119,6 @@
   				<artifactId>jetty-maven-plugin</artifactId>
   				<version>${jetty.version}</version>
   				<configuration>
-  				<!-- 
-  					<webAppSourceDirectory>${basedir}/src/main/resources/META-INF/resources</webAppSourceDirectory>
-  				 -->
   					<webAppSourceDirectory>${project.build.directory}/classes/META-INF/resources</webAppSourceDirectory>
     				<webApp>
     					<defaultsDescriptor>${basedir}/src/main/resources/org/eclipse/jetty/webapp/webdefault.xml</defaultsDescriptor>
