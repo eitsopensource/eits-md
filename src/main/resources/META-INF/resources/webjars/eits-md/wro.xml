@@ -2,36 +2,28 @@
 <groups xmlns="http://www.isdc.ro/wro">
     <group name="eits-md">
     
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/eits-md.js</js>
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/eits-material-core.js</js>
+        <js>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/eits-md.js</js>
+        <js>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/eits-material-core.js</js>
         
         <!-- 
         	CONTAINERS 
         -->
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/containers/box/box.js</js>
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/containers/hbox/hbox.js</js>
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/containers/vbox/vbox.js</js>
+        <js>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/containers/box/box.js</js>
+        <js>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/containers/hbox/hbox.js</js>
+        <js>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/containers/vbox/vbox.js</js>
         
         <!-- 
         	CONTROLS
         -->
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/date-picker/date-picker.js</js>
-        <css>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/date-picker/style/date-picker.css</css>
-        <css>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/date-picker/style/date-picker-theme.css</css>
+        <js>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/controls/currency/currency.js</js>
         
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/dropdown/dropdown.js</js>
-        <css>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/dropdown/style/dropdown.css</css>
+        <js>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/controls/date-picker/date-picker.js</js>
+        <css>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/controls/date-picker/style/date-picker.css</css>
+        <css>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/controls/date-picker/style/date-picker-theme.css</css>
         
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/paper-sheet/paper-sheet.js</js>
-        <css>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/paper-sheet/style/style.css</css>
+        <js>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/controls/infinite-scroll/infinite-scroll.js</js>
         
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/search-tags/search-tags.js</js>
-        <css>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/search-tags/style/search-tags.css</css>
-        
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/table/table.js</js>
-        <css>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/table/style/style.css</css>
-        
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/infinite-scroll/infinite-scroll.js</js>
-        <js>classpath:META-INF/resources/webjars/eits-md/1.0.3-SNAPSHOT/controls/currency/currency.js</js>
+        <js>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/controls/paper-sheet/paper-sheet.js</js>
+        <css>classpath:META-INF/resources/webjars/eits-md/1.1.0-SNAPSHOT/controls/paper-sheet/style/style.css</css>
     </group>
 </groups>

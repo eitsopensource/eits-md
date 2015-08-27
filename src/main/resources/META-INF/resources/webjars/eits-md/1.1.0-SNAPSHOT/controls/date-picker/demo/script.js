@@ -1,6 +1,6 @@
 angular.module('eits.create.date.picker', [
     'ngMaterial',
-    'eits.date.picker',
+    'eits.controls.date-picker',
     'eits.material.core',
     'eits.containers.box',
     'eits.containers.vbox',

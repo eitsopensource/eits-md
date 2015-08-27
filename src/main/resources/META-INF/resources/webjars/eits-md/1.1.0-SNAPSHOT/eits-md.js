@@ -12,11 +12,10 @@
 		'eits.containers.box',
 		'eits.containers.hbox',
 		'eits.containers.vbox',
-		'eits.date.picker',
-		'eits.controls.paper-sheet',
-		'eits.controls.table',
-		'eits.controls.infinite-scroll',
 		'eits.controls.currency'
+		'eits.controls.date-picker',
+		'eits.controls.infinite-scroll',
+		'eits.controls.paper-sheet',
 	]);
 
 })();
