@@ -12,7 +12,7 @@
 		'eits.containers.box',
 		'eits.containers.hbox',
 		'eits.containers.vbox',
-		'eits.controls.currency'
+		'eits.controls.currency',
 		'eits.controls.date-picker',
 		'eits.controls.infinite-scroll',
 		'eits.controls.paper-sheet',
