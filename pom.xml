@@ -5,7 +5,7 @@
 	
 	<groupId>org.webjars</groupId>
 	<artifactId>eits-md</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.2.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -15,8 +15,8 @@
 		<wro4j.version>1.7.7</wro4j.version>
 		
 		<!-- Webjars -->
-		<angularjs.version>1.4.1</angularjs.version>
-		<angular-material.version>0.10.1</angular-material.version>
+		<angularjs.version>1.4.7</angularjs.version>
+		<angular-material.version>0.11.4</angular-material.version>
 		<jquery.version>2.1.4</jquery.version>
 		<momentjs.version>2.10.2</momentjs.version>
 	</properties>
@@ -61,7 +61,7 @@
     		<version>${angularjs.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.webjars</groupId>
+		    <groupId>org.webjars.bower</groupId>
 		    <artifactId>angular-material</artifactId>
 		    <version>${angular-material.version}</version>
 		</dependency>
