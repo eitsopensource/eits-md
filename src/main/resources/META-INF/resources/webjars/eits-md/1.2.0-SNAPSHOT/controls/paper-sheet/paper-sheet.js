@@ -45,6 +45,10 @@
 
                 },
                 post: function postLink(scope, iElement) {
+					
+					if( iElement.find('md-icon').length == 0 ){
+                		iElement.find('md-icon').addClass( iElement.attr("on-open-icon") );
+                	}
                 	
                 	//Se tiver o atributo 'disabled', então desabilita.
                 	if( iElement[0].hasAttribute("disabled") ) {
@@ -115,8 +119,18 @@
                     $element.children('.eits-paper-sheet-item').toggleClass('clicked');
 
                     if( !$element.children('.eits-paper-sheet-item').hasClass('clicked') ) {
+						
+						if( $element.find('md-icon').length == 0 ){
+                    		$element.find('md-icon').removeClass( $element.attr("on-close-icon") ).addClass( $element.attr("on-open-icon") ); 
+                    	}
+						
                         $scope.onClose();
                     } else {
+						
+						if( $element.find('md-icon').length == 0 ){
+                    		$element.find('md-icon').removeClass( $element.attr("on-close-icon") ).addClass( $element.attr("on-open-icon") ); 
+                    	}
+						
                         $scope.onOpen();
 
                     }
