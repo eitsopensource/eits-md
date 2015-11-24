@@ -107,7 +107,7 @@
 
                 if( $element.find('.paper-sheet-closed').find($(event.target)).length == 1 && $(event.target).closest('button').length == 0) {
 
-                    $.each($('eits-paper-sheet'), function(index, elem){
+                    $.each($('eits-paper-sheet div.clicked').parent(), function(index, elem){
                         if($(elem).attr('id') != $element.attr('id'))
                             elem.close();
                     });
