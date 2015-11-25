@@ -46,8 +46,8 @@
                 },
                 post: function postLink(scope, iElement) {
 					
-					if( iElement.find('md-icon').length == 0 ){
-                		iElement.find('md-icon').addClass( iElement.attr("on-open-icon") );
+					if( iElement.find('.paper-sheet-icon md-icon').length != 0 ){
+                		iElement.find('.paper-sheet-icon md-icon').addClass( iElement.attr("close-icon") );
                 	}
                 	
                 	//Se tiver o atributo 'disabled', então desabilita.
@@ -113,22 +113,29 @@
 
                     $.each($('eits-paper-sheet div.clicked').parent(), function(index, elem){
                         if($(elem).attr('id') != $element.attr('id'))
-                            elem.close();
-                    });
+                        {
+                        	elem.close();
+                        	$(elem).find('.paper-sheet-icon md-icon').removeClass( $(elem).attr("open-icon") ).addClass( $(elem).attr("close-icon") ); 
+                        }
+                    });;
 
                     $element.children('.eits-paper-sheet-item').toggleClass('clicked');
 
-                    if( !$element.children('.eits-paper-sheet-item').hasClass('clicked') ) {
+                    if( !$element.children('.eits-paper-sheet-item').hasClass('clicked') ) 
+					{
 						
-						if( $element.find('md-icon').length == 0 ){
-                    		$element.find('md-icon').removeClass( $element.attr("on-close-icon") ).addClass( $element.attr("on-open-icon") ); 
-                    	}
+						if( $element.find('.paper-sheet-icon md-icon').length != 0 )
+						{
+                    		$element.find('.paper-sheet-icon md-icon').removeClass( $element.attr("open-icon") ).addClass( $element.attr("close-icon") ); 
+                    	} 
 						
                         $scope.onClose();
-                    } else {
+                    } else 
+					{
 						
-						if( $element.find('md-icon').length == 0 ){
-                    		$element.find('md-icon').removeClass( $element.attr("on-close-icon") ).addClass( $element.attr("on-open-icon") ); 
+						if( $element.find('.paper-sheet-icon md-icon').length != 0 )
+						{
+                    		$element.find('.paper-sheet-icon md-icon').removeClass( $element.attr("close-icon") ).addClass( $element.attr("open-icon") );
                     	}
 						
                         $scope.onOpen();
