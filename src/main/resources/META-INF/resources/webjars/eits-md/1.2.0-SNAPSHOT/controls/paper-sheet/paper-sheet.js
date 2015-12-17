@@ -56,12 +56,23 @@
                 	}
                 	
                     iElement[0].open = function () {
+						
+						if( iElement.find('.paper-sheet-icon md-icon').length != 0 )
+						{
+                    		iElement.find('.paper-sheet-icon md-icon').removeClass( iElement.attr("close-icon") ).addClass( iElement.attr("open-icon") );
+                    	}
+						
                         iElement.children('.eits-paper-sheet-item').addClass('clicked');
                         iElement[0].enable();
                         scope.onOpen();
                     }
 
                     iElement[0].close = function () {
+						if( iElement.find('.paper-sheet-icon md-icon').length != 0 )
+						{
+                    		iElement.find('.paper-sheet-icon md-icon').removeClass( iElement.attr("close-icon") ).addClass( iElement.attr("open-icon") );
+                    	}
+						
                         iElement.children('.eits-paper-sheet-item').removeClass('clicked');
                         scope.onClose();
                     }
