@@ -51,12 +51,12 @@
 	<dependencies>
     	<!-- WebJars -->
 		<dependency>
-		    <groupId>org.webjars</groupId>
+		    <groupId>org.webjars.bower</groupId>
 		    <artifactId>jquery</artifactId>
 		    <version>${jquery.version}</version>
 		</dependency>
   		<dependency>
-    		<groupId>org.webjars</groupId>
+    		<groupId>org.webjars.bower</groupId>
     		<artifactId>angularjs</artifactId>
     		<version>${angularjs.version}</version>
 		</dependency>
@@ -66,7 +66,7 @@
 		    <version>${angular-material.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.webjars</groupId>
+		    <groupId>org.webjars.bower</groupId>
 		    <artifactId>momentjs</artifactId>
 		    <version>${momentjs.version}</version>
 		</dependency>
